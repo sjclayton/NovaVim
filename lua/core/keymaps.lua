@@ -1,5 +1,9 @@
-local helper = require('core.helpers')
+local H = require('core.helpers')
+local map = H.map
 
-local map = helper.map
+--
 -- Keymappings
 --
+
+-- Disable Ex Mode
+map('n', 'Q', '')
