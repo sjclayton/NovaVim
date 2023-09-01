@@ -1,4 +1,4 @@
-.0
-.tmp
-.test
-.nova
+*.0
+*.tmp
+*.test
+*.nova
