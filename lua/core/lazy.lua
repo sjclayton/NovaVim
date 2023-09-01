@@ -1,3 +1,8 @@
+--
+-- Initial setup and configuration of lazy.nvim
+-- DO NOT modify unless you know what you're doing.
+--
+
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 
 if not vim.loop.fs_stat(lazypath) then

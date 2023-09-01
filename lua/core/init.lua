@@ -2,7 +2,7 @@ require('core.options')
 require('core.lazy')
 
 if vim.fn.argc(-1) == 0 then
-  -- autocmds and keymaps can wait to load
+  -- Defer loading of autocmds and keymaps.
   vim.api.nvim_create_autocmd('User', {
     group = vim.api.nvim_create_augroup('NovaVim', { clear = true }),
     pattern = 'VeryLazy',
@@ -12,9 +12,10 @@ if vim.fn.argc(-1) == 0 then
     end,
   })
 else
-  -- load them now so they affect the opened buffers
+  -- Load them now so they affect the opened buffers.
   require('core.autocmds')
   require('core.keymaps')
 end
 
+-- Set chosen colorscheme here.
 vim.cmd.colorscheme('catppuccin')
