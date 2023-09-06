@@ -1,6 +1,6 @@
 return {
   {
     'wakatime/vim-wakatime',
-    event = 'VeryLazy',
+    event = 'InsertEnter',
   },
 }
