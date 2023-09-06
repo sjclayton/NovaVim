@@ -1,7 +1,6 @@
 return {
   {
     'rcarriga/nvim-notify',
-    -- event = 'VeryLazy',
     keys = {
       {
         '<leader>un',
@@ -20,5 +19,14 @@ return {
         return math.floor(vim.o.columns * 0.75)
       end,
     },
+    init = function()
+      -- If noice is not enabled, setup notify on VeryLazy
+      local Util = require('core.util')
+      if not Util.has('noice.nvim') then
+        Util.on_very_lazy(function()
+          vim.notify = require('notify')
+        end)
+      end
+    end,
   },
 }
