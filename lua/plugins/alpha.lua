@@ -134,7 +134,7 @@ return {
       local lazy_stats = require('lazy').stats()
       local ms = (math.floor(lazy_stats.startuptime * 100 + 0.5) / 100)
       -- stylua: ignore
-      local total_plugins = ' ⚡ Lazy loaded ' .. lazy_stats.loaded .. ' of ' .. lazy_stats.count .. ' plugins in ' .. ms .. ' ms'
+      local total_plugins = '⚡ Lazy loaded ' .. lazy_stats.loaded .. ' of ' .. lazy_stats.count .. ' plugins in ' .. ms .. ' ms'
       vim.api.nvim_create_autocmd({ 'User' }, {
         pattern = { 'LazyVimStarted' },
         callback = function()
