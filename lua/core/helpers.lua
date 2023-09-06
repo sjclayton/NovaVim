@@ -1,7 +1,7 @@
-local helper = {}
+local M = {}
 
 -- Key mapping helper
-function helper.map(mode, lhs, rhs, opts)
+function M.map(mode, lhs, rhs, opts)
   local options = { noremap = true, silent = true }
   if opts then
     options = vim.tbl_extend('force', options, opts)
@@ -10,12 +10,16 @@ function helper.map(mode, lhs, rhs, opts)
 end
 
 -- Telescope fallback for non git directory
-function helper.project_files()
-  local opts = {} -- define here if you want to define something
+--
+-- Option 1 - Display notification about why command failed (Default)
+-- Option 2 - Fallback to using :Telescope find_files instead
+function M.project_files()
+  local opts = {} 
   local ok = pcall(require('telescope.builtin').git_files, opts)
   if not ok then
-    require('telescope.builtin').find_files(opts)
+    require('notify')('You are not in a git directory') -- this is option #1
+    -- require('telescope.builtin').find_files(opts) -- this is option #2
   end
 end
 
-return helper
+return M
