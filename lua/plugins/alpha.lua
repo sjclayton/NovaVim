@@ -74,7 +74,7 @@ return {
 
           -- Telescope
           vim.api.nvim_buf_set_keymap(0, 'n', 'r', ':Telescope oldfiles<CR>', keybind_opts)
-          vim.api.nvim_buf_set_keymap(0, 'n', 'g', ':lua require"core.helpers".project_files() <CR>', keybind_opts)
+          vim.api.nvim_buf_set_keymap(0, 'n', 'g', ':<CMD>lua require"core.helpers".project_files()<CR>', keybind_opts)
 
           -- Lazy
           vim.api.nvim_buf_set_keymap(0, 'n', 'l', ':Lazy update<CR>', keybind_opts)
