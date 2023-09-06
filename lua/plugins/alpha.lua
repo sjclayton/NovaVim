@@ -72,6 +72,9 @@ return {
           -- General
           vim.api.nvim_buf_set_keymap(0, 'n', 'n', ':ene <BAR> startinsert <CR>', keybind_opts)
 
+          -- Harpoon
+          vim.api.nvim_buf_set_keymap(0, 'n', 'h', ":lua require('harpoon.ui').toggle_quick_menu()<cr>", keybind_opts)
+
           -- Telescope
           vim.api.nvim_buf_set_keymap(0, 'n', 'r', ':Telescope oldfiles<CR>', keybind_opts)
           vim.api.nvim_buf_set_keymap(0, 'n', 'g', ':lua require"core.helpers".project_files() <CR>', keybind_opts)
@@ -105,7 +108,7 @@ return {
             '   New File       n    │       terminal      t    │    󰒲   Lazy Update   l',
             '󱨻   Recent Files   r    │       lf            ;    │                       ',
             '   Git Files      g    │       search        s    │                       ',
-            'ﯠ   harpoon        k    │    פּ   nvim-tree     j    │                       ',
+            '󱡅   Harpoon        h    │    פּ   nvim-tree     j    │                       ',
             '                        │                           │                       ',
             '                        │    󰗼   Quit          q    │                       ',
             '                        │                           │                       ',
@@ -161,7 +164,7 @@ return {
       vim.api.nvim_create_autocmd('User', {
         pattern = 'AlphaReady',
         callback = function()
-          require('lazy').show()
+          -- require('lazy').show()
         end,
       })
     end
