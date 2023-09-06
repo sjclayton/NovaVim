@@ -1,5 +1,6 @@
 local M = {}
 
+require('core.util')
 require('core.helpers')
 require('core.options')
 require('core.lazy')
@@ -44,6 +45,8 @@ else
   M.load('autocmds')
   M.load('keymaps')
 end
+
+require('core.util').lazy_notify()
 
 -- Set chosen colorscheme here.
 vim.cmd.colorscheme('catppuccin')
