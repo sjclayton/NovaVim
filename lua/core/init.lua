@@ -48,7 +48,23 @@ end
 
 require('core.util').lazy_notify()
 
--- Set chosen colorscheme here.
-vim.cmd.colorscheme('catppuccin')
+M.colorscheme = function()
+  -- Set chosen colorscheme on the line below.
+  require('catppuccin').load()
+end
+
+require('lazy.core.util').try(function()
+  if type(M.colorscheme) == 'function' then
+    M.colorscheme()
+  else
+    vim.cmd.colorscheme(M.colorscheme)
+  end
+end, {
+  msg = 'Could not load your colorscheme',
+  on_error = function(msg)
+    require('lazy.core.util').error(msg)
+    vim.cmd.colorscheme('habamax')
+  end,
+})
 
 return M
