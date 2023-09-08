@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/sjclayton/novavim-branding/blob/f52ec51bc7c46a074d3136fe3c148c30ed461360/logo-banner.png">
+  <img src="https://github.com/sjclayton/novavim-branding/blob/53973dafa48c7ca709f2cd10ad927fc47026dcea/logo-banner-transparent.png">
 </div>
 
 ### Intro
