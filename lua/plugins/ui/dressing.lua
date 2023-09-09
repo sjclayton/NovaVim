@@ -15,8 +15,4 @@ return {
       end
     end,
   },
-  {
-    'wakatime/vim-wakatime',
-    event = 'InsertEnter',
-  },
 }
