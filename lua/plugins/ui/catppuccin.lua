@@ -1,7 +1,7 @@
 return {
   {
     'catppuccin/nvim',
-    lazy = true,
+    priority = 1000,
     name = 'catppuccin',
     config = function()
       require('catppuccin').setup({
@@ -39,7 +39,7 @@ return {
               information = { 'undercurl' },
             },
           },
-          -- navic = { enabled = true, custom_bg = 'NONE' },
+          navic = { enabled = true, custom_bg = 'NONE' },
           -- neotest = true,
           -- noice = true,
           notify = true,
