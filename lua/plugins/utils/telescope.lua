@@ -24,5 +24,16 @@ return {
       require('telescope').load_extension('fzf')
       require('telescope').load_extension('notify')
     end,
+    keys = {
+      {
+        '<leader>uC',
+        function()
+          vim.api.nvim_exec_autocmds('User', { pattern = 'ColorSchemeLoad' })
+          require('telescope.builtin').colorscheme({ enable_preview = true })
+        end,
+        desc = 'Colorscheme with preview',
+        noremap = true,
+      },
+    },
   },
 }

@@ -14,7 +14,7 @@ end
 -- Option 1 - Display notification about why command failed (Default)
 -- Option 2 - Fallback to using :Telescope find_files instead
 function M.project_files()
-  local opts = {} 
+  local opts = {}
   local ok = pcall(require('telescope.builtin').git_files, opts)
   if not ok then
     require('notify')('You are not in a git directory') -- this is option #1

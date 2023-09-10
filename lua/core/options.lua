@@ -4,6 +4,7 @@ local o = vim.opt
 g.mapleader = ' '
 g.maplocalleader = '\\'
 
+o.fillchars = { eob = ' ' }
 o.termguicolors = true
 o.cursorline = true
 o.mouse = 'a'

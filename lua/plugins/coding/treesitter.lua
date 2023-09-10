@@ -13,8 +13,8 @@ return {
         highlight = {
           enable = true,
         },
-        -- enable indentation
-        indent = { enable = true },
+        -- disable indentation
+        indent = { enable = false },
         -- ensure these language parsers are installed
         ensure_installed = {
           'bash',

@@ -1,13 +1,14 @@
 return {
   {
     'catppuccin/nvim',
-    priority = 1000,
+    lazy = true,
+    event = 'User ColorSchemeLoad',
     name = 'catppuccin',
     config = function()
       require('catppuccin').setup({
         transparent_background = false,
         term_colors = true,
-        kitty = true,
+        kitty = true, -- Workaround for using transparent_background with kitty terminal, set false if using another terminal
         color_overrides = {},
         highlight_overrides = {
           mocha = function(mocha)
