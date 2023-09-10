@@ -44,6 +44,7 @@ return {
           -- noice = true,
           notify = true,
           -- neotree = true,
+          rainbow_delimiters = true,
           semantic_tokens = true,
           telescope = true,
           treesitter = true,
