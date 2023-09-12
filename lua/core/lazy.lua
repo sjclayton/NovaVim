@@ -45,6 +45,7 @@ require('lazy').setup('plugins', {
         'netrwFileHandlers',
         'tarPlugin',
         'tohtml',
+        'tutor',
         'zipPlugin',
       },
     },

@@ -36,6 +36,7 @@ function M.get_root()
   ---@cast root string
   return root
 end
+
 ---@param plugin string
 function M.has(plugin)
   return require('lazy.core.config').spec.plugins[plugin] ~= nil
