@@ -1,7 +1,7 @@
 return {
   {
     'catppuccin/nvim',
-    lazy = true,
+    priority = 1000,
     event = 'User ColorSchemeLoad',
     name = 'catppuccin',
     config = function()

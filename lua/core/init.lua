@@ -24,12 +24,12 @@ end
 
 Util.lazy_notify()
 
--- NOTE: Set chosen the colorscheme on the line below.
+-- NOTE: Set your chosen colorscheme on the line below.
 -- Make sure the plugin spec for your colorscheme has a priority of 1000 or higher.
 M.Colorscheme = 'catppuccin'
--- NOTE: Define any specific variant of your chosen colorscheme in its corresponding plugin spec or set it directly here.
---@type[string]
-M.Colorscheme_variant = ''
+-- NOTE: Define any specific variant of your chosen colorscheme in its corresponding plugin spec or
+-- set it directly on the line below.
+M.Colorscheme_variant = 'catppuccin-mocha'
 
 if Util.has(M.Colorscheme) then
   require(M.Colorscheme)
@@ -44,8 +44,11 @@ elseif Util.has('catppuccin') then
 elseif Util.has('tokyonight.nvim') then
   require('tokyonight')
   vim.cmd.colorscheme('tokyonight')
+elseif Util.has('rose-pine') then
+  require('rose-pine')
+  vim.cmd.colorscheme('rose-pine')
 else
-  require('notify')('Could not load your colorscheme!', 'error')
+  require('notify')('Could not load your colorscheme or a preferred fallback', 'error')
   vim.cmd.colorscheme('habamax')
 end
 
