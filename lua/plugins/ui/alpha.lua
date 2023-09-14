@@ -82,24 +82,30 @@ return {
           -- Lazy
           vim.api.nvim_buf_set_keymap(0, 'n', 'l', ':Lazy update<CR>', keybind_opts)
 
+          -- Configs
+          vim.api.nvim_buf_set_keymap(0, 'n', 'k', ':e ~/.config/NovaVim/lua/core/keymaps.lua<CR>', keybind_opts)
+          vim.api.nvim_buf_set_keymap(0, 'n', 'o', ':e ~/.config/NovaVim/lua/core/options.lua<CR>', keybind_opts)
+
           -- Quit
           vim.api.nvim_buf_set_keymap(0, 'n', 'q', '<cmd>q<CR>', keybind_opts)
         end,
       })
 
       local buttons_hl = {
-        { 'AlphaButtons', 1, 4 },
-        { 'AlphaButtons', 5, 20 },
-        { 'AlphaShortcut', 20, 25 },
-        { 'AlphaLine', 25, 32 },
-        { 'AlphaButtons', 32, 38 },
-        { 'AlphaButtons', 38, 50 },
+        { 'AlphaButtons', 0, 20 },
+        { 'AlphaShortcut', 21, 23 },
+        { 'Comment', 24, 28 },
+        { 'AlphaButtons', 30, 49 },
         { 'AlphaShortcut', 51, 55 },
-        { 'AlphaLine', 55, 62 },
-        { 'AlphaButtons', 62, 68 },
-        { 'AlphaButtons', 68, 83 },
-        { 'AlphaShortcut', 83, 88 },
+        { 'Comment', 56, 62 },
+        { 'AlphaButtons', 63, 85 },
+        { 'AlphaShortcut', 86, 89 },
       }
+
+      local buttons_ln = {
+        { 'Comment', 0, 89 },
+      }
+
       return {
         {
           type = 'text',
@@ -107,8 +113,8 @@ return {
             '                        │                           │                       ',
             '   New File       n    │       terminal      t    │    󰒲   Lazy Update   l',
             '󱨻   Recent Files   r    │       lf            ;    │                       ',
-            '   Git Files      g    │       search        s    │                       ',
-            '󱡅   Harpoon        h    │    פּ   nvim-tree     j    │                       ',
+            '   Git Files      g    │       search        s    │    󰌓   Edit Keymaps  k',
+            '󱡅   Harpoon        h    │    פּ   nvim-tree     j    │       Edit Options  o',
             '                        │                           │                       ',
             '                        │    󰗼   Quit          q    │                       ',
             '                        │                           │                       ',
@@ -116,14 +122,14 @@ return {
           opts = {
             position = 'center',
             hl = {
+              buttons_ln,
               buttons_hl,
               buttons_hl,
               buttons_hl,
               buttons_hl,
+              buttons_ln,
               buttons_hl,
-              buttons_hl,
-              buttons_hl,
-              buttons_hl,
+              buttons_ln,
             },
           },
         },
