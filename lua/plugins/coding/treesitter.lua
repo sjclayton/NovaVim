@@ -9,13 +9,15 @@ return {
       local treesitter = require('nvim-treesitter.configs')
 
       -- configure treesitter
-      treesitter.setup({ -- enable syntax highlighting
+      treesitter.setup({
+        -- enable syntax highlighting
         highlight = {
           enable = true,
         },
         -- disable indentation
         indent = { enable = false },
         -- ensure these language parsers are installed
+        ignore_install = {},
         ensure_installed = {
           'bash',
           'c',
@@ -51,6 +53,8 @@ return {
           'xml',
           'yaml',
         },
+        modules = {},
+        sync_install = false,
         -- auto install above language parsers
         auto_install = true,
       })
@@ -65,16 +69,16 @@ return {
         },
         query = {
           [''] = 'rainbow-delimiters',
-          lua = 'rainbow-blocks',
+          -- lua = 'rainbow-blocks',
         },
         highlight = {
-          'RainbowDelimiterRed',
+          -- 'RainbowDelimiterRed',
           'RainbowDelimiterYellow',
           'RainbowDelimiterBlue',
+          'RainbowDelimiterOrange',
           'RainbowDelimiterGreen',
           'RainbowDelimiterViolet',
           'RainbowDelimiterCyan',
-          'RainbowDelimiterOrange',
         },
       }
     end,
