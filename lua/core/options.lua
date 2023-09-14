@@ -14,3 +14,4 @@ o.expandtab = true
 o.shiftwidth = 4
 o.tabstop = 4
 o.scrolloff = 10
+o.signcolumn = "yes"
