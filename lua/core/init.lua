@@ -5,7 +5,6 @@ local Util = require('core.util')
 require('core.helpers')
 require('core.options')
 require('core.lazy')
-require('extra')
 
 if vim.fn.argc(-1) == 0 then
   -- Defer loading of autocmds and keymaps.
@@ -42,9 +41,6 @@ if Util.has(M.Colorscheme) then
 elseif Util.has('catppuccin') then
   require('catppuccin')
   vim.cmd.colorscheme('catppuccin')
-elseif Util.has('tokyonight.nvim') then
-  require('tokyonight')
-  vim.cmd.colorscheme('tokyonight')
 elseif Util.has('rose-pine') then
   require('rose-pine')
   vim.cmd.colorscheme('rose-pine')

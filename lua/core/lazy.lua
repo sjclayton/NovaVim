@@ -33,6 +33,7 @@ require('lazy').setup('plugins', {
     border = 'rounded',
   },
   performance = {
+    cache = { enabled = true, },
     rtp = {
       -- disable some rtp plugins
       disabled_plugins = {

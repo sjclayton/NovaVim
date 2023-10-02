@@ -9,7 +9,7 @@ function M.get_root()
   ---@type string[]
   local roots = {}
   if path then
-    for _, client in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
+    for _, client in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
       local workspace = client.config.workspace_folders
       local paths = workspace and vim.tbl_map(function(ws)
         return vim.uri_to_fname(ws.uri)
@@ -158,6 +158,56 @@ function M.telescope(builtin, opts)
 
     require('telescope.builtin')[builtin](opts)
   end
+end
+
+function M.get_active_lsp_client_names()
+  local active_clients = vim.lsp.get_clients()
+  local client_names = {}
+  for _, client in pairs(active_clients or {}) do
+    local buf = vim.api.nvim_get_current_buf()
+    -- only return attached buffers
+    if vim.lsp.buf_is_attached(buf, client.id) then
+      table.insert(client_names, client.name)
+    end
+  end
+
+  if not vim.tbl_isempty(client_names) then
+    table.sort(client_names)
+  end
+  return client_names
+end
+
+function M.get_lsp_status_str()
+  local clients = M.get_active_lsp_client_names()
+  local client_str = ''
+
+  if #clients < 1 then
+    return client_str
+  end
+
+  for i, client in ipairs(clients) do
+    client_str = client_str .. client
+    if i < #clients then
+      client_str = client_str .. ', '
+    end
+  end
+
+  if client_str:len() < 1 then
+    return
+  end
+
+  return client_str
+end
+
+function M.treesitter_available(bufnr)
+  if not package.loaded['nvim-treesitter'] then
+    return false
+  end
+  if type(bufnr) == 'table' then
+    bufnr = bufnr.bufnr
+  end
+  local parsers = require('nvim-treesitter.parsers')
+  return parsers.has_parser(parsers.get_buf_lang(bufnr or vim.api.nvim_get_current_buf()))
 end
 
 return M

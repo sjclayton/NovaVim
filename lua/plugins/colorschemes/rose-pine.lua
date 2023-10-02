@@ -4,20 +4,39 @@ return {
     priority = 1000,
     event = 'User ColorSchemeLoad',
     name = 'rose-pine',
-    opts = {
-      disable_background = true,
-      highlight_groups = {
-        -- Alpha Dashboard
-        AlphaHeaderLabel = { fg = 'gold' },
+    config = function()
+      Colorscheme = 'rose-pine'
+      require('rose-pine').setup({
+        disable_background = true,
+        dim_nc_background = false,
+        highlight_groups = {
+          -- Alpha Dashboard
+          AlphaHeaderLabel = { fg = 'gold' },
 
-        -- Harpoon
-        HarpoonBorder = { fg = 'muted', bg = 'surface' },
-        HarpoonWindow = { fg = 'text', bg = 'surface' },
-        HarpoonCurrentFile = { fg = 'rose' },
+          -- Cmp
+          CmpPmenu = { bg = 'base' },
 
-        -- Nvim-Notify
-        NotifyBackground = { bg = 'base' },
-      },
-    },
+          -- GitSigns
+          -- HACK: Override background color because it doesn't get set properly by the plugin
+          -- itself when the transparent background is enabled.
+          GitSignsAdd = { bg = '' },
+          GitSignsChange = { bg = '' },
+          GitSignsDelete = { bg = '' },
+          GitSignsUntracked = { bg = '' },
+
+          -- Harpoon
+          HarpoonBorder = { fg = 'muted', bg = 'surface' },
+          HarpoonWindow = { fg = 'text', bg = 'surface' },
+          HarpoonCurrentFile = { fg = 'rose' },
+
+          -- Noice
+          NoicePopup = { bg = 'base' },
+          NoiceMini = { bg = 'surface' },
+
+          -- Nvim-Notify
+          NotifyBackground = { bg = 'base' },
+        },
+      })
+    end,
   },
 }

@@ -5,8 +5,10 @@ return {
     event = 'User ColorSchemeLoad',
     name = 'catppuccin',
     config = function()
+      Colorscheme = 'catppuccin-mocha'
+
       require('catppuccin').setup({
-        transparent_background = false,
+        transparent_background = true,
         term_colors = true,
         kitty = true, -- Workaround for using transparent_background with kitty terminal, set false if using another terminal
         color_overrides = {},
@@ -16,6 +18,12 @@ return {
               -- Adjust contrast of line numbers
               LineNr = { fg = U.darken(mocha.lavender, 0.50) },
               CursorLineNr = { fg = U.lighten(mocha.lavender, 1.10), style = { 'bold' } },
+
+              -- Codeium
+              CodeiumSuggestion = { link = 'Comment' },
+
+              -- Nvim-Notify
+              NotifyBackground = { bg = C.base },
             }
           end,
         },
@@ -24,10 +32,9 @@ return {
           barbar = true,
           cmp = true,
           -- flash = true,
-          -- gitsigns = true,
+          gitsigns = true,
           harpoon = true,
           -- illuminate = true,
-          -- indent_blankline = { enabled = true },
           -- lsp_trouble = true,
           mason = true,
           -- mini = true,
@@ -42,7 +49,7 @@ return {
           },
           navic = { enabled = true, custom_bg = 'NONE' },
           -- neotest = true,
-          -- noice = true,
+          noice = true,
           notify = true,
           -- neotree = true,
           rainbow_delimiters = true,

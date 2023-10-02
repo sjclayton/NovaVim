@@ -8,6 +8,8 @@ return {
       return
     end
 
+    local fn = vim.fn
+
     local header = {
       type = 'text',
       val = {
@@ -73,17 +75,17 @@ return {
           vim.api.nvim_buf_set_keymap(0, 'n', 'n', ':ene <BAR> startinsert <CR>', keybind_opts)
 
           -- Harpoon
-          vim.api.nvim_buf_set_keymap(0, 'n', 'h', ":lua require('harpoon.ui').toggle_quick_menu()<cr>", keybind_opts)
+          vim.api.nvim_buf_set_keymap(0, 'n', 'h', ':lua require("harpoon.ui").toggle_quick_menu()<cr>', keybind_opts)
 
           -- Telescope
-          vim.api.nvim_buf_set_keymap(0, 'n', 'r', ':Telescope oldfiles<CR>', keybind_opts)
-          vim.api.nvim_buf_set_keymap(0, 'n', 'g', ':lua require"core.helpers".project_files() <CR>', keybind_opts)
+          vim.api.nvim_buf_set_keymap(0, 'n', 'j', ':Telescope oldfiles<CR>', keybind_opts)
+          vim.api.nvim_buf_set_keymap(0, 'n', 'k', ':lua require"core.helpers".project_files() <CR>', keybind_opts)
 
           -- Lazy
           vim.api.nvim_buf_set_keymap(0, 'n', 'l', ':Lazy update<CR>', keybind_opts)
 
           -- Configs
-          vim.api.nvim_buf_set_keymap(0, 'n', 'k', ':e ~/.config/NovaVim/lua/core/keymaps.lua<CR>', keybind_opts)
+          vim.api.nvim_buf_set_keymap(0, 'n', 'm', ':e ~/.config/NovaVim/lua/core/keymaps.lua<CR>', keybind_opts)
           vim.api.nvim_buf_set_keymap(0, 'n', 'o', ':e ~/.config/NovaVim/lua/core/options.lua<CR>', keybind_opts)
 
           -- Quit
@@ -112,9 +114,9 @@ return {
           val = {
             '                        │                           │                       ',
             '   New File       n    │       terminal      t    │    󰒲   Lazy Update   l',
-            '󱨻   Recent Files   r    │       lf            ;    │                       ',
-            '   Git Files      g    │       search        s    │    󰌓   Edit Keymaps  k',
-            '󱡅   Harpoon        h    │    פּ   nvim-tree     j    │       Edit Options  o',
+            '󱨻   Recent Files   j    │       lf            ;    │                       ',
+            '   Git Files      k    │       search        s    │    󰌓   Edit Keymaps  m',
+            '󱡅   Harpoon        h    │    פּ   nvim-tree          │       Edit Options  o',
             '                        │                           │                       ',
             '                        │    󰗼   Quit          q    │                       ',
             '                        │                           │                       ',
@@ -175,9 +177,12 @@ return {
       })
     end
 
+    local marginTopPercent = 0.25
+    local headerPadding = fn.max({ 2, fn.floor(fn.winheight(0) * marginTopPercent) })
+
     local config = {
       layout = {
-        { type = 'padding', val = 6 },
+        { type = 'padding', val = headerPadding },
         header,
         { type = 'padding', val = 2 },
         sub_header,

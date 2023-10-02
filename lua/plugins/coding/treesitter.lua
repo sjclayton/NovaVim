@@ -2,7 +2,7 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = 'HiPhish/rainbow-delimiters.nvim',
+    dependencies = { 'HiPhish/rainbow-delimiters.nvim', branch = 'use-children' },
     build = ':TSUpdate',
     config = function()
       -- import nvim-treesitter plugin

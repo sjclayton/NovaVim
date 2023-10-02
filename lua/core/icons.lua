@@ -50,10 +50,13 @@ return {
     TypeParameter = ' ',
   },
   ui = {
+    Braces = '󰅩',
     Bug = ' ',
     Check = ' ',
     ChevronRight = '',
+    Cog = '',
     Fire = ' ',
+    Gear = '',
     History = ' ',
     Lightbulb = ' ',
     Project = ' ',

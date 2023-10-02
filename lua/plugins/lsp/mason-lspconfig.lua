@@ -11,7 +11,7 @@ return {
           'gopls',
           'html',
           'lua_ls',
-          'pyright',
+          'pylsp',
           'tsserver',
         },
         -- auto-install configured servers (with lspconfig)

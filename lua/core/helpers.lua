@@ -22,4 +22,28 @@ function M.project_files()
   end
 end
 
+local toggle_state = {}
+
+---@param name string
+---@param cmds table
+--- cmds table expects:
+---   enable: string - The command to enable the feature
+---   disable: string - The command to disable the feature
+--- NOTE: Swap the commands if you enable a feature by default
+function M.toggle(name, cmds)
+  toggle_state[name] = not toggle_state[name]
+  local enable = cmds.enable
+  local disable = cmds.disable
+
+  if toggle_state[name] then
+    vim.cmd(enable)
+    require('notify')(name .. ' enabled', 'info')
+  else
+    vim.cmd(disable)
+    require('notify')(name .. ' disabled', 'info')
+  end
+
+  return toggle_state[name]
+end
+
 return M
