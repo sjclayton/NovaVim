@@ -1,7 +1,9 @@
 local map = require('core.helpers').map
+local toggle = require('core.helpers').toggle
+local wk = require('which-key')
 
 ---
--- Keymappings
+-- General Keymappings
 ---
 
 -- Better window navigation
@@ -17,8 +19,8 @@ map('n', '<C-Left>', ':vertical resize -5<CR>', { desc = 'Decrease window width'
 map('n', '<C-Right>', ':vertical resize +5<CR>', { desc = 'Increase window width' })
 
 -- Better indenting
-map("v", "<", "<gv")
-map("v", ">", ">gv")
+map('v', '<', '<gv')
+map('v', '>', '>gv')
 
 -- Move lines
 map('n', '<A-j>', '<cmd>m .+1<cr>==', { desc = 'Move down' })
@@ -32,4 +34,24 @@ map('v', '<A-k>', ":m '<-2<cr>gv=gv", { desc = 'Move up' })
 map('n', '<leader>l', ':Lazy<CR>', { desc = 'Open Lazy' })
 
 -- Quit
-map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
+map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
+
+---
+-- Which-key Mapping Table
+---
+
+wk.register({
+  c = {
+    name = 'Coding',
+  },
+  u = {
+    name = 'UI',
+    l = {
+      function()
+        toggle('listchars', { enable = 'set list', disable = 'set nolist' })
+      end,
+      'Toggle listchars',
+      noremap = true,
+    },
+  },
+}, { prefix = '<leader>' })
