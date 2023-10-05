@@ -29,7 +29,8 @@ local toggle_state = {}
 --- cmds table expects:
 ---   enable: string - The command to enable the feature
 ---   disable: string - The command to disable the feature
---- NOTE: Swap the commands if you enable a feature by default
+--- NOTE: Toggle assumes feature(command) is disabled by default.
+--- If that isn't the case swap the commands given in the cmds table if feature(command) is enabled by default.
 function M.toggle(name, cmds)
   toggle_state[name] = not toggle_state[name]
   local enable = cmds.enable
@@ -37,10 +38,10 @@ function M.toggle(name, cmds)
 
   if toggle_state[name] then
     vim.cmd(enable)
-    require('notify')(name .. ' enabled', 'info')
+    require('notify')(name .. ' toggled', 'info')
   else
     vim.cmd(disable)
-    require('notify')(name .. ' disabled', 'info')
+    require('notify')(name .. ' toggled', 'info')
   end
 
   return toggle_state[name]

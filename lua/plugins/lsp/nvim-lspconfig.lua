@@ -1,6 +1,6 @@
 return {
   'neovim/nvim-lspconfig',
-  event = { 'BufReadPre', 'BufNewFile' },
+  event = { 'BufReadPost', 'BufNewFile' },
   dependencies = {
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
@@ -16,10 +16,8 @@ return {
   config = function()
     local icons = require('core.icons')
 
-    -- import lspconfig plugin
     local lspconfig = require('lspconfig')
 
-    -- import cmp-nvim-lsp plugin
     local cmp_nvim_lsp = require('cmp_nvim_lsp')
 
     local map = vim.keymap.set -- for conciseness
@@ -43,7 +41,7 @@ return {
       severity_sort = true,
     })
 
-    -- use built-in formatting for these LSP servers
+    -- Use built-in formatting for these LSP servers
     local builtin_format = { 'pylsp' }
 
     local lsp_formatting = function(bufnr)
@@ -59,14 +57,12 @@ return {
       })
     end
 
-    local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
-
     local on_attach = function(client, bufnr)
-      -- setup auto-format on save
+      -- Setup auto-format on save
       if client.supports_method('textDocument/formatting') then
-        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+        vim.api.nvim_create_augroup('lsp_formatting', { clear = true })
         vim.api.nvim_create_autocmd('BufWritePre', {
-          group = augroup,
+          group = 'lsp_formatting',
           buffer = bufnr,
           callback = function()
             lsp_formatting()
@@ -76,27 +72,27 @@ return {
 
       opts.buffer = bufnr
 
-      -- set keybinds
+      -- Set keybinds
       opts.desc = 'Show LSP references'
-      map('n', 'gR', '<cmd>Telescope lsp_references<CR>', opts) -- show definition, references
+      map('n', 'gR', '<cmd>Telescope lsp_references<CR>', opts)
 
       opts.desc = 'Go to declaration'
-      map('n', 'gD', vim.lsp.buf.declaration, opts) -- go to declaration
+      map('n', 'gD', vim.lsp.buf.declaration, opts)
 
       opts.desc = 'Show LSP definitions'
-      map('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts) -- show lsp definitions
+      map('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts)
 
       opts.desc = 'Show LSP implementations'
-      map('n', 'gi', '<cmd>Telescope lsp_implementations<CR>', opts) -- show lsp implementations
+      map('n', 'gi', '<cmd>Telescope lsp_implementations<CR>', opts)
 
       opts.desc = 'Show LSP type definitions'
-      map('n', 'gt', '<cmd>Telescope lsp_type_definitions<CR>', opts) -- show lsp type definitions
+      map('n', 'gt', '<cmd>Telescope lsp_type_definitions<CR>', opts)
 
       opts.desc = 'See available code actions'
       map({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
 
       opts.desc = 'Smart rename'
-      map('n', '<leader>rn', vim.lsp.buf.rename, opts) -- smart rename
+      map('n', '<leader>rn', vim.lsp.buf.rename, opts)
 
       opts.desc = 'Show buffer diagnostics'
       map('n', '<leader>D', '<cmd>Telescope diagnostics bufnr=0<CR>', opts) -- show  diagnostics for file
@@ -105,10 +101,10 @@ return {
       map('n', '<leader>d', vim.diagnostic.open_float, opts) -- show diagnostics for line
 
       opts.desc = 'Go to previous diagnostic'
-      map('n', '[d', vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
+      map('n', '[d', vim.diagnostic.goto_prev, opts)
 
       opts.desc = 'Go to next diagnostic'
-      map('n', ']d', vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
+      map('n', ']d', vim.diagnostic.goto_next, opts)
 
       opts.desc = 'Show documentation for what is under cursor'
       map('n', 'K', vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
@@ -118,8 +114,13 @@ return {
         vim.lsp.inlay_hint(0, nil)
       end, opts)
 
-      opts.desc = 'Restart LSP'
-      map('n', '<leader>rs', ':LspRestart<CR>', opts) -- mapping to restart lsp if necessary
+      opts.desc = 'Format file'
+      map('n', '<leader>cf', function()
+        lsp_formatting(0)
+      end, opts)
+
+      opts.desc = 'Reload LSP'
+      map('n', '<leader>rl', ':LspRestart<CR>', opts)
     end
 
     -- used to enable autocompletion (assign to every lsp server config)
@@ -131,6 +132,12 @@ return {
       local hl = 'DiagnosticSign' .. type
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
     end
+
+    -- configure bashls server
+    lspconfig['bashls'].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
 
     -- configure css server
     lspconfig['cssls'].setup({
@@ -145,7 +152,7 @@ return {
       --- @diagnostic disable-next-line : unused-local
       require('core.util').on_attach(function(client, bufnr)
         if client.name == 'gopls' then
-          -- workaround to hl semanticTokens -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
+          -- NOTE: Workaround to hl semanticTokens -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
           if not client.server_capabilities.semanticTokensProvider then
             local semantic = client.config.capabilities.textDocument.semanticTokens
             client.server_capabilities.semanticTokensProvider = {
@@ -162,6 +169,7 @@ return {
       settings = {
         gopls = {
           semanticTokens = true,
+          completeUnimported = true,
           usePlaceholders = true,
           analyses = { unusedparams = true },
           staticcheck = true,
@@ -276,11 +284,6 @@ return {
           },
           workspace = {
             checkThirdParty = false,
-            -- make language server aware of runtime files
-            library = {
-              -- [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-              -- [vim.fn.stdpath('config') .. '/lua'] = true,
-            },
           },
         },
       },

@@ -1,10 +1,16 @@
 local map = require('core.helpers').map
+local icons = require('core.icons')
 local toggle = require('core.helpers').toggle
+
 local wk = require('which-key')
 
 ---
 -- General Keymappings
 ---
+
+-- Buffers
+map('n', 'b[', ':bprev<CR>', { desc = 'Cycle buffer previous' })
+map('n', 'b]', ':bnext<CR>', { desc = 'Cycle buffer previous' })
 
 -- Better window navigation
 map('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
@@ -23,15 +29,30 @@ map('v', '<', '<gv')
 map('v', '>', '>gv')
 
 -- Move lines
-map('n', '<A-j>', '<cmd>m .+1<cr>==', { desc = 'Move down' })
-map('n', '<A-k>', '<cmd>m .-2<cr>==', { desc = 'Move up' })
-map('i', '<A-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'Move down' })
-map('i', '<A-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move up' })
-map('v', '<A-j>', ":m '>+1<cr>gv=gv", { desc = 'Move down' })
-map('v', '<A-k>', ":m '<-2<cr>gv=gv", { desc = 'Move up' })
+map('i', '<a-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'Move line down' })
+map('i', '<a-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move line up' })
+map('n', '<a-j>', '<cmd>m .+1<cr>==', { desc = 'Move line down' })
+map('n', '<a-k>', '<cmd>m .-2<cr>==', { desc = 'Move line up' })
+map('v', '<a-j>', ":m '>+1<cr>gv=gv", { desc = 'Move selection down' })
+map('v', '<a-k>', ":m '<-2<cr>gv=gv", { desc = 'Move selection up' })
 
--- Lazy
-map('n', '<leader>l', ':Lazy<CR>', { desc = 'Open Lazy' })
+-- Sorting
+map('v', '<leader>s', "<esc><cmd>'<,'>sort<cr>", { desc = 'Sort visual selection' })
+map('v', '<leader>r', "<esc><cmd>'<,'>sort!<cr>", { desc = 'Sort visual selection (reverse)' })
+---
+-- Misc
+---
+
+-- Where the fu*k am I?
+map('n', '<leader>fl', ":lua print(vim.fn.expand('%:h'))<cr>", { desc = 'Show CWD relative to project root' })
+
+-- Open link under cursor in browser
+map(
+  'n',
+  'gx',
+  '<Cmd>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>',
+  { desc = 'Open link under cursor in browser' }
+)
 
 -- Quit
 map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
@@ -41,17 +62,50 @@ map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
 ---
 
 wk.register({
+  b = {
+    name = icons.ui.Files .. 'Buffers',
+    c = {
+      ':bdelete<CR>',
+      'Close current buffer',
+      noremap = true,
+    },
+    C = {
+      ':BufferLinePickClose<CR>',
+      'Pick buffer to close',
+      noremap = true,
+    },
+    x = {
+      ':bdelete!<CR>',
+      'Close current buffer (no confirm)',
+      noremap = true,
+    },
+  },
   c = {
-    name = 'Coding',
+    name = icons.ui.Code .. 'Code',
+  },
+  f = {
+    name = icons.kinds.File .. 'File',
+  },
+  t = {
+    name = icons.ui.Telescope .. 'Telescope',
   },
   u = {
-    name = 'UI',
-    l = {
+    name = icons.ui.UI .. 'UI',
+    c = {
       function()
-        toggle('listchars', { enable = 'set list', disable = 'set nolist' })
+        toggle('Listchars', { enable = 'set list', disable = 'set nolist' })
       end,
       'Toggle listchars',
       noremap = true,
     },
+    l = {
+      function()
+        toggle('Line numbers', { enable = 'set nonumber', disable = 'set number' })
+      end,
+      'Toggle line numbers',
+      noremap = true,
+    },
   },
+  ['<space>'] = { '<C-^>', 'Jump to alternate file', noremap = true },
+  l = { ':Lazy<CR>', 'Open Lazy', noremap = true },
 }, { prefix = '<leader>' })

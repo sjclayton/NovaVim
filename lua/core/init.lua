@@ -1,6 +1,6 @@
 local M = {}
 
-local Util = require('core.util')
+local util = require('core.util')
 
 require('core.helpers')
 require('core.options')
@@ -12,17 +12,17 @@ if vim.fn.argc(-1) == 0 then
     group = vim.api.nvim_create_augroup('NovaVim', { clear = true }),
     pattern = 'VeryLazy',
     callback = function()
-      Util.load('autocmds')
-      Util.load('keymaps')
+      util.load('autocmds')
+      util.load('keymaps')
     end,
   })
 else
   -- Load them now so they affect the opened buffers.
-  Util.load('autocmds')
-  Util.load('keymaps')
+  util.load('autocmds')
+  util.load('keymaps')
 end
 
-Util.lazy_notify()
+util.lazy_notify()
 
 -- NOTE: Set your chosen colorscheme on the line below.
 -- Make sure the plugin spec for your colorscheme has a priority of 1000 or higher.
@@ -31,17 +31,17 @@ M.Colorscheme = 'catppuccin'
 -- set it directly on the line below.
 M.Colorscheme_variant = 'catppuccin-mocha'
 
-if Util.has(M.Colorscheme) then
+if util.has(M.Colorscheme) then
   require(M.Colorscheme)
   if M.Colorscheme_variant ~= '' or nil then
     vim.cmd.colorscheme(M.Colorscheme_variant)
   else
     vim.cmd.colorscheme(M.Colorscheme)
   end
-elseif Util.has('catppuccin') then
+elseif util.has('catppuccin') then
   require('catppuccin')
   vim.cmd.colorscheme('catppuccin')
-elseif Util.has('rose-pine') then
+elseif util.has('rose-pine') then
   require('rose-pine')
   vim.cmd.colorscheme('rose-pine')
 else

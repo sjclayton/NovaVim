@@ -3,16 +3,21 @@ local o = vim.opt
 
 g.mapleader = ' '
 g.maplocalleader = '\\'
+g.markdown_recommended_style = 0
 
 o.backup = false
 o.clipboard = 'unnamedplus'
+o.conceallevel = 3
 o.confirm = true
 o.cursorline = true
 o.expandtab = true
 o.fillchars = { eob = ' ' }
+o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+o.foldlevel = 99
+o.foldmethod = 'expr'
+o.foldtext = "v:lua.require'core.util'.foldtext()"
 o.guicursor = ''
 o.listchars = { extends = '→', lead = '․', nbsp = '␣', precedes = '←', tab = '¬ ' }
--- o.list = true
 o.mouse = 'a'
 o.number = true
 o.numberwidth = 2
@@ -23,10 +28,12 @@ o.scrolloff = 8
 o.shiftwidth = 2
 o.sidescroll = 8
 o.signcolumn = 'yes'
-o.smartindent = true
 o.smartcase = true
+o.smartindent = true
+o.smoothscroll = true
 o.splitbelow = true
 o.splitright = true
+o.statuscolumn = [[%!v:lua.require'core.util'.statuscolumn()]]
 o.swapfile = false
 o.tabstop = 2
 o.termguicolors = true

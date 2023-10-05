@@ -2,14 +2,37 @@ return {
   {
     'shellRaining/hlchunk.nvim',
     enabled = true,
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = { 'BufReadPre', 'BufNewFile' },
     keys = {
       {
-        '<leader>uc',
+        '<leader>ub',
         function()
-          require('core.helpers').toggle('HLChunkLine', { enable = 'EnableHLLineNum', disable = 'DisableHLLineNum' })
+          require('core.helpers').toggle(
+            'Scope line numbers',
+            { enable = 'EnableHLLineNum', disable = 'DisableHLLineNum' }
+          )
         end,
-        desc = 'Toggle Chunk Line Numbers',
+        desc = 'Toggle scope line numbers',
+        noremap = true,
+      },
+      {
+        '<leader>us',
+        function()
+          require('core.helpers').toggle('Scope highlight', { enable = 'DisableHLChunk', disable = 'EnableHLChunk' })
+        end,
+        desc = 'Toggle scope highlight',
+        noremap = true,
+      },
+
+      {
+        '<leader>ui',
+        function()
+          require('core.helpers').toggle(
+            'Indention highlights',
+            { enable = 'EnableHLIndent', disable = 'DisableHLIndent' }
+          )
+        end,
+        desc = 'Toggle indention highlights',
         noremap = true,
       },
       {
@@ -80,6 +103,7 @@ return {
           },
         },
       })
+      vim.cmd(':DisableHLIndent')
       vim.cmd(':DisableHLLineNum')
     end,
   },

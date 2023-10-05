@@ -1,3 +1,5 @@
+local util = require('core.util')
+
 return {
   {
     'nvim-telescope/telescope.nvim',
@@ -25,6 +27,19 @@ return {
       require('telescope').load_extension('notify')
     end,
     keys = {
+      -- General
+      { '<leader>:', '<cmd>Telescope command_history<cr>', desc = 'Command History' },
+      { '<leader>,', '<cmd>Telescope buffers show_all_buffers=true<cr>', desc = 'Switch buffer' },
+      { '<leader>/', util.telescope('live_grep'), desc = 'Grep (root dir)' },
+      -- Files
+      { '<leader>fb', '<cmd>Telescope buffers<cr>', desc = 'Buffers' },
+      { '<leader>ff', util.telescope('files'), desc = 'Find files (root dir)' },
+      { '<leader>fF', util.telescope('files', { cwd = vim.loop.cwd() }), desc = 'Find files (cwd)' },
+      { '<leader>fr', '<cmd>Telescope oldfiles<cr>', desc = 'Recent files' },
+      { '<leader>fR', util.telescope('oldfiles', { cwd = vim.loop.cwd() }), desc = 'Recent files (cwd)' },
+      -- search
+      { '<leader>t"', '<cmd>Telescope registers<cr>', desc = 'Registers' },
+      { '<leader>tk', '<cmd>Telescope keymaps<cr>', desc = 'Keymaps' },
       {
         '<leader>uC',
         function()

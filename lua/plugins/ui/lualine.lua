@@ -14,8 +14,8 @@ return {
       'nvim-tree/nvim-web-devicons',
       -- 'nvim-telescope/telescope.nvim', -- Switch filetype and git branches
     },
-    opts = function()
-      return {
+    config = function()
+      require('lualine').setup({
         options = {
           icons_enabled = true,
           theme = 'auto',
@@ -23,19 +23,33 @@ return {
           component_separators = { left = '', right = '' },
           section_separators = { left = '', right = '' },
           disabled_filetypes = {
-            statusline = { 'alpha', 'harpoon', 'markdown.cody_history', 'markdown.cody_prompt', 'TelescopePrompt' },
+            statusline = { 'alpha', 'harpoon', 'TelescopePrompt' },
             winbar = {},
           },
         },
         sections = {
-          lualine_b = { 'branch', 'diagnostics' },
-          lualine_c = { { 'filetype', icon_only = true }, { 'filename', padding = { left = 0 } } },
+          lualine_b = {
+            'branch',
+            {
+              'diff',
+              symbols = {
+                added = icons.git.Add,
+                modified = icons.git.Mod,
+                removed = icons.git.Remove,
+              },
+            },
+          },
+          lualine_c = {
+            { 'filetype', icon_only = true },
+            { 'filename', padding = { left = 0 } },
+          },
           lualine_x = {
+            { require('lazy.status').updates, cond = require('lazy.status').has_updates, color = util.fg('Special') },
             {
               require('nomodoro').status,
               color = function()
                 if vim.g.colors_name == 'rose-pine' then
-                  return 'Keyword'
+                  return util.fg('Keyword')
                 elseif vim.g.colors_name == 'catppuccin-mocha' then
                   return 'Keyword'
                 elseif vim.g.colors_name == 'catppuccin-macchiato' then
@@ -47,14 +61,7 @@ return {
             },
           },
           lualine_y = {
-            {
-              'diff',
-              symbols = {
-                added = icons.git.Add,
-                modified = icons.git.Mod,
-                removed = icons.git.Remove,
-              },
-            },
+            'diagnostics',
             {
               util.get_lsp_status_str,
               icon = icons.ui.Gear,
@@ -81,8 +88,16 @@ return {
             },
           },
         },
+        inactive_sections = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = { 'filename' },
+          lualine_x = { 'location' },
+          lualine_y = {},
+          lualine_z = {},
+        },
         extensions = { 'lazy' },
-      }
+      })
     end,
   },
 }

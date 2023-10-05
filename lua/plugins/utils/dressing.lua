@@ -14,5 +14,15 @@ return {
         return vim.ui.input(...)
       end
     end,
+    config = function()
+      require('dressing').setup({
+        input = {
+          win_options = {
+            winblend = 0,
+            winhighlight = 'NormalFloat:Normal',
+          },
+        },
+      })
+    end,
   },
 }

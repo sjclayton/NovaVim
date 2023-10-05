@@ -2,6 +2,32 @@ local M = {}
 
 M.root_patterns = { '.git', 'lua' }
 
+function M.fg(name)
+  ---@type {foreground?:number}?
+  local hl = vim.api.nvim_get_hl and vim.api.nvim_get_hl(0, { name = name }) or vim.api.nvim_get_hl_by_name(name, true)
+  local fg = hl and hl.fg or hl.foreground
+  return fg and { fg = string.format('#%06x', fg) }
+end
+
+function M.foldtext()
+  local ok = pcall(vim.treesitter.get_parser, vim.api.nvim_get_current_buf())
+  local ret = ok and vim.treesitter.foldtext and vim.treesitter.foldtext()
+  if not ret or type(ret) == 'string' then
+    ret = { { vim.api.nvim_buf_get_lines(0, vim.v.lnum - 1, vim.v.lnum, false)[1], {} } }
+  end
+  table.insert(ret, { ' ' .. require('core.icons').ui.Dots })
+
+  if not vim.treesitter.foldtext then
+    return table.concat(
+      vim.tbl_map(function(line)
+        return line[1]
+      end, ret),
+      ' '
+    )
+  end
+  return ret
+end
+
 function M.get_root()
   ---@type string?
   local path = vim.api.nvim_buf_get_name(0)
@@ -37,15 +63,40 @@ function M.get_root()
   return root
 end
 
+function M.get_signs(buf, lnum)
+  ---@diagnostic disable-next-line: no-unknown
+  return vim.tbl_map(function(sign)
+    return vim.fn.sign_getdefined(sign.name)[1]
+  end, vim.fn.sign_getplaced(buf, { group = '*', lnum = lnum })[1].signs)
+end
+
+function M.get_mark(buf, lnum)
+  local marks = vim.fn.getmarklist(buf)
+  vim.list_extend(marks, vim.fn.getmarklist())
+  for _, mark in ipairs(marks) do
+    if mark.pos[2] == lnum and mark.mark:match('[a-zA-Z]') then
+      return { text = mark.mark:sub(2), texthl = 'DiagnosticHint' }
+    end
+  end
+end
+
 ---@param plugin string
 function M.has(plugin)
   return require('lazy.core.config').spec.plugins[plugin] ~= nil
 end
 
+function M.icon(sign, len)
+  sign = sign or {}
+  len = len or 2
+  local text = vim.fn.strcharpart(sign.text or '', 0, len) ---@type string
+  text = text .. string.rep(' ', len - vim.fn.strchars(text))
+  return sign.texthl and ('%#' .. sign.texthl .. '#' .. text .. '%*') or text
+end
+
 function M.load(name)
-  local Util = require('lazy.core.util')
+  local util = require('lazy.core.util')
   local function _load(mod)
-    Util.try(function()
+    util.try(function()
       require(mod)
     end, {
       msg = 'Failed loading ' .. mod,
@@ -54,7 +105,7 @@ function M.load(name)
         if info == nil or (type(info) == 'table' and #info == 0) then
           return
         end
-        Util.error(msg)
+        util.error(msg)
       end,
     })
   end
@@ -123,6 +174,42 @@ function M.lazy_notify()
   end)
   -- or if it took more than 500ms, then something went wrong
   timer:start(500, 0, replay)
+end
+
+function M.statuscolumn()
+  local win = vim.g.statusline_winid
+  if vim.wo[win].signcolumn == 'no' then
+    return ''
+  end
+  local buf = vim.api.nvim_win_get_buf(win)
+
+  ---@type Sign?,Sign?,Sign?
+  local left, right, fold
+  for _, s in ipairs(M.get_signs(buf, vim.v.lnum)) do
+    if s.name:find('GitSign') then
+      right = s
+    elseif not left then
+      left = s
+    end
+  end
+
+  vim.api.nvim_win_call(win, function()
+    if vim.fn.foldclosed(vim.v.lnum) >= 0 then
+      fold = { text = vim.opt.fillchars:get().foldclose or '', texthl = 'Folded' }
+    end
+  end)
+
+  local nu = ''
+  if vim.wo[win].number and vim.v.virtnum == 0 then
+    nu = vim.wo[win].relativenumber and vim.v.relnum ~= 0 and vim.v.relnum or vim.v.lnum
+  end
+
+  return table.concat({
+    M.icon(M.get_mark(buf, vim.v.lnum) or left),
+    [[%=]],
+    nu .. ' ',
+    M.icon(fold or right),
+  }, '')
 end
 
 -- this will return a function that calls telescope.

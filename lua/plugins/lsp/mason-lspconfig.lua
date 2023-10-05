@@ -7,11 +7,13 @@ return {
       mason_lspconfig.setup({
         -- list of servers for mason to install
         ensure_installed = {
+          'bashls',
           'cssls',
           'gopls',
           'html',
           'lua_ls',
           'pylsp',
+          'rust_analyzer',
           'tsserver',
         },
         -- auto-install configured servers (with lspconfig)

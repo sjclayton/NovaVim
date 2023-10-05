@@ -5,7 +5,6 @@ return {
     event = 'User ColorSchemeLoad',
     name = 'rose-pine',
     config = function()
-      Colorscheme = 'rose-pine'
       require('rose-pine').setup({
         disable_background = true,
         dim_nc_background = false,
@@ -13,8 +12,18 @@ return {
           -- Alpha Dashboard
           AlphaHeaderLabel = { fg = 'gold' },
 
+          -- Bufferline
+          BufferLineBackground = { fg = 'muted', italic = true },
+          BufferLineBufferSelected = { fg = 'pine', bold = true },
+          BufferLinePick = { fg = 'iris' },
+          BufferLinePickSelected = { fg = 'iris' },
+          BufferLinePickVisible = { fg = 'iris' },
+
           -- Cmp
           CmpPmenu = { bg = 'base' },
+
+          -- Fidget
+          FidgetTitle = { fg = 'pine' },
 
           -- GitSigns
           -- HACK: Override background color because it doesn't get set properly by the plugin
@@ -26,8 +35,20 @@ return {
 
           -- Harpoon
           HarpoonBorder = { fg = 'muted', bg = 'surface' },
-          HarpoonWindow = { fg = 'text', bg = 'surface' },
           HarpoonCurrentFile = { fg = 'rose' },
+          HarpoonWindow = { fg = 'text', bg = 'surface' },
+
+          -- Headlines
+          Dash = { fg = 'overlay' },
+          Quote = { link = '@text.strong' },
+          CodeBlock = { bg = 'highlight_low' },
+          Headline = { link = 'Headline1' },
+          Headline1 = { bg = 'overlay', fg = 'love' },
+          Headline2 = { bg = 'overlay', fg = 'rose' },
+          Headline3 = { bg = 'overlay', fg = 'gold' },
+          Headline4 = { bg = 'overlay', fg = 'pine' },
+          Headline5 = { bg = 'overlay', fg = 'foam' },
+          Headline6 = { bg = 'overlay', fg = 'iris' },
 
           -- Noice
           NoicePopup = { bg = 'base' },
@@ -35,6 +56,10 @@ return {
 
           -- Nvim-Notify
           NotifyBackground = { bg = 'base' },
+
+          -- Which-key
+          WhichKeyBorder = { link = 'FloatBorder' },
+          WhichKeyFloat = { link = 'NormalFloat' },
         },
       })
     end,

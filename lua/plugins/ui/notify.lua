@@ -7,7 +7,7 @@ return {
         function()
           require('notify').dismiss({ silent = true, pending = true })
         end,
-        desc = 'Dismiss all Notifications',
+        desc = 'Dismiss all notifications',
       },
     },
     opts = {
@@ -21,9 +21,9 @@ return {
     },
     init = function()
       -- If noice is not enabled, Load  notify on VeryLazy
-      local Util = require('core.util')
-      if not Util.has('noice.nvim') then
-        Util.on_very_lazy(function()
+      local util = require('core.util')
+      if not util.has('noice.nvim') then
+        util.on_very_lazy(function()
           vim.notify = require('notify')
         end)
       end

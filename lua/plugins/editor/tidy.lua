@@ -1,7 +1,7 @@
 return {
   {
     'mcauley-penney/tidy.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'BufReadPost', 'BufNewFile' },
     opts = {
       filetype_exclude = { 'markdown', 'diff' },
     },
