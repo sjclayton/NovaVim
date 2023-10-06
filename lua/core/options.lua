@@ -17,6 +17,7 @@ o.foldlevel = 99
 o.foldmethod = 'expr'
 o.foldtext = "v:lua.require'core.util'.foldtext()"
 o.guicursor = ''
+o.laststatus = 3
 o.listchars = { extends = '→', lead = '․', nbsp = '␣', precedes = '←', tab = '¬ ' }
 o.mouse = 'a'
 o.number = true
