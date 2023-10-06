@@ -3,7 +3,7 @@ return {
     'lewis6991/gitsigns.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
     config = {
-      _extmark_signs = false,
+      -- _extmark_signs = false,
       signs = {
         add = { text = '▎' },
         change = { text = '▎' },
