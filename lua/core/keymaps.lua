@@ -1,5 +1,5 @@
-local map = require('core.helpers').map
 local icons = require('core.icons')
+local map = require('core.helpers').map
 local toggle = require('core.helpers').toggle
 
 local wk = require('which-key')
@@ -65,7 +65,7 @@ wk.register({
   b = {
     name = icons.ui.Files .. 'Buffers',
     c = {
-      ':bdelete<CR>',
+      ':Bdelete<CR>',
       'Close current buffer',
       noremap = true,
     },
@@ -75,7 +75,7 @@ wk.register({
       noremap = true,
     },
     x = {
-      ':bdelete!<CR>',
+      ':Bdelete!<CR>',
       'Close current buffer (no confirm)',
       noremap = true,
     },
