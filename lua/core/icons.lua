@@ -1,4 +1,48 @@
 return {
+  separators = {
+    angle_quote = {
+      left = '«',
+      right = '»',
+    },
+    chevron = {
+      left = '',
+      right = '',
+      down = '',
+    },
+    circle = {
+      left = '',
+      right = '',
+    },
+    arrow = {
+      left = '',
+      right = '',
+    },
+    slant = {
+      left = '',
+      right = '',
+    },
+    bar = {
+      left = '⎸',
+      right = '⎹',
+    },
+  },
+  blocks = {
+    left = {
+      '▏',
+      '▎',
+      '▍',
+      '▌',
+      '▋',
+      '▊',
+      '▉',
+      '█',
+    },
+    right = {
+      eighth = '▕',
+      half = '▐',
+      full = '█',
+    },
+  },
   diagnostics = {
     Error = ' ',
     Hint = ' ',
@@ -63,6 +107,7 @@ return {
     Gear = ' ',
     History = ' ',
     Lightbulb = ' ',
+    Modified = '●',
     Project = ' ',
     Search = ' ',
     Telescope = ' ',

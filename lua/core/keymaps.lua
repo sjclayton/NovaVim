@@ -8,10 +8,6 @@ local wk = require('which-key')
 -- General Keymappings
 ---
 
--- Buffers
-map('n', 'b[', ':bprev<CR>', { desc = 'Cycle buffer previous' })
-map('n', 'b]', ':bnext<CR>', { desc = 'Cycle buffer previous' })
-
 -- Better window navigation
 map('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
 map('n', '<C-j>', '<C-w>j', { desc = 'Move to lower window' })
@@ -39,22 +35,18 @@ map('v', '<a-k>', ":m '<-2<cr>gv=gv", { desc = 'Move selection up' })
 -- Sorting
 map('v', '<leader>s', "<esc><cmd>'<,'>sort<cr>", { desc = 'Sort visual selection' })
 map('v', '<leader>r', "<esc><cmd>'<,'>sort!<cr>", { desc = 'Sort visual selection (reverse)' })
+
 ---
 -- Misc
 ---
 
--- Where the fu*k am I?
 map('n', '<leader>fl', ":lua print(vim.fn.expand('%:h'))<cr>", { desc = 'Show CWD relative to project root' })
-
--- Open link under cursor in browser
 map(
   'n',
   'gx',
   '<Cmd>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>',
   { desc = 'Open link under cursor in browser' }
 )
-
--- Quit
 map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
 
 ---
@@ -69,11 +61,14 @@ wk.register({
       'Close current buffer',
       noremap = true,
     },
+    j = { '<Plug>(cokeline-pick-focus)', 'Jump to buffer', noremap = true },
     C = {
-      ':BufferLinePickClose<CR>',
+      '<Plug>(cokeline-pick-close)',
       'Pick buffer to close',
       noremap = true,
     },
+    n = { '<Plug>(cokeline-focus-next)', 'Cycle next buffer', noremap = true },
+    p = { '<Plug>(cokeline-focus-prev)', 'Cycle previous buffer', noremap = true },
     x = {
       ':Bdelete!<CR>',
       'Close current buffer (no confirm)',

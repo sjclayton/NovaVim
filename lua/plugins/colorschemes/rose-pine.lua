@@ -8,19 +8,18 @@ return {
       require('rose-pine').setup({
         disable_background = true,
         dim_nc_background = false,
+        groups = {
+          panel = 'base',
+        },
         highlight_groups = {
           -- Alpha Dashboard
           AlphaHeaderLabel = { fg = 'gold' },
 
-          -- Bufferline
-          BufferLineBackground = { fg = 'muted', italic = true },
-          BufferLineBufferSelected = { fg = 'pine', bold = true },
-          BufferLinePick = { fg = 'iris' },
-          BufferLinePickSelected = { fg = 'iris' },
-          BufferLinePickVisible = { fg = 'iris' },
-
           -- Cmp
           CmpPmenu = { bg = 'base' },
+
+          -- Cokeline
+          TabLineFill = { fg = 'surface', bg = 'base' },
 
           -- Fidget
           FidgetTitle = { fg = 'pine' },
@@ -34,9 +33,9 @@ return {
           GitSignsUntracked = { bg = '' },
 
           -- Harpoon
-          HarpoonBorder = { fg = 'muted', bg = 'surface' },
+          HarpoonBorder = { fg = 'muted', bg = 'base' },
           HarpoonCurrentFile = { fg = 'rose' },
-          HarpoonWindow = { fg = 'text', bg = 'surface' },
+          HarpoonWindow = { fg = 'text', bg = 'base' },
 
           -- Headlines
           Dash = { fg = 'overlay' },

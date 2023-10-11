@@ -2,10 +2,15 @@ return {
   {
     'ThePrimeagen/harpoon',
     dependencies = {
-      { 'akinsho/bufferline.nvim', 'nvim-lua/plenary.nvim' },
+      { 'nvim-lua/plenary.nvim' },
     },
     keys = {
       { '<leader>hm', "<cmd>lua require('harpoon.mark').add_file()<cr>", desc = 'Mark file with harpoon' },
+      {
+        '<leader>hr',
+        "<cmd>lua require('harpoon.mark').rm_file(vim.api.nvim_buf_get_name(0))<cr>",
+        desc = 'Remove harpoon mark',
+      },
       { '<leader>hn', "<cmd>lua require('harpoon.ui').nav_next()<cr>", desc = 'Go to next harpoon mark' },
       { '<leader>hp', "<cmd>lua require('harpoon.ui').nav_prev()<cr>", desc = 'Go to previous harpoon mark' },
       { '<leader>ha', "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", desc = 'Show harpoon marks' },

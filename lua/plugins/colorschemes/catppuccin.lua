@@ -16,18 +16,40 @@ return {
           },
         },
         highlight_overrides = {
+          macchiato = function(macchiato)
+            return {
+              -- Overrides for the Cokeline
+              TabLine = { fg = C.subtext0, bg = C.dim },
+              TabLineFill = { bg = C.dim },
+
+              -- Codeium
+              CodeiumSuggestion = { link = 'Comment' },
+
+              -- Gitsigns
+              GitSignsCurrentLineBlame = { fg = C.overlay1 },
+
+              -- Headlines
+              CodeBlock = { bg = C.crust },
+              Headline1 = { style = { 'bold' } },
+              Headline2 = { style = { 'bold' } },
+              Headline3 = { style = { 'bold' } },
+              Headline4 = { style = { 'bold' } },
+              Headline5 = { style = { 'bold' } },
+              Headline6 = { style = { 'bold' } },
+
+              -- Nvim-Notify
+              NotifyBackground = { bg = C.base },
+            }
+          end,
           mocha = function(mocha)
             return {
               -- Adjust contrast of line numbers
               LineNr = { fg = U.darken(mocha.lavender, 0.50) },
               CursorLineNr = { fg = U.lighten(mocha.lavender, 1.10), style = { 'bold' } },
 
-              -- Bufferline
-              BufferLineBackground = { fg = C.overlay0, style = { 'italic' } },
-              BufferLineBufferSelected = { fg = C.lavender, style = { 'bold' } },
-              BufferLinePick = { fg = C.maroon },
-              BufferLinePickSelected = { fg = C.maroon },
-              BufferLinePickVisible = { fg = C.maroon },
+              -- Overrides for the Cokeline
+              TabLine = { fg = C.subtext0, bg = C.dim },
+              TabLineFill = { bg = C.dim },
 
               -- Codeium
               CodeiumSuggestion = { link = 'Comment' },
@@ -53,12 +75,11 @@ return {
           alpha = true,
           cmp = true,
           fidget = false,
-          -- flash = true,
           gitsigns = true,
           harpoon = true,
           headlines = true,
           illuminate = true,
-          -- lsp_trouble = true,
+          lsp_trouble = true,
           mason = true,
           native_lsp = {
             enabled = true,
@@ -70,10 +91,9 @@ return {
             },
           },
           navic = { enabled = true, custom_bg = 'NONE' },
-          -- neotest = true,
           noice = true,
           notify = true,
-          -- neotree = true,
+          neotree = true,
           rainbow_delimiters = true,
           semantic_tokens = true,
           telescope = true,
