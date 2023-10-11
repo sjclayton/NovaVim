@@ -16,7 +16,7 @@ return {
     },
     config = function()
       local fn = vim.fn
-      local marginTopPercent = 0.50
+      local marginTopPercent = 0.48
       local verticalPad = fn.max({ 2, fn.floor(fn.winheight(0) * marginTopPercent) })
 
       require('noice').setup({
@@ -62,6 +62,22 @@ return {
             win_options = {
               winhighlight = { Normal = 'Normal', FloatBorder = 'NoiceCmdlinePopupBorder' },
             },
+          },
+        },
+        routes = {
+          {
+            filter = {
+              event = 'msg_show',
+              kind = 'emsg',
+              find = 'No buffers were deleted',
+            },
+            opts = { skip = true },
+          },
+          {
+            filter = {
+              find = 'hlchunk',
+            },
+            opts = { skip = true, title = 'lazy.nvim' },
           },
         },
       })
