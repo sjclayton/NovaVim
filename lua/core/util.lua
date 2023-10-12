@@ -89,7 +89,7 @@ function M.get_signs(buf, lnum)
   )
   for _, extmark in pairs(extmarks) do
     signs[#signs + 1] = {
-      name = extmark[4].sign_hl_group,
+      name = extmark[4].sign_hl_group or '',
       text = extmark[4].sign_text,
       texthl = extmark[4].sign_hl_group,
       priority = extmark[4].priority,
@@ -108,7 +108,7 @@ function M.get_mark(buf, lnum)
   local marks = vim.fn.getmarklist(buf)
   vim.list_extend(marks, vim.fn.getmarklist())
   for _, mark in ipairs(marks) do
-    if mark.pos[2] == lnum and mark.mark:match('[a-zA-Z]') then
+    if mark.pos[1] == buf and mark.pos[2] == lnum and mark.mark:match('[a-zA-Z]') then
       return { text = mark.mark:sub(2), texthl = 'DiagnosticHint' }
     end
   end
@@ -145,7 +145,7 @@ function M.load(name)
   end
   _load('core.' .. name)
   if vim.bo.filetype == 'lazy' then
-    -- HACK: NovaVim may have overwritten options of the Lazy UI, so reset this here
+    -- NOTE: NovaVim may have overwritten options of the Lazy UI, so reset this here
     vim.cmd([[do VimResized]])
   end
   local pattern = 'NovaVim' .. name:sub(1, 1):upper() .. name:sub(2)
@@ -161,6 +161,26 @@ function M.on_attach(on_attach)
       on_attach(client, buffer)
     end,
   })
+end
+
+function M.on_rename(from, to)
+  local clients = M.get_clients()
+  for _, client in ipairs(clients) do
+    if client.supports_method('workspace/willRenameFiles') then
+      ---@diagnostic disable-next-line: invisible
+      local resp = client.request_sync('workspace/willRenameFiles', {
+        files = {
+          {
+            oldUri = vim.uri_from_fname(from),
+            newUri = vim.uri_from_fname(to),
+          },
+        },
+      }, 1000, 0)
+      if resp and resp.result ~= nil then
+        vim.lsp.util.apply_workspace_edit(resp.result, client.offset_encoding)
+      end
+    end
+  end
 end
 
 ---@param fn fun()
@@ -220,7 +240,7 @@ function M.statuscolumn()
   ---@type Sign?,Sign?,Sign?
   local left, right, fold
   for _, s in ipairs(M.get_signs(buf, vim.v.lnum)) do
-    if s.name:find('GitSign') then
+    if s.name and s.name:find('GitSign') then
       right = s
     else
       left = s
@@ -298,7 +318,7 @@ function M.get_active_lsp_client_names()
   return client_names
 end
 
-function M.get_lsp_status_str()
+function M.lsp_clients()
   local clients = M.get_active_lsp_client_names()
   local client_str = ''
 

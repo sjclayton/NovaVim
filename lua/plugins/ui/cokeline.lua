@@ -197,8 +197,8 @@ return {
         end,
         bold = true,
         truncation = { priority = 1 },
-        on_click = function()
-          vim.cmd('Bdelete')
+        on_click = function(_, _, _, _, buffer)
+          buffer:delete()
         end,
       }
 
@@ -294,6 +294,9 @@ return {
                 else
                   return 'Sidebar'
                 end
+              end,
+              bold = function(buffer)
+                return buffer.is_focused
               end,
               fg = function(buffer)
                 if buffer.is_focused then

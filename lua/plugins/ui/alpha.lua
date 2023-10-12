@@ -194,7 +194,6 @@ return {
       },
     }
 
-    vim.o.laststatus = 0
     alpha.setup(config)
   end,
 }

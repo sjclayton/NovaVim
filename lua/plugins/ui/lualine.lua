@@ -14,7 +14,12 @@ return {
       'nvim-tree/nvim-web-devicons',
       -- 'nvim-telescope/telescope.nvim', -- Switch filetype and git branches
     },
+    init = function()
+      vim.g.lualine_laststatus = vim.o.laststatus
+      vim.o.laststatus = 0
+    end,
     config = function()
+      vim.o.laststatus = vim.g.lualine_laststatus
       require('lualine').setup({
         options = {
           icons_enabled = true,
@@ -54,8 +59,6 @@ return {
                   return 'Keyword'
                 elseif vim.g.colors_name == 'catppuccin-macchiato' then
                   return 'Keyword'
-                else
-                  return nil
                 end
               end,
             },
@@ -63,11 +66,11 @@ return {
           lualine_y = {
             'diagnostics',
             {
-              util.get_lsp_status_str,
+              util.lsp_clients,
               icon = icons.ui.Gear,
               color = { fg = colors.get_palette(mocha).subtext1 },
               on_click = function()
-                vim.cmd(':LspInfo')
+                vim.cmd('LspInfo')
               end,
             },
             {
@@ -96,7 +99,7 @@ return {
           lualine_y = {},
           lualine_z = {},
         },
-        extensions = { 'lazy' },
+        extensions = { 'neo-tree', 'lazy' },
       })
     end,
   },
