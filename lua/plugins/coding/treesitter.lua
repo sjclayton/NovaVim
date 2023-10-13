@@ -1,8 +1,8 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    event = { 'BufReadPost', 'BufNewFile', 'VeryLazy' },
-    dependencies = { 'HiPhish/rainbow-delimiters.nvim' },
+    event = { 'BufReadPost', 'BufNewFile' },
+    dependencies = { 'HiPhish/rainbow-delimiters.nvim', 'nvim-treesitter/nvim-treesitter-context' },
     build = ':TSUpdate',
     config = function()
       -- import nvim-treesitter plugin
@@ -57,6 +57,13 @@ return {
         sync_install = false,
         -- auto install above language parsers
         auto_install = true,
+      })
+
+      -- TS-context config
+      local context = require('treesitter-context')
+
+      context.setup({
+        max_lines = 3,
       })
 
       -- Rainbow delimiters config
