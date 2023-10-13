@@ -1,10 +1,11 @@
 return {
   {
     'willothy/nvim-cokeline',
-    event = 'VeryLazy',
+    event = { 'BufReadPost', 'BufNewFile' },
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons' },
     config = function()
       local icons = require('core.icons')
+      local harpoon = require('harpoon.mark')
       local mappings = require('cokeline.mappings')
       local get_hex = require('cokeline.hlgroups').get_hl_attr
 
@@ -166,7 +167,6 @@ return {
 
       local HarpoonIdx = {
         text = function(buffer)
-          local harpoon = require('harpoon.mark')
           local marked = harpoon.status()
           local idx = harpoon.get_index_of(buffer.path)
 
@@ -209,7 +209,7 @@ return {
         local function marknum(buf, force)
           local b = cache[buf.number]
           if b == nil or force then
-            b = require('harpoon.mark').get_index_of(buf.path)
+            b = harpoon.get_index_of(buf.path)
             cache[buf.number] = b
           end
           return b
@@ -226,7 +226,7 @@ return {
           if not has_harpoon then
             return a._valid_index < b._valid_index
           elseif not setup then
-            require('harpoon.mark').on('changed', function()
+            harpoon.on('changed', function()
               for _, buf in ipairs(require('cokeline.buffers').get_visible()) do
                 cache[buf.number] = marknum(buf, true)
               end
