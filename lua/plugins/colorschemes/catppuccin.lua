@@ -41,6 +41,9 @@ return {
 
             -- Nvim-Notify
             NotifyBackground = { bg = C.base },
+
+            -- Treesitter-Context
+            TreesitterContextBottom = { sp = C.surface2, style = { 'underline' } },
           }
         end,
         mocha = function(mocha)
@@ -73,6 +76,9 @@ return {
 
             -- Nvim-Notify
             NotifyBackground = { bg = C.base },
+
+            -- Treesitter-Context
+            TreesitterContextBottom = { sp = C.surface2, style = { 'underline' } },
           }
         end,
       },
@@ -103,6 +109,7 @@ return {
         semantic_tokens = true,
         telescope = true,
         treesitter = true,
+        treesitter_context = true,
         which_key = true,
       },
     })
