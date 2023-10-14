@@ -51,7 +51,14 @@ return {
           lualine_x = {
             { require('lazy.status').updates, cond = require('lazy.status').has_updates, color = util.fg('Special') },
             {
-              require('nomodoro').status,
+              function()
+                if package.loaded['nomodoro'] then
+                  local nomo = require('nomodoro').status()
+                  return nomo
+                else
+                  return ''
+                end
+              end,
               color = function()
                 if vim.g.colors_name == 'rose-pine' then
                   return util.fg('Keyword')

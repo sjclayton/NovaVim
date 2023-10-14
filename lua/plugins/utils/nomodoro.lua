@@ -1,17 +1,15 @@
 return {
   {
     'dbinagi/nomodoro',
-    event = 'VeryLazy',
+    keys = {
+      { '<leader>nw', '<cmd>NomoWork<cr>', desc = 'Nomo - Start Work', noremap = true },
+      { '<leader>nb', '<cmd>NomoBreak<cr>', desc = 'Nomo - Start Break', noremap = true },
+      { '<leader>ns', '<cmd>NomoStop<cr>', desc = 'Nomo - Stop Timer', noremap = true },
+    },
     dependencies = {
       'MunifTanjim/nui.nvim',
     },
     config = function()
-      local map = require('core.helpers').map
-
-      map('n', '<leader>nb', '<cmd>NomoBreak<cr>', { desc = 'Nomo - Start Break' })
-      map('n', '<leader>ns', '<cmd>NomoStop<cr>', { desc = 'Nomo - Stop Timer' })
-      map('n', '<leader>nw', '<cmd>NomoWork<cr>', { desc = 'Nomo - Start Work' })
-
       require('nomodoro').setup({
         work_time = 25,
         break_time = 5,
