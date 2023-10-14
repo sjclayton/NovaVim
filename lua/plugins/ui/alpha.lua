@@ -98,7 +98,8 @@ return {
       vim.api.nvim_buf_set_keymap(0, 'n', 'q', '<cmd>q<CR>', keybind_opts)
 
       -- NOTE: This is a mess, if you add or remove shortcuts the table below will have to be played around with
-      -- to get the color highlights to look right.
+      -- to get the color highlights to look right. The values assigned to each highlight group are dependant on
+      -- the length of characters in the line.
       local buttons_hl = {
         { 'AlphaButtons', 0, 20 },
         { 'AlphaShortcut', 21, 23 },
@@ -106,7 +107,7 @@ return {
         { 'AlphaButtons', 30, 49 },
         { 'AlphaShortcut', 51, 55 },
         { 'Comment', 56, 62 },
-        { 'AlphaButtons', 63, 83 },
+        { 'AlphaButtons', 63, 84 },
         { 'AlphaShortcut', 84, 89 },
       }
 
