@@ -18,16 +18,23 @@ end
 
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
+local util = require('core.util')
+
+util.lazy_file()
+
 require('lazy').setup('plugins', {
   defaults = {
-    lazy = true,
+    lazy = true, -- lazy load everything
     version = false,
+  },
+  change_detection = {
+    notify = false,
   },
   checker = {
     -- automatically check for plugin updates
     enabled = true,
     notify = true, -- get a notification when new updates are found
-    frequency = 10800, -- check for updates every 3 hours
+    frequency = 43200, -- check for updates every 12 hours
   },
   ui = {
     border = 'rounded',
