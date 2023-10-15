@@ -1,13 +1,15 @@
 return {
   {
     'RRethy/vim-illuminate',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = 'LazyFile',
     opts = {
       providers = {
         'lsp',
         'treesitter',
+        'regex',
       },
       filetypes_denylist = {
+        'alpha',
         'dirbuf',
         'dirvish',
         'fugitive',
@@ -16,8 +18,11 @@ return {
         'markdown.cody_history',
         'markdown.cody_prompt',
         'Mason',
+        'neo-tree',
         'noice',
+        'suitui',
         'TelescopePrompt',
+        'Trouble',
       },
       delay = 200,
       large_file_cutoff = 2000,
