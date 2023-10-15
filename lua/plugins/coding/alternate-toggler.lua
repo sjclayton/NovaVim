@@ -1,7 +1,14 @@
 return {
   {
     'rmagatti/alternate-toggler',
-    event = 'BufReadPost',
+    keys = {
+      {
+        '<CR>',
+        "<cmd>lua require('alternate-toggler').toggleAlternate()<cr>",
+        desc = 'Toggle alternate',
+        noremap = true,
+      },
+    },
     config = function()
       require('alternate-toggler').setup({
         alternates = {
@@ -26,12 +33,6 @@ return {
           ['==='] = '!==',
         },
       })
-      vim.keymap.set(
-        'n',
-        '<cr>',
-        "<cmd>lua require('alternate-toggler').toggleAlternate()<CR>",
-        { desc = 'Toggle alternate' }
-      )
     end,
   },
 }
