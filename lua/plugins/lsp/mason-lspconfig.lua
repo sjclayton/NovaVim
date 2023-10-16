@@ -2,10 +2,8 @@ return {
   {
     'williamboman/mason-lspconfig.nvim',
     config = function()
-      local mason_lspconfig = require('mason-lspconfig')
-
-      mason_lspconfig.setup({
-        -- list of servers for mason to install
+      require('mason-lspconfig').setup({
+        -- List of language servers for mason to automatically install
         ensure_installed = {
           'bashls',
           'cssls',
@@ -13,10 +11,9 @@ return {
           'html',
           'lua_ls',
           'pylsp',
-          'rust_analyzer',
           'tsserver',
         },
-        -- auto-install configured servers (with lspconfig)
+        -- Auto-install configured servers (with lspconfig)
         automatic_installation = true, -- not the same as ensure_installed
       })
     end,
