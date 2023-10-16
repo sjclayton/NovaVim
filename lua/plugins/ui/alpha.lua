@@ -68,34 +68,36 @@ return {
 
     local function buttons()
       local keybind_opts = { silent = true, noremap = true }
-      -- General
-      vim.api.nvim_buf_set_keymap(0, 'n', 'n', ':ene <BAR> startinsert <CR>', keybind_opts)
+      if vim.bo.filetype == 'alpha' then
+        -- General
+        vim.api.nvim_buf_set_keymap(0, 'n', 'n', ':ene <BAR> startinsert <CR>', keybind_opts)
 
-      -- Harpoon
-      vim.api.nvim_buf_set_keymap(0, 'n', 'h', ':lua require("harpoon.ui").toggle_quick_menu()<cr>', keybind_opts)
+        -- Harpoon
+        vim.api.nvim_buf_set_keymap(0, 'n', 'h', ':lua require("harpoon.ui").toggle_quick_menu()<cr>', keybind_opts)
 
-      -- Neo-tree
-      vim.api.nvim_buf_set_keymap(
-        0,
-        'n',
-        'e',
-        ':lua require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })<cr>',
-        keybind_opts
-      )
+        -- Neo-tree
+        vim.api.nvim_buf_set_keymap(
+          0,
+          'n',
+          'e',
+          ':lua require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })<cr>',
+          keybind_opts
+        )
 
-      -- Telescope
-      vim.api.nvim_buf_set_keymap(0, 'n', 'j', ':Telescope oldfiles<CR>', keybind_opts)
-      vim.api.nvim_buf_set_keymap(0, 'n', 'k', ':lua require"core.helpers".project_files() <CR>', keybind_opts)
+        -- Telescope
+        vim.api.nvim_buf_set_keymap(0, 'n', 'j', ':Telescope oldfiles<CR>', keybind_opts)
+        vim.api.nvim_buf_set_keymap(0, 'n', 'k', ':lua require"core.helpers".project_files() <CR>', keybind_opts)
 
-      -- Lazy
-      vim.api.nvim_buf_set_keymap(0, 'n', 'l', ':Lazy update<CR>', keybind_opts)
+        -- Lazy
+        vim.api.nvim_buf_set_keymap(0, 'n', 'l', ':Lazy update<CR>', keybind_opts)
 
-      -- Configs
-      vim.api.nvim_buf_set_keymap(0, 'n', 'm', ':e ~/.config/NovaVim/lua/core/keymaps.lua<CR>', keybind_opts)
-      vim.api.nvim_buf_set_keymap(0, 'n', 'o', ':e ~/.config/NovaVim/lua/core/options.lua<CR>', keybind_opts)
+        -- Configs
+        vim.api.nvim_buf_set_keymap(0, 'n', 'm', ':e ~/.config/NovaVim/lua/core/keymaps.lua<CR>', keybind_opts)
+        vim.api.nvim_buf_set_keymap(0, 'n', 'o', ':e ~/.config/NovaVim/lua/core/options.lua<CR>', keybind_opts)
 
-      -- Quit
-      vim.api.nvim_buf_set_keymap(0, 'n', 'q', '<cmd>q<CR>', keybind_opts)
+        -- Quit
+        vim.api.nvim_buf_set_keymap(0, 'n', 'q', '<cmd>q<CR>', keybind_opts)
+      end
 
       -- NOTE: This is a mess, if you add or remove shortcuts the table below will have to be played around with
       -- to get the color highlights to look right. The values assigned to each highlight group are dependant on
