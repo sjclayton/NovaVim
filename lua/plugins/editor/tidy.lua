@@ -1,9 +1,9 @@
 return {
   {
     'mcauley-penney/tidy.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = 'LazyFile',
     opts = {
-      filetype_exclude = { 'markdown', 'diff' },
+      filetype_exclude = { 'diff', 'gitcommit', 'markdown' },
     },
   },
 }
