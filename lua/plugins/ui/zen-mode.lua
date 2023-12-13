@@ -10,7 +10,7 @@ return {
       -- refer to the configuration section below
       zindex = 20,
       window = {
-        backdrop = 1,
+        backdrop = 0.90,
         width = 0.75,
       },
       plugins = {

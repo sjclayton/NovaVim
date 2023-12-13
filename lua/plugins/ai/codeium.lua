@@ -7,7 +7,7 @@ return {
         function()
           require('core.helpers').toggle('Codeium', { enable = 'CodeiumEnable', disable = 'CodeiumDisable' })
         end,
-        desc = 'Toggle Codeium AI',
+        desc = 'Toggle Codeium completion',
         noremap = true,
       },
     },

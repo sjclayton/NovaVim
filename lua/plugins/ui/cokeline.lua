@@ -1,7 +1,7 @@
 return {
   {
     'willothy/nvim-cokeline',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons' },
     config = function()
       local icons = require('core.icons')

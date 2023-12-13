@@ -2,7 +2,8 @@ local toggle = require('core.helpers').toggle
 
 return {
   'shellRaining/hlchunk.nvim',
-  event = { 'BufReadPost', 'BufNewFile' },
+  event = 'LazyFile',
+  -- event = { 'BufReadPost', 'BufNewFile' },
   keys = {
     {
       '<leader>ub',

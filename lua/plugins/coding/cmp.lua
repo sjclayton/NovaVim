@@ -24,6 +24,10 @@ return {
       --- @diagnostic disable-next-line : missing-fields
       cmp.setup({
         --- @diagnostic disable-next-line : missing-fields
+        performance = {
+          debounce = 150,
+        },
+        --- @diagnostic disable-next-line : missing-fields
         completion = {
           completeopt = 'menuone,preview,noselect',
         },
@@ -60,6 +64,7 @@ return {
         --- @diagnostic disable-next-line : missing-fields
         formatting = {
           format = lspkind.cmp_format({
+            menu = {},
             maxwidth = 50,
             ellipsis_char = '...',
           }),

@@ -26,10 +26,10 @@ util.lazy_notify()
 
 -- NOTE: Set your chosen colorscheme on the line below.
 -- Make sure the plugin spec for your colorscheme has a priority of 1000 or higher.
-M.Colorscheme = 'catppuccin'
+M.Colorscheme = 'rose-pine'
 -- NOTE: Define any specific variant of your chosen colorscheme in its corresponding plugin spec or
 -- set it directly on the line below.
-M.Colorscheme_variant = 'catppuccin-mocha'
+M.Colorscheme_variant = 'rose-pine-moon'
 
 if util.has(M.Colorscheme) then
   require(M.Colorscheme)

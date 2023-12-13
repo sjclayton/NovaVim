@@ -13,13 +13,17 @@ return {
 
         -- Golang
         'gofumpt',
+        'goimports',
         'goimports-reviser',
+        'gomodifytags',
+        'impl',
 
         -- Lua
         'stylua',
       },
       ui = {
         border = 'rounded',
+        height = 0.80,
       },
     },
     config = function(_, opts)

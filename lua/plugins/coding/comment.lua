@@ -1,6 +1,7 @@
 return {
   'numToStr/Comment.nvim',
-  event = { 'BufReadPre', 'BufNewFile' },
+  event = 'VeryLazy',
+  -- event = { 'BufReadPost', 'BufNewFile' },
   dependencies = {},
   config = function()
     -- import comment plugin safely

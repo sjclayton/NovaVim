@@ -24,7 +24,9 @@ function M.foldtext()
   if not ret or type(ret) == 'string' then
     ret = { { vim.api.nvim_buf_get_lines(0, vim.v.lnum - 1, vim.v.lnum, false)[1], {} } }
   end
-  table.insert(ret, { ' ' .. require('core.icons').ui.Dots })
+  table.insert(ret, {
+    ' ' --[[ .. require('core.icons').ui.Dots  ]],
+  })
 
   if not vim.treesitter.foldtext then
     return table.concat(
@@ -35,6 +37,44 @@ function M.foldtext()
     )
   end
   return ret
+end
+
+M.skip_foldexpr = {} ---@type table<number,boolean>
+local skip_check = assert(vim.loop.new_check())
+
+function M.foldexpr()
+  local buf = vim.api.nvim_get_current_buf()
+
+  -- still in the same tick and no parser
+  if M.skip_foldexpr[buf] then
+    return '0'
+  end
+
+  -- don't use treesitter folds for non-file buffers
+  if vim.bo[buf].buftype ~= '' then
+    return '0'
+  end
+
+  -- as long as we don't have a filetype, don't bother
+  -- checking if treesitter is available (it won't)
+  if vim.bo[buf].filetype == '' then
+    return '0'
+  end
+
+  local ok = pcall(vim.treesitter.get_parser, buf)
+
+  if ok then
+    return vim.treesitter.foldexpr()
+  end
+
+  -- no parser available, so mark it as skip
+  -- in the next tick, all skip marks will be reset
+  M.skip_foldexpr[buf] = true
+  skip_check:start(function()
+    M.skip_foldexpr = {}
+    skip_check:stop()
+  end)
+  return '0'
 end
 
 function M.get_mark(buf, lnum)
@@ -83,6 +123,7 @@ function M.get_root()
 end
 
 ---@alias Sign {name:string, text:string, texthl:string, priority:number}
+
 -- Returns a list of regular and extmark signs sorted by priority (low to high)
 ---@return Sign[]
 ---@param buf number
@@ -90,12 +131,19 @@ end
 function M.get_signs(buf, lnum)
   -- Get regular signs
   ---@type Sign[]
-  local signs = vim.tbl_map(function(sign)
-    ---@type Sign
-    local ret = vim.fn.sign_getdefined(sign.name)[1]
-    ret.priority = sign.priority
-    return ret
-  end, vim.fn.sign_getplaced(buf, { group = '*', lnum = lnum })[1].signs)
+  local signs = {}
+
+  if vim.fn.has('nvim-0.10') == 0 then
+    -- Only needed for Neovim <0.10
+    -- Newer versions include legacy signs in nvim_buf_get_extmarks
+    for _, sign in ipairs(vim.fn.sign_getplaced(buf, { group = '*', lnum = lnum })[1].signs) do
+      local ret = vim.fn.sign_getdefined(sign.name)[1] --[[@as Sign]]
+      if ret then
+        ret.priority = sign.priority
+        signs[#signs + 1] = ret
+      end
+    end
+  end
 
   -- Get extmark signs
   local extmarks = vim.api.nvim_buf_get_extmarks(
@@ -155,10 +203,12 @@ function M.lazy_file()
 
   local events = {} ---@type {event: string, buf: number, data?: any}[]
 
+  local done = false
   local function load()
-    if #events == 0 then
+    if #events == 0 or done then
       return
     end
+    done = true
     vim.api.nvim_del_augroup_by_name('lazy_file')
 
     ---@type table<string,string[]>
@@ -169,17 +219,19 @@ function M.lazy_file()
 
     vim.api.nvim_exec_autocmds('User', { pattern = 'LazyFile', modeline = false })
     for _, event in ipairs(events) do
-      Event.trigger({
-        event = event.event,
-        exclude = skips[event.event],
-        data = event.data,
-        buf = event.buf,
-      })
-      if vim.bo[event.buf].filetype then
+      if vim.api.nvim_buf_is_valid(event.buf) then
         Event.trigger({
-          event = 'FileType',
+          event = event.event,
+          exclude = skips[event.event],
+          data = event.data,
           buf = event.buf,
         })
+        if vim.bo[event.buf].filetype then
+          Event.trigger({
+            event = 'FileType',
+            buf = event.buf,
+          })
+        end
       end
     end
     vim.api.nvim_exec_autocmds('CursorMoved', { modeline = false })
@@ -228,7 +280,7 @@ end
 function M.on_attach(on_attach)
   vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
-      local buffer = args.buf
+      local buffer = args.buf ---@type number
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       on_attach(client, buffer)
     end,
@@ -304,38 +356,50 @@ end
 
 function M.statuscolumn()
   local win = vim.g.statusline_winid
-  if vim.wo[win].signcolumn == 'no' then
-    return ''
-  end
   local buf = vim.api.nvim_win_get_buf(win)
+  local is_file = vim.bo[buf].buftype == ''
+  local show_signs = vim.wo[win].signcolumn ~= 'no'
 
-  ---@type Sign?,Sign?,Sign?
-  local left, right, fold
-  for _, s in ipairs(M.get_signs(buf, vim.v.lnum)) do
-    if s.name and s.name:find('GitSign') then
-      right = s
+  local components = { '', '', '' } -- left, middle, right
+
+  if show_signs then
+    ---@type Sign?,Sign?,Sign?
+    local left, right, fold
+    for _, s in ipairs(M.get_signs(buf, vim.v.lnum)) do
+      if s.name and s.name:find('GitSign') then
+        right = s
+      else
+        left = s
+      end
+    end
+    if vim.v.virtnum ~= 0 then
+      left = nil
+    end
+    vim.api.nvim_win_call(win, function()
+      if vim.fn.foldclosed(vim.v.lnum) >= 0 then
+        fold = { text = vim.opt.fillchars:get().foldclose or '', texthl = 'Folded' }
+      end
+    end)
+    -- Left: mark or non-git sign
+    components[1] = M.icon(M.get_mark(buf, vim.v.lnum) or left)
+    -- Right: fold icon or git sign (only if file)
+    components[3] = is_file and M.icon(fold or right) or ''
+  end
+
+  -- Numbers in Neovim are weird
+  -- They show when either number or relativenumber is true
+  local is_num = vim.wo[win].number
+  local is_relnum = vim.wo[win].relativenumber
+  if (is_num or is_relnum) and vim.v.virtnum == 0 then
+    if vim.v.relnum == 0 then
+      components[2] = is_num and '%l' or '%r' -- the current line
     else
-      left = s
+      components[2] = is_relnum and '%r' or '%l' -- other lines
     end
+    components[2] = '%=' .. components[2] .. ' ' -- right align
   end
 
-  vim.api.nvim_win_call(win, function()
-    if vim.fn.foldclosed(vim.v.lnum) >= 0 then
-      fold = { text = vim.opt.fillchars:get().foldclose or '', texthl = 'Folded' }
-    end
-  end)
-
-  local nu = ''
-  if vim.wo[win].number and vim.v.virtnum == 0 then
-    nu = vim.wo[win].relativenumber and vim.v.relnum ~= 0 and vim.v.relnum or vim.v.lnum
-  end
-
-  return table.concat({
-    M.icon(M.get_mark(buf, vim.v.lnum) or left),
-    [[%=]],
-    nu .. ' ',
-    M.icon(fold or right),
-  }, '')
+  return table.concat(components, '')
 end
 
 -- this will return a function that calls telescope.

@@ -3,12 +3,10 @@ local util = require('core.util')
 return {
   {
     'nvim-telescope/telescope.nvim',
-    lazy = true,
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     },
-    branch = '0.1.x',
     cmd = 'Telescope',
     config = function()
       require('telescope').setup({
@@ -44,9 +42,9 @@ return {
         '<leader>uC',
         function()
           vim.api.nvim_exec_autocmds('User', { pattern = 'ColorSchemeLoad' })
-          require('telescope.builtin').colorscheme({ enable_preview = true })
+          vim.cmd('Telescope colorscheme')
         end,
-        desc = 'Colorscheme with preview',
+        desc = 'Switch colorscheme',
         noremap = true,
       },
     },

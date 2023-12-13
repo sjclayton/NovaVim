@@ -5,19 +5,25 @@ g.mapleader = ' '
 g.maplocalleader = '\\'
 g.markdown_recommended_style = 0
 
+g.zig_fmt_autosave = 0
+
 o.backup = false
 o.clipboard = 'unnamedplus'
+o.colorcolumn = '120'
 o.conceallevel = 3
 o.confirm = true
 o.cursorline = true
 o.expandtab = true
 o.fillchars = { eob = ' ' }
-o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+o.foldexpr = "v:lua.vim.require'core.util'.foldexpr()"
 o.foldlevel = 99
 o.foldmethod = 'expr'
 o.foldtext = "v:lua.require'core.util'.foldtext()"
+-- TODO: Uncomment this when conform.nvim is setup and the function has been added to core.util
+-- o.formatexpr = "v:lua.require'core.util'.formatexpr()"
 o.guicursor = ''
 o.laststatus = 3
+o.lazyredraw = false
 o.listchars = { extends = '→', lead = '․', nbsp = '␣', precedes = '←', tab = '¬ ' }
 o.mouse = 'a'
 o.mousemodel = 'extend'
@@ -29,6 +35,7 @@ o.relativenumber = true
 o.ruler = false
 o.scrolloff = 8
 o.shiftwidth = 4
+o.shortmess:append('IWs')
 o.sidescroll = 8
 o.signcolumn = 'yes'
 o.smartcase = true

@@ -42,6 +42,16 @@ return {
                 modified = icons.git.Mod,
                 removed = icons.git.Remove,
               },
+              source = function()
+                local gitsigns = vim.b.gitsigns_status_dict
+                if gitsigns then
+                  return {
+                    added = gitsigns.added,
+                    modified = gitsigns.changed,
+                    removed = gitsigns.removed,
+                  }
+                end
+              end,
             },
           },
           lualine_c = {
@@ -53,8 +63,7 @@ return {
             {
               function()
                 if package.loaded['nomodoro'] then
-                  local nomo = require('nomodoro').status()
-                  return nomo
+                  return require('nomodoro').status()
                 else
                   return ''
                 end
@@ -66,6 +75,8 @@ return {
                   return 'Keyword'
                 elseif vim.g.colors_name == 'catppuccin-macchiato' then
                   return 'Keyword'
+                else
+                  return nil
                 end
               end,
             },
@@ -106,7 +117,7 @@ return {
           lualine_y = {},
           lualine_z = {},
         },
-        extensions = { 'neo-tree', 'lazy' },
+        extensions = { 'lazy', 'mason', 'neo-tree', 'trouble' },
       })
     end,
   },

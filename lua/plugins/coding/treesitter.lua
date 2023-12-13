@@ -1,9 +1,14 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = { 'LazyFile', 'VeryLazy' },
+    version = false,
     dependencies = { 'HiPhish/rainbow-delimiters.nvim', 'nvim-treesitter/nvim-treesitter-context' },
     build = ':TSUpdate',
+    init = function(plugin)
+      require('lazy.core.loader').add_to_rtp(plugin)
+      require('nvim-treesitter.query_predicates')
+    end,
     config = function()
       -- import nvim-treesitter plugin
       local treesitter = require('nvim-treesitter.configs')
@@ -13,6 +18,7 @@ return {
         -- enable syntax highlighting
         highlight = {
           enable = true,
+          disable = { 'zig' },
         },
         -- disable indentation
         indent = { enable = false },
@@ -21,7 +27,7 @@ return {
         ensure_installed = {
           'bash',
           'c',
-          'comment',
+          -- 'comment',
           'css',
           'csv',
           'diff',
@@ -47,11 +53,11 @@ return {
           'rust',
           'scss',
           'toml',
-          'tsx',
           'typescript',
           'vim',
           'xml',
           'yaml',
+          'zig',
         },
         modules = {},
         sync_install = false,
@@ -64,6 +70,7 @@ return {
 
       context.setup({
         max_lines = 3,
+        zindex = 25,
       })
 
       -- Rainbow delimiters config

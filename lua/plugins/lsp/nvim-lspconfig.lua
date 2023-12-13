@@ -1,11 +1,19 @@
 return {
   'neovim/nvim-lspconfig',
-  event = { 'BufReadPost', 'BufNewFile' },
+  event = 'LazyFile',
+  -- event = { 'BufReadPost', 'BufNewFile' },
   dependencies = {
+    { 'folke/neodev.nvim', opts = {} },
+    {
+      'simrat39/rust-tools.nvim',
+      keys = {
+        { '<leader>rh', '<cmd>RustHoverActions<cr>', desc = 'Hover Docs (Rust)' },
+        { '<leader>ra', '<cmd>RustCodeAction<cr>', desc = 'Code Action (Rust)' },
+        { '<leader>rd', '<cmd>RustDebuggables<cr>', desc = 'Run Debuggables (Rust)' },
+      },
+    },
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
-    -- { 'antosha417/nvim-lsp-file-operations', config = true },
-    { 'folke/neodev.nvim', opts = {} },
     {
       'hrsh7th/cmp-nvim-lsp',
       cond = function()
@@ -42,7 +50,7 @@ return {
     })
 
     -- Use built-in formatting for these LSP servers
-    local builtin_format = { 'pylsp' }
+    local builtin_format = { 'pylsp', 'zls' }
 
     local lsp_formatting = function(bufnr)
       vim.lsp.buf.format({
@@ -89,7 +97,8 @@ return {
       map('n', 'gt', '<cmd>Telescope lsp_type_definitions<CR>', opts)
 
       opts.desc = 'See available code actions'
-      map({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+      -- see available code actions, in visual mode will apply to selection
+      map({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
 
       opts.desc = 'Smart rename'
       map('n', '<leader>rn', vim.lsp.buf.rename, opts)
@@ -106,13 +115,28 @@ return {
       opts.desc = 'Go to next diagnostic'
       map('n', ']d', vim.diagnostic.goto_next, opts)
 
-      opts.desc = 'Show documentation for what is under cursor'
+      opts.desc = 'Show hover documentation'
       map('n', 'K', vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
       opts.desc = 'Toggle Inlay Hints'
-      map('n', '<leader>ci', function()
-        vim.lsp.inlay_hint(0, nil)
-      end, opts)
+      if vim.bo[bufnr].filetype == 'rust' then
+        map('n', '<leader>ci', function()
+          require('core.helpers').toggle(
+            'Inlay hints',
+            { enable = 'RustDisableInlayHints', disable = 'RustEnableInlayHints' }
+          )
+        end, opts)
+      else
+        map('n', '<leader>ci', function()
+          bufnr = bufnr or 0
+          local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+          if inlay_hint.enable then
+            vim.lsp.inlay_hint.enable(bufnr, not inlay_hint.is_enabled())
+          else
+            vim.lsp.inlay_hint(bufnr, nil)
+          end
+        end, opts)
+      end
 
       opts.desc = 'Format file'
       map('n', '<leader>cf', function()
@@ -149,10 +173,11 @@ return {
     lspconfig['gopls'].setup({
       capabilities = capabilities,
       on_attach = on_attach,
+      flags = { debounce_text_changes = 150 },
       --- @diagnostic disable-next-line : unused-local
-      require('core.util').on_attach(function(client, bufnr)
+      require('core.util').on_attach(function(client, _)
         if client.name == 'gopls' then
-          -- NOTE: Workaround to hl semanticTokens -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
+          -- HACK: Workaround to hl semanticTokens -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
           if not client.server_capabilities.semanticTokensProvider then
             local semantic = client.config.capabilities.textDocument.semanticTokens
             client.server_capabilities.semanticTokensProvider = {
@@ -168,11 +193,17 @@ return {
       end),
       settings = {
         gopls = {
-          semanticTokens = true,
-          completeUnimported = true,
-          usePlaceholders = true,
-          analyses = { unusedparams = true },
-          staticcheck = true,
+          gofumpt = true,
+          codelenses = {
+            gc_details = false,
+            generate = true,
+            regenerate_cgo = true,
+            run_govulncheck = true,
+            test = true,
+            tidy = true,
+            upgrade_dependency = true,
+            vendor = true,
+          },
           hints = {
             assignVariableTypes = true,
             compositeLiteralFields = true,
@@ -182,9 +213,20 @@ return {
             parameterNames = true,
             rangeVariableTypes = true,
           },
+          analyses = {
+            fieldalignment = true,
+            nilness = true,
+            unusedparams = true,
+            unusedwrite = true,
+            useany = true,
+          },
+          usePlaceholders = true,
+          completeUnimported = true,
+          staticcheck = true,
+          directoryFilters = { '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules' },
+          semanticTokens = true,
         },
       },
-      init_options = { usePlaceholders = true },
       filetypes = { 'go', 'gomod' },
     })
 
@@ -211,6 +253,9 @@ return {
               enabled = true,
               line_length = 119,
             },
+            pyls_isort = {
+              enabled = true,
+            },
             flake8 = {
               enabled = true,
               maxLineLength = 119,
@@ -218,10 +263,19 @@ return {
             mypy = {
               enabled = true,
             },
+            mccabe = {
+              enabled = false,
+            },
+            autopep8 = {
+              enabled = false,
+            },
             pycodestyle = {
               enabled = false,
             },
             pyflakes = {
+              enabled = false,
+            },
+            yapf = {
               enabled = false,
             },
           },
@@ -273,27 +327,68 @@ return {
       on_attach = on_attach,
       settings = { -- custom settings for lua
         Lua = {
-          -- make the language server recognize "vim" global
-          diagnostics = {
-            globals = { 'vim' },
-          },
           format = { enable = false },
           hint = {
             enable = true,
             arrayIndex = 'Disable',
           },
           workspace = {
-            checkThirdParty = false,
+            maxPreload = 1500,
+            checkThirdParty = 'Disable',
+          },
+        },
+      },
+    })
+
+    --configure zig server
+    lspconfig['zls'].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+
+    -- rust-tools config
+    vim.g.rustfmt_autosave = 1
+
+    local rt = require('rust-tools')
+    rt.setup({
+      tools = {
+        hover_actions = {
+          auto_focus = true,
+        },
+      },
+      server = {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        -- standalone file support
+        -- setting it to false may improve startup time
+        standalone = true,
+        cargo = {
+          allFeatures = true,
+          loadOutDirsFromCheck = true,
+          runBuildScripts = true,
+        },
+        -- Add clippy lints for Rust.
+        checkOnSave = {
+          allFeatures = true,
+          command = 'clippy',
+          extraArgs = { '--no-deps' },
+        },
+        procMacro = {
+          enable = true,
+          ignored = {
+            ['async-trait'] = { 'async_trait' },
+            ['napi-derive'] = { 'napi' },
+            ['async-recursion'] = { 'async_recursion' },
           },
         },
       },
     })
 
     -- Enable inlay hints on LspAttach
-    vim.api.nvim_create_autocmd('LspAttach', {
-      callback = function()
-        vim.lsp.inlay_hint(0, true)
-      end,
-    })
+    -- vim.api.nvim_create_autocmd('LspAttach', {
+    --   callback = function()
+    --     vim.lsp.inlay_hint(0, true)
+    --   end,
+    -- })
   end,
 }

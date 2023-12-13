@@ -1,12 +1,14 @@
 return {
   {
     'm4xshen/smartcolumn.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = 'LazyFile',
+    -- event = { 'BufReadPost', 'BufNewFile' },
     opts = {
-      colorcolumn = '100',
+      colorcolumn = '120',
       disabled_filetypes = {
         nil,
         'alpha',
+        'checkhealth',
         'help',
         'lazy',
         'markdown',
@@ -15,8 +17,9 @@ return {
         'mason',
         'noice',
         'text',
+        'Trouble',
       },
-      custom_colorcolumn = { lua = '120', python = '120' },
+      -- custom_colorcolumn = { lua = '120', python = '120', go = '120' },
     },
   },
 }

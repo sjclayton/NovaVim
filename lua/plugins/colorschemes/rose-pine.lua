@@ -5,7 +5,7 @@ return {
   name = 'rose-pine',
   config = function()
     require('rose-pine').setup({
-      disable_background = true,
+      disable_background = false,
       dim_nc_background = false,
       groups = {
         panel = 'base',
@@ -62,6 +62,9 @@ return {
         -- Which-key
         WhichKeyBorder = { link = 'FloatBorder' },
         WhichKeyFloat = { link = 'NormalFloat' },
+
+        -- Treesitter-Context
+        TreesitterContextBottom = { sp = 'muted', underline = true },
       },
     })
   end,

@@ -14,7 +14,7 @@ return {
           'tsserver',
         },
         -- Auto-install configured servers (with lspconfig)
-        automatic_installation = true, -- not the same as ensure_installed
+        automatic_installation = false, -- not the same as ensure_installed
       })
     end,
   },
