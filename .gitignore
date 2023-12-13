@@ -4,3 +4,4 @@
 *.nova
 
 .luarc.json
+lazy-lock.json
