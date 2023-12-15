@@ -1,9 +1,13 @@
 local util = require('core.util')
 local helper = require('core.helpers')
 
+local conf = function(plugin)
+  return require('plugins.config.' .. plugin)
+end
+
 return {
   -- General Plugins
-  { 'Bekaboo/deadcolumn.nvim', event = { 'LazyFile', 'VeryLazy' }, config = require('plugins.config.deadcolumn') },
+  { 'Bekaboo/deadcolumn.nvim', event = { 'LazyFile', 'VeryLazy' }, config = conf('deadcolumn') },
   {
     'ThePrimeagen/harpoon',
     event = 'VeryLazy',
@@ -17,7 +21,7 @@ return {
       { '<leader>5', "<cmd>lua require('harpoon.ui').nav_file(5)<cr>", desc = 'Go to Harpoon File 5' },
       { '<leader>6', "<cmd>lua require('harpoon.ui').nav_file(6)<cr>", desc = 'Go to Harpoon File 6' },
     },
-    config = require('plugins.config.harpoon'),
+    config = conf('harpoon'),
   },
   {
     'shellRaining/hlchunk.nvim',
@@ -49,7 +53,7 @@ return {
         noremap = true,
       },
     },
-    config = require('plugins.config.hlchunk'),
+    config = conf('hlchunk'),
   },
   -- AI
   {
@@ -64,7 +68,7 @@ return {
         noremap = true,
       },
     },
-    config = require('plugins.config.codeium'),
+    config = conf('codeium'),
   },
   {
     'sourcegraph/sg.nvim',
@@ -107,10 +111,10 @@ return {
         noremap = true,
       },
     },
-    config = require('plugins.config.alternatetoggler'),
+    config = conf('alternatetoggler'),
   },
   { 'numToStr/Comment.nvim', event = 'VeryLazy', config = true },
-  { 'lewis6991/gitsigns.nvim', event = 'LazyFile', config = require('plugins.config.gitsigns') },
+  { 'lewis6991/gitsigns.nvim', event = 'LazyFile', config = conf('gitsigns') },
   {
     'folke/todo-comments.nvim',
     event = { 'LazyFile' },
@@ -173,7 +177,7 @@ return {
       { ']]', desc = 'Next Reference' },
       { '[[', desc = 'Prev Reference' },
     },
-    config = require('plugins.config.illuminate'),
+    config = conf('illuminate'),
   },
   -- Completion
   -- LSP
@@ -189,14 +193,14 @@ return {
       require('lazy.core.loader').add_to_rtp(plugin)
       require('nvim-treesitter.query_predicates')
     end,
-    config = require('plugins.config.treesitter'),
+    config = conf('treesitter'),
   },
   -- UI
   {
     'willothy/nvim-cokeline',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = require('plugins.config.cokeline'),
+    config = conf('cokeline'),
   },
   {
     'rcarriga/nvim-notify',
@@ -208,7 +212,7 @@ return {
         end)
       end
     end,
-    config = require('plugins.config.notify'),
+    config = conf('notify'),
   },
   -- Colorschemes
   {
@@ -216,32 +220,32 @@ return {
     event = 'User ColorSchemeLoad',
     priority = 1000,
     name = 'catppuccin',
-    config = require('plugins.config.catppuccin'),
+    config = conf('catppuccin'),
   },
   {
     'rose-pine/neovim',
     event = 'User ColorSchemeLoad',
     priority = 1000,
     name = 'rose-pine',
-    config = require('plugins.config.rose-pine'),
+    config = conf('rose-pine'),
   },
   -- Utils
   { 'nvim-lua/plenary.nvim' },
   {
-  'doums/suit.nvim',
-  init = function()
-    ---@diagnostic disable-next-line: duplicate-set-field
-    vim.ui.select = function(...)
-      require('lazy').load({ plugins = { 'suit.nvim' } })
-      return vim.ui.select(...)
-    end
-    ---@diagnostic disable-next-line: duplicate-set-field
-    vim.ui.input = function(...)
-      require('lazy').load({ plugins = { 'suit.nvim' } })
-      return vim.ui.input(...)
-    end
-  end,
-  config = require('plugins.config.suit'),
+    'doums/suit.nvim',
+    init = function()
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.select = function(...)
+        require('lazy').load({ plugins = { 'suit.nvim' } })
+        return vim.ui.select(...)
+      end
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.input = function(...)
+        require('lazy').load({ plugins = { 'suit.nvim' } })
+        return vim.ui.input(...)
+      end
+    end,
+    config = conf('suit'),
   },
   {
     'nvim-telescope/telescope.nvim',
@@ -271,8 +275,8 @@ return {
         noremap = true,
       },
     },
-    config = require('plugins.config.telescope'),
+    config = conf('telescope'),
   },
   { 'wakatime/vim-wakatime', event = 'InsertEnter' },
-  { 'folke/which-key.nvim', event = 'VeryLazy', config = require('plugins.config.whichkey') },
+  { 'folke/which-key.nvim', event = 'VeryLazy', config = conf('whichkey') },
 }
