@@ -230,6 +230,43 @@ return {
     config = conf('rose-pine'),
   },
   -- Utils
+  {
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+    },
+    keys = {
+      {
+        '<leader>fe',
+        function()
+          require('neo-tree.command').execute({ toggle = true, dir = util.get_root() })
+        end,
+        desc = 'Explorer (root dir)',
+      },
+      {
+        '<leader>fE',
+        function()
+          require('neo-tree.command').execute({ toggle = true, dir = vim.loop.cwd() })
+        end,
+        desc = 'Explorer (cwd)',
+      },
+      { '<leader>e', '<leader>fe', desc = 'Explorer (root dir)', remap = true },
+      { '<leader>E', '<leader>fE', desc = 'Explorer (cwd)', remap = true },
+    },
+    deactivate = function()
+      vim.cmd([[Neotree close]])
+    end,
+    init = function()
+      if vim.fn.argc() == 1 then
+        local stat = vim.loop.fs_stat(vim.fn.argv(0))
+        if stat and stat.type == 'directory' then
+          require('neo-tree')
+        end
+      end
+    end,
+    config = conf('neotree')
+  },
   { 'nvim-lua/plenary.nvim' },
   {
     'doums/suit.nvim',
