@@ -1,30 +1,25 @@
-return {
-  {
-    'lewis6991/gitsigns.nvim',
-    event = 'LazyFile',
-    -- event = { 'BufReadPost', 'BufNewFile' },
-    opts = {
-      -- _extmark_signs = false,
-      signs = {
-        add = { text = '▎' },
-        change = { text = '▎' },
-        delete = { text = '_' },
-        topdelete = { text = '-' },
-        changedelete = { text = '~' },
-        untracked = { text = '┆' },
-      },
-      current_line_blame_opts = {
-        virt_text = true,
-        virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
-        delay = 1000,
-        ignore_whitespace = false,
-      },
-      preview_config = {
-        border = 'rounded',
-      },
-      on_attach = function(buffer)
-        local gs = package.loaded.gitsigns
-        local map = require('core.helpers').map
+return function()
+  local opts = {
+    signs = {
+      add = { text = '▎' },
+      change = { text = '▎' },
+      delete = { text = '_' },
+      topdelete = { text = '-' },
+      changedelete = { text = '~' },
+      untracked = { text = '┆' },
+    },
+    current_line_blame_opts = {
+      virt_text = true,
+      virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
+      delay = 1000,
+      ignore_whitespace = false,
+    },
+    preview_config = {
+      border = 'rounded',
+    },
+    on_attach = function(buffer)
+      local gs = package.loaded.gitsigns
+      local map = require('core.helpers').map
 
       -- stylua: ignore start
       map("n", "]h", gs.next_hunk, { buffer = buffer, desc = "Next Hunk"})
@@ -39,7 +34,8 @@ return {
       map("n", "<leader>ghd", gs.diffthis, { buffer = buffer, desc = "Diff This"})
       map("n", "<leader>ghD", function() gs.diffthis("~") end, { buffer = buffer, desc = "Diff This ~"})
       map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { buffer = buffer, desc = "GitSigns Select Hunk"})
-      end,
-    },
-  },
-}
+    end,
+  }
+
+  require('gitsigns').setup(opts)
+end

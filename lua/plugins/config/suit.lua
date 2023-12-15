@@ -1,21 +1,6 @@
-return {
-  'doums/suit.nvim',
-  -- event = 'VeryLazy',
-  init = function()
-    ---@diagnostic disable-next-line: duplicate-set-field
-    vim.ui.select = function(...)
-      require('lazy').load({ plugins = { 'suit.nvim' } })
-      return vim.ui.select(...)
-    end
-    ---@diagnostic disable-next-line: duplicate-set-field
-    vim.ui.input = function(...)
-      require('lazy').load({ plugins = { 'suit.nvim' } })
-      return vim.ui.input(...)
-    end
-  end,
-  config = function()
-    require('suit').setup({
-      input = {
+return function ()
+  local opts = {
+    input = {
         -- default prompt value
         default_prompt = 'Input: ',
         -- border of the window (see `:h nvim_open_win`)
@@ -54,6 +39,7 @@ return {
         -- override arguments passed to `nvim_open_win` (see `:h nvim_open_win`)
         nvim_float_api = nil,
       },
-    })
-  end,
-}
+    }
+
+    require('suit').setup(opts)
+  end

@@ -4,6 +4,53 @@ local helper = require('core.helpers')
 return {
   -- General Plugins
   { 'Bekaboo/deadcolumn.nvim', event = { 'LazyFile', 'VeryLazy' }, config = require('plugins.config.deadcolumn') },
+  {
+    'ThePrimeagen/harpoon',
+    event = 'VeryLazy',
+    keys = {
+      { '<leader>hm', "<cmd>lua require('harpoon.mark').add_file()<cr>", desc = 'Mark file with harpoon' },
+      { '<leader>ha', "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", desc = 'Show harpoon marks' },
+      { '<leader>1', "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", desc = 'Go to Harpoon File 1' },
+      { '<leader>2', "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", desc = 'Go to Harpoon File 2' },
+      { '<leader>3', "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", desc = 'Go to Harpoon File 3' },
+      { '<leader>4', "<cmd>lua require('harpoon.ui').nav_file(4)<cr>", desc = 'Go to Harpoon File 4' },
+      { '<leader>5', "<cmd>lua require('harpoon.ui').nav_file(5)<cr>", desc = 'Go to Harpoon File 5' },
+      { '<leader>6', "<cmd>lua require('harpoon.ui').nav_file(6)<cr>", desc = 'Go to Harpoon File 6' },
+    },
+    config = require('plugins.config.harpoon'),
+  },
+  {
+    'shellRaining/hlchunk.nvim',
+    event = 'LazyFile',
+    keys = {
+      {
+        '<leader>ub',
+        function()
+          helper.toggle('Scope line numbers', { enable = 'EnableHLLineNum', disable = 'DisableHLLineNum' })
+        end,
+        desc = 'Toggle scope line numbers',
+        noremap = true,
+      },
+      {
+        '<leader>us',
+        function()
+          helper.toggle('Scope highlight', { enable = 'DisableHLChunk', disable = 'EnableHLChunk' })
+        end,
+        desc = 'Toggle scope highlight',
+        noremap = true,
+      },
+
+      {
+        '<leader>ui',
+        function()
+          helper.toggle('Indention highlights', { enable = 'EnableHLIndent', disable = 'DisableHLIndent' })
+        end,
+        desc = 'Toggle indention highlights',
+        noremap = true,
+      },
+    },
+    config = require('plugins.config.hlchunk'),
+  },
   -- AI
   {
     'Exafunction/codeium.vim',
@@ -21,7 +68,7 @@ return {
   },
   {
     'sourcegraph/sg.nvim',
-    name = 'cody',
+    lazy = false,
     keys = {
       {
         '<leader>cc',
@@ -47,6 +94,7 @@ return {
         noremap = true,
       },
     },
+    config = true,
   },
   -- Coding Related
   {
@@ -61,10 +109,12 @@ return {
     },
     config = require('plugins.config.alternatetoggler'),
   },
+  { 'numToStr/Comment.nvim', event = 'VeryLazy', config = true },
+  { 'lewis6991/gitsigns.nvim', event = 'LazyFile', config = require('plugins.config.gitsigns') },
   {
     'folke/todo-comments.nvim',
-    cmd = { 'TodoTrouble', 'TodoTelescope' },
     event = { 'LazyFile' },
+    cmd = { 'TodoTrouble', 'TodoTelescope' },
     keys = {
       -- stylua: ignore start
       { ']t', function() require('todo-comments').jump_next() end, desc = 'Next todo comment', },
@@ -143,6 +193,12 @@ return {
   },
   -- UI
   {
+    'willothy/nvim-cokeline',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = require('plugins.config.cokeline'),
+  },
+  {
     'rcarriga/nvim-notify',
     init = function()
       -- If noice is not enabled, Load  notify on VeryLazy
@@ -157,21 +213,36 @@ return {
   -- Colorschemes
   {
     'catppuccin/nvim',
-    priority = 1000,
     event = 'User ColorSchemeLoad',
+    priority = 1000,
     name = 'catppuccin',
     config = require('plugins.config.catppuccin'),
   },
   {
     'rose-pine/neovim',
-    priority = 1000,
     event = 'User ColorSchemeLoad',
+    priority = 1000,
     name = 'rose-pine',
     config = require('plugins.config.rose-pine'),
   },
   -- Utils
   { 'nvim-lua/plenary.nvim' },
-  { 'folke/which-key.nvim', event = 'VeryLazy', config = require('plugins.config.whichkey') },
+  {
+  'doums/suit.nvim',
+  init = function()
+    ---@diagnostic disable-next-line: duplicate-set-field
+    vim.ui.select = function(...)
+      require('lazy').load({ plugins = { 'suit.nvim' } })
+      return vim.ui.select(...)
+    end
+    ---@diagnostic disable-next-line: duplicate-set-field
+    vim.ui.input = function(...)
+      require('lazy').load({ plugins = { 'suit.nvim' } })
+      return vim.ui.input(...)
+    end
+  end,
+  config = require('plugins.config.suit'),
+  },
   {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
@@ -202,4 +273,6 @@ return {
     },
     config = require('plugins.config.telescope'),
   },
+  { 'wakatime/vim-wakatime', event = 'InsertEnter' },
+  { 'folke/which-key.nvim', event = 'VeryLazy', config = require('plugins.config.whichkey') },
 }

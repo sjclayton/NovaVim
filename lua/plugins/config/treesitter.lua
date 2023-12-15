@@ -15,7 +15,6 @@ treesitter.setup({
   ensure_installed = {
     'bash',
     'c',
-    -- 'comment',
     'css',
     'csv',
     'diff',
@@ -37,6 +36,7 @@ treesitter.setup({
     'markdown_inline',
     'python',
     'regex',
+    'ron',
     'rst',
     'rust',
     'scss',
