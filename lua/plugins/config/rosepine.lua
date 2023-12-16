@@ -46,6 +46,7 @@ return function()
       -- Neo-tree
       NeoTreeDimText = { fg = 'muted' },
       NeoTreeMessage = { fg = 'muted', italic = true },
+      NeoTreeWinSeparator = { fg = 'muted' },
 
       -- Noice
       NoicePopup = { bg = 'base' },

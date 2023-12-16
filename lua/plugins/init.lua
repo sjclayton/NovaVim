@@ -205,10 +205,24 @@ return {
   },
   --- UI
   {
+    'stevearc/dressing.nvim',
+    init = function()
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.select = function(...)
+        require('lazy').load({ plugins = { 'dressing.nvim' } })
+        return vim.ui.select(...)
+      end
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.input = function(...)
+        require('lazy').load({ plugins = { 'dressing.nvim' } })
+        return vim.ui.input(...)
+      end
+    end,
+  },
+  {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
     dependencies = {
-      -- 'nvim-tree/nvim-web-devicons',
       -- 'nvim-telescope/telescope.nvim', -- Switch filetype and git branches
     },
     init = function()
@@ -219,7 +233,7 @@ return {
   },
   {
     'willothy/nvim-cokeline',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'BufReadPost', 'BufNewFile' },
     config = conf('cokeline'),
   },
   {
@@ -330,22 +344,6 @@ return {
     config = conf('neotree'),
   },
   { 'nvim-lua/plenary.nvim' },
-  {
-    'doums/suit.nvim',
-    init = function()
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.select = function(...)
-        require('lazy').load({ plugins = { 'suit.nvim' } })
-        return vim.ui.select(...)
-      end
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.input = function(...)
-        require('lazy').load({ plugins = { 'suit.nvim' } })
-        return vim.ui.input(...)
-      end
-    end,
-    config = conf('suit'),
-  },
   {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
