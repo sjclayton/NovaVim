@@ -6,7 +6,7 @@ local conf = function(plugin)
 end
 
 return {
-  -- General Plugins
+  --- General Plugins
   { 'Bekaboo/deadcolumn.nvim', event = { 'LazyFile', 'VeryLazy' }, config = conf('deadcolumn') },
   {
     'ThePrimeagen/harpoon',
@@ -25,7 +25,6 @@ return {
   },
   {
     'shellRaining/hlchunk.nvim',
-    event = 'LazyFile',
     keys = {
       {
         '<leader>ub',
@@ -38,9 +37,9 @@ return {
       {
         '<leader>us',
         function()
-          helper.toggle('Scope highlight', { enable = 'DisableHLChunk', disable = 'EnableHLChunk' })
+          helper.toggle('Scope highlight', { enable = 'EnableHLChunk', disable = 'DisableHLChunk' })
         end,
-        desc = 'Toggle scope highlight',
+        desc = 'Toggle scope chunk highlight',
         noremap = true,
       },
 
@@ -55,7 +54,7 @@ return {
     },
     config = conf('hlchunk'),
   },
-  -- AI
+  --- AI
   {
     'Exafunction/codeium.vim',
     keys = {
@@ -100,7 +99,7 @@ return {
     },
     config = true,
   },
-  -- Coding Related
+  --- Coding Related
   {
     'rmagatti/alternate-toggler',
     keys = {
@@ -179,10 +178,19 @@ return {
     },
     config = conf('illuminate'),
   },
+  --- LSP
+  -- General
   -- Completion
-  -- LSP
-  -- Language Specific
-  -- Treesitter
+  -- Formatting
+  {
+    'stevearc/conform.nvim',
+    event = { 'BufWritePre' },
+    cmd = { 'ConformInfo' },
+    config = conf('format'),
+  },
+  -- Linting
+  --- Language Specific
+  --- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
     event = { 'LazyFile', 'VeryLazy' },
@@ -195,12 +203,31 @@ return {
     end,
     config = conf('treesitter'),
   },
-  -- UI
+  --- UI
+  {
+    'nvim-lualine/lualine.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+      -- 'nvim-telescope/telescope.nvim', -- Switch filetype and git branches
+    },
+    init = function()
+      vim.g.lualine_laststatus = vim.o.laststatus
+      vim.o.laststatus = 0
+    end,
+    config = conf('lualine'),
+  },
   {
     'willothy/nvim-cokeline',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = conf('cokeline'),
+  },
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    dependencies = { 'MunifTanjim/nui.nvim', 'rcarriga/nvim-notify' },
+    config = conf('noice'),
   },
   {
     'rcarriga/nvim-notify',
@@ -214,7 +241,7 @@ return {
     end,
     config = conf('notify'),
   },
-  -- Colorschemes
+  --- Colorschemes
   {
     'catppuccin/nvim',
     event = 'User ColorSchemeLoad',
@@ -227,9 +254,17 @@ return {
     event = 'User ColorSchemeLoad',
     priority = 1000,
     name = 'rose-pine',
-    config = conf('rose-pine'),
+    config = conf('rosepine'),
   },
-  -- Utils
+  --- Utils
+  {
+    'JManch/nomodoro',
+    keys = {
+      { '<leader>nw', '<cmd>NomoWork<cr>', desc = 'Nomo - Start Work' },
+      { '<leader>nb', '<cmd>NomoBreak<cr>', desc = 'Nomo - Start Break' },
+      { '<leader>ns', '<cmd>NomoStop<cr>', desc = 'Nomo - Stop Timer' },
+    },
+  },
   {
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v3.x',
@@ -265,7 +300,7 @@ return {
         end
       end
     end,
-    config = conf('neotree')
+    config = conf('neotree'),
   },
   { 'nvim-lua/plenary.nvim' },
   {

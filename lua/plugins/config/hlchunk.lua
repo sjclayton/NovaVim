@@ -60,6 +60,7 @@ return function()
 
   require('hlchunk').setup(opts)
 
+  vim.cmd('DisableHLChunk')
   vim.cmd('DisableHLIndent')
   vim.cmd('DisableHLLineNum')
 

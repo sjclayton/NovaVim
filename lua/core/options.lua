@@ -19,8 +19,7 @@ o.foldexpr = "v:lua.vim.require'core.util'.foldexpr()"
 o.foldlevel = 99
 o.foldmethod = 'expr'
 o.foldtext = "v:lua.require'core.util'.foldtext()"
--- TODO: Uncomment this when conform.nvim is setup and the function has been added to core.util
--- o.formatexpr = "v:lua.require'core.util'.formatexpr()"
+o.formatexpr = "v:lua.require'core.util'.formatexpr()"
 o.guicursor = ''
 o.laststatus = 3
 o.lazyredraw = false

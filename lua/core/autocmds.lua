@@ -76,26 +76,6 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
   end,
 })
 
--- When there is no buffer left show the Alpha dashboard
--- requires "famiu/bufdelete.nvim" and "goolord/alpha-nvim"
-
--- vim.api.nvim_create_autocmd('User', {
---   pattern = 'BDeletePost*',
---   group = augroup('alpha_on_empty'),
---   callback = function(event)
---     local fallback_name = vim.api.nvim_buf_get_name(event.buf)
---     local fallback_ft = vim.api.nvim_get_option_value('filetype', { buf = event.buf })
---     local fallback_on_empty = fallback_name == '' and fallback_ft == ''
---
---     if fallback_on_empty then
---       -- require("neo-tree").close_all()
---       -- vim.api.nvim_command('set colorcolumn=')
---       vim.api.nvim_command('Alpha')
---       vim.api.nvim_command(event.buf .. 'bwipeout')
---     end
---   end,
--- })
-
 -- HACK: Workaround to fix annoying buggy Telescope behaviour of being put into insert mode after closing.
 
 vim.api.nvim_create_autocmd('WinLeave', {
