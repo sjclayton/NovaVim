@@ -56,11 +56,6 @@ map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
 wk.register({
   b = {
     name = icons.ui.Files .. 'Buffers',
-    c = {
-      ':Bdelete<CR>',
-      'Close current buffer',
-      noremap = true,
-    },
     j = { '<Plug>(cokeline-pick-focus)', 'Jump to buffer', noremap = true },
     C = {
       '<Plug>(cokeline-pick-close)',
@@ -69,11 +64,6 @@ wk.register({
     },
     n = { '<Plug>(cokeline-focus-next)', 'Cycle next buffer', noremap = true },
     p = { '<Plug>(cokeline-focus-prev)', 'Cycle previous buffer', noremap = true },
-    x = {
-      ':Bdelete!<CR>',
-      'Close current buffer (no confirm)',
-      noremap = true,
-    },
   },
   c = {
     name = icons.ui.Code .. 'Code',
@@ -98,6 +88,11 @@ wk.register({
         toggle('Line numbers', { enable = 'set nonumber', disable = 'set number' })
       end,
       'Toggle line numbers',
+      noremap = true,
+    },
+    Z = {
+      ':ZenMode<CR>',
+      'Toggle zen mode',
       noremap = true,
     },
   },

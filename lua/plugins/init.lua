@@ -208,7 +208,7 @@ return {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
     dependencies = {
-      'nvim-tree/nvim-web-devicons',
+      -- 'nvim-tree/nvim-web-devicons',
       -- 'nvim-telescope/telescope.nvim', -- Switch filetype and git branches
     },
     init = function()
@@ -220,7 +220,6 @@ return {
   {
     'willothy/nvim-cokeline',
     event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = conf('cokeline'),
   },
   {
@@ -241,6 +240,7 @@ return {
     end,
     config = conf('notify'),
   },
+  { 'folke/zen-mode.nvim', cmd = 'ZenMode', config = conf('zenmode') },
   --- Colorschemes
   {
     'catppuccin/nvim',
@@ -257,6 +257,33 @@ return {
     config = conf('rosepine'),
   },
   --- Utils
+  {
+    'echasnovski/mini.bufremove',
+    version = false,
+    keys = {
+      {
+        '<leader>bd',
+        function()
+          local bd = require('mini.bufremove').delete
+          if vim.bo.modified then
+            local choice = vim.fn.confirm(('Save changes to %q?'):format(vim.fn.bufname()), '&Yes\n&No\n&Cancel')
+            if choice == 1 then -- Yes
+              vim.cmd.write()
+              bd(0)
+            elseif choice == 2 then -- No
+              bd(0, true)
+            end
+          else
+            bd(0)
+          end
+        end,
+        desc = 'Delete Buffer',
+      },
+      -- stylua: ignore
+      { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
+    },
+    config = true,
+  },
   {
     'JManch/nomodoro',
     keys = {
@@ -350,5 +377,6 @@ return {
     config = conf('telescope'),
   },
   { 'wakatime/vim-wakatime', event = 'InsertEnter' },
+  { 'nvim-tree/nvim-web-devicons' },
   { 'folke/which-key.nvim', event = 'VeryLazy', config = conf('whichkey') },
 }
