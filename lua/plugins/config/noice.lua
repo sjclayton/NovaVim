@@ -58,15 +58,9 @@ return function()
             { find = '; before #%d+' },
             { find = '%d fewer lines' },
             { find = '%d more lines' },
+            { find = '%d lines [<>]ed' },
+            { find = '%d lines [changed|indented|moved|yanked]' },
           },
-        },
-        opts = { skip = true },
-      },
-      {
-        filter = {
-          event = 'msg_show',
-          kind = 'emsg',
-          find = 'No buffers were deleted',
         },
         opts = { skip = true },
       },
