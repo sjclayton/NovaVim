@@ -71,7 +71,7 @@ return {
   },
   {
     'sourcegraph/sg.nvim',
-    lazy = false,
+    -- lazy = false,
     keys = {
       {
         '<leader>cc',
@@ -180,7 +180,42 @@ return {
   },
   --- LSP
   -- General
+  {
+    'williamboman/mason.nvim',
+    cmd = 'Mason',
+    keys = {
+      { '<leader>cm', '<CMD>Mason<cr>', desc = 'Open Mason' },
+    },
+    build = ':MasonUpdate',
+    config = true,
+  },
+  {
+    'neovim/nvim-lspconfig',
+    event = { 'LazyFile' },
+    dependencies = { 'williamboman/mason-lspconfig.nvim', { 'folke/neodev.nvim', opts = {} } },
+    config = conf('lsp'),
+  },
   -- Completion
+  {
+    'hrsh7th/nvim-cmp',
+    event = 'InsertEnter',
+    dependencies = {
+      -- Completion Sources
+      'hrsh7th/cmp-calc',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-nvim-lsp',
+      'saadparwaiz1/cmp_luasnip', -- for autocompletion
+      -- Snippets
+      {
+        'L3MON4D3/LuaSnip',
+        dependencies = { 'rafamadriz/friendly-snippets' },
+      },
+      -- Extensions
+      'onsails/lspkind.nvim',
+    },
+    config = conf('cmp'),
+  },
   -- Formatting
   {
     'stevearc/conform.nvim',
@@ -220,6 +255,12 @@ return {
     end,
   },
   {
+    'j-hui/fidget.nvim',
+    tag = 'v1.0.0',
+    event = 'LspAttach',
+    config = conf('fidget'),
+  },
+  {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
     dependencies = {
@@ -227,13 +268,17 @@ return {
     },
     init = function()
       vim.g.lualine_laststatus = vim.o.laststatus
-      vim.o.laststatus = 0
+      if vim.fn.argc(-1) > 0 then
+        vim.o.statusline = ' '
+      else
+        vim.o.laststatus = 0
+      end
     end,
     config = conf('lualine'),
   },
   {
     'willothy/nvim-cokeline',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = 'LazyFile',
     config = conf('cokeline'),
   },
   {
@@ -305,6 +350,7 @@ return {
       { '<leader>nb', '<cmd>NomoBreak<cr>', desc = 'Nomo - Start Break' },
       { '<leader>ns', '<cmd>NomoStop<cr>', desc = 'Nomo - Stop Timer' },
     },
+    config = conf('nomodoro'),
   },
   {
     'nvim-neo-tree/neo-tree.nvim',

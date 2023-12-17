@@ -25,7 +25,7 @@ function M.foldtext()
     ret = { { vim.api.nvim_buf_get_lines(0, vim.v.lnum - 1, vim.v.lnum, false)[1], {} } }
   end
   table.insert(ret, {
-    ' ' --[[ .. require('core.icons').ui.Dots  ]],
+    ' ',--[[ .. require('core.icons').ui.Dots  ]]
   })
 
   if not vim.treesitter.foldtext then
@@ -40,7 +40,7 @@ function M.foldtext()
 end
 
 function M.formatexpr()
-  if Util.has('conform.nvim') then
+  if M.has('conform.nvim') then
     return require('conform').formatexpr()
   end
   return vim.lsp.formatexpr({ timeout_ms = 3000 })

@@ -48,6 +48,24 @@ return function()
         { 'filename', padding = { left = 0 } },
       },
       lualine_x = {
+        {
+          function()
+            return require('noice').api.status.command.get()
+          end,
+          cond = function()
+            return package.loaded['noice'] and require('noice').api.status.command.has()
+          end,
+          color = util.fg('Tag'),
+        },
+        {
+          function()
+            return require('noice').api.status.mode.get()
+          end,
+          cond = function()
+            return package.loaded['noice'] and require('noice').api.status.mode.has()
+          end,
+          color = util.fg('Macro'),
+        },
         { require('lazy.status').updates, cond = require('lazy.status').has_updates, color = util.fg('Special') },
         {
           function()

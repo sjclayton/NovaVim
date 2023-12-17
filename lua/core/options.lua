@@ -22,7 +22,7 @@ o.foldtext = "v:lua.require'core.util'.foldtext()"
 o.formatexpr = "v:lua.require'core.util'.formatexpr()"
 o.guicursor = ''
 o.laststatus = 3
-o.lazyredraw = false
+-- o.lazyredraw = false
 o.listchars = { extends = '→', lead = '․', nbsp = '␣', precedes = '←', tab = '¬ ' }
 o.mouse = 'a'
 o.mousemodel = 'extend'
@@ -35,6 +35,7 @@ o.ruler = false
 o.scrolloff = 8
 o.shiftwidth = 4
 o.shortmess:append('IWs')
+o.showmode = false
 o.sidescroll = 8
 o.signcolumn = 'yes'
 o.smartcase = true
