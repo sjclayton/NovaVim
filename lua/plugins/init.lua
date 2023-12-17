@@ -224,6 +224,12 @@ return {
     config = conf('format'),
   },
   -- Linting
+  {
+    'mfussenegger/nvim-lint',
+    event = 'LazyFile',
+    dependencies = { 'neovim/nvim-lspconfig' },
+    config = conf('lint'),
+  },
   --- Language Specific
   {
     'ray-x/go.nvim',
@@ -234,7 +240,7 @@ return {
       'nvim-treesitter/nvim-treesitter',
     },
     build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
-    config = conf('langs.go'),
+    config = conf('langs.go-nvim'),
   },
   --- Treesitter
   {
@@ -404,7 +410,10 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
-    dependencies = { { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' } },
+    dependencies = {
+      'nvim-telescope/telescope-frecency.nvim',
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+    },
     keys = {
       -- General
       { '<leader>:', '<cmd>Telescope command_history<cr>', desc = 'Command History' },
@@ -414,8 +423,8 @@ return {
       { '<leader>fb', '<cmd>Telescope buffers<cr>', desc = 'Buffers' },
       { '<leader>ff', util.telescope('files'), desc = 'Find files (root dir)' },
       { '<leader>fF', util.telescope('files', { cwd = vim.loop.cwd() }), desc = 'Find files (cwd)' },
-      { '<leader>fr', '<cmd>Telescope oldfiles<cr>', desc = 'Recent files' },
-      { '<leader>fR', util.telescope('oldfiles', { cwd = vim.loop.cwd() }), desc = 'Recent files (cwd)' },
+      { '<leader>fr', '<cmd>Telescope frecency<cr>', desc = 'Recent files' },
+      { '<leader>fR', '<cmd>Telescope frecency workspace=CWD<cr>', desc = 'Recent files (cwd)' },
       -- search
       { '<leader>t"', '<cmd>Telescope registers<cr>', desc = 'Registers' },
       { '<leader>tk', '<cmd>Telescope keymaps<cr>', desc = 'Keymaps' },

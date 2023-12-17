@@ -2,7 +2,7 @@ return function()
   local opts = {
     -- Define your formatters
     formatters_by_ft = {
-      go = { 'goimports', 'golines', 'gofumpt' },
+      go = { 'goimports', 'gofumpt' },
       lua = { 'stylua' },
       -- javascript = { { "prettierd", "prettier" } },
       -- python = { "isort", "black" },
