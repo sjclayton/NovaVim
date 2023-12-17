@@ -1,9 +1,10 @@
 return function()
+  local util = require('core.util')
   local icons = require('core.icons')
 
   local lspconfig = require('lspconfig')
   local mason_lsp = require('mason-lspconfig')
-  local cmp_nvim_lsp = require('cmp_nvim_lsp')
+  local cmp_lsp = require('cmp_nvim_lsp')
 
   local map = vim.keymap.set -- for conciseness
 
@@ -34,35 +35,7 @@ return function()
     severity_sort = true,
   })
 
-  -- -- Use built-in formatting for these LSP servers
-  -- local builtin_format = { 'pylsp', 'zls' }
-  --
-  -- local lsp_formatting = function(bufnr)
-  --   vim.lsp.buf.format({
-  --     filter = function(client)
-  --       if vim.tbl_contains(builtin_format, client.name) then
-  --         return client.name
-  --       else
-  --         return client.name == 'null-ls'
-  --       end
-  --     end,
-  --     bufnr = bufnr,
-  --   })
-  -- end
-
   local on_attach = function(client, bufnr)
-    -- Setup auto-format on save
-    -- if client.supports_method('textDocument/formatting') then
-    --   vim.api.nvim_create_augroup('lsp_formatting', { clear = true })
-    --   vim.api.nvim_create_autocmd('BufWritePre', {
-    --     group = 'lsp_formatting',
-    --     buffer = bufnr,
-    --     callback = function()
-    --       lsp_formatting()
-    --     end,
-    --   })
-    -- end
-
     opts.buffer = bufnr
 
     -- Set keybinds
@@ -80,6 +53,10 @@ return function()
 
     opts.desc = 'Show LSP type definitions'
     map('n', 'gt', '<cmd>Telescope lsp_type_definitions<CR>', opts)
+
+    opts.desc = 'Run an available codelens'
+    -- see available code actions, in visual mode will apply to selection
+    map('n', '<leader>cl', vim.lsp.codelens.run, opts)
 
     opts.desc = 'See available code actions'
     -- see available code actions, in visual mode will apply to selection
@@ -133,18 +110,11 @@ return function()
   end
 
   -- used to enable autocompletion (assign to every lsp server config)
-  local capabilities = cmp_nvim_lsp.default_capabilities()
-
-  -- Change the Diagnostic symbols in the sign column (gutter)
-  -- local signs = icons.diagnostics
-  -- for type, icon in pairs(signs) do
-  --   local hl = 'DiagnosticSign' .. type
-  --   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
-  -- end
+  local capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
   -- Mason LSP Config
   mason_lsp.setup({
-    ensure_installed = { 'bashls', 'lua_ls', 'gopls' },
+    ensure_installed = { 'bashls', 'gopls', 'lua_ls', 'tsserver' },
   })
 
   -- configure bashls server
@@ -155,26 +125,25 @@ return function()
 
   -- configure gopls server
   lspconfig['gopls'].setup({
+    formatting = false,
     capabilities = capabilities,
-    on_attach = on_attach,
     flags = { debounce_text_changes = 150 },
     --- @diagnostic disable-next-line : unused-local
-    require('core.util').on_attach(function(client, _)
-      if client.name == 'gopls' then
-        -- HACK: Workaround to hl semanticTokens -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-        if not client.server_capabilities.semanticTokensProvider then
-          local semantic = client.config.capabilities.textDocument.semanticTokens
-          client.server_capabilities.semanticTokensProvider = {
-            full = true,
-            legend = {
-              tokenTypes = semantic.tokenTypes,
-              tokenModifiers = semantic.tokenModifiers,
-            },
-            range = true,
-          }
-        end
+    on_attach = function(client, bufnr)
+      -- HACK: Workaround to hl semanticTokens -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
+      if not client.server_capabilities.semanticTokensProvider then
+        local semantic = client.config.capabilities.textDocument.semanticTokens
+        client.server_capabilities.semanticTokensProvider = {
+          full = true,
+          legend = {
+            tokenTypes = semantic.tokenTypes,
+            tokenModifiers = semantic.tokenModifiers,
+          },
+          range = true,
+        }
       end
-    end),
+      on_attach(client, bufnr)
+    end,
     settings = {
       gopls = {
         gofumpt = true,
@@ -211,7 +180,6 @@ return function()
         semanticTokens = true,
       },
     },
-    filetypes = { 'go', 'gomod' },
   })
 
   -- configure python server (pylsp)
@@ -256,43 +224,43 @@ return function()
   --   },
   -- })
 
-  -- -- configure typescript server
-  -- lspconfig['tsserver'].setup({
-  --   capabilities = capabilities,
-  --   on_attach = on_attach,
-  --   settings = {
-  --     typescript = {
-  --       inlayHints = {
-  --         includeInlayParameterNameHints = 'all',
-  --         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-  --         includeInlayFunctionParameterTypeHints = true,
-  --         includeInlayVariableTypeHints = true,
-  --         includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-  --         includeInlayPropertyDeclarationTypeHints = true,
-  --         includeInlayFunctionLikeReturnTypeHints = true,
-  --         includeInlayEnumMemberValueHints = true,
-  --       },
-  --       suggest = {
-  --         includeCompletionsForModuleExports = true,
-  --       },
-  --     },
-  --     javascript = {
-  --       inlayHints = {
-  --         includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
-  --         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-  --         includeInlayFunctionParameterTypeHints = true,
-  --         includeInlayVariableTypeHints = true,
-  --         includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-  --         includeInlayPropertyDeclarationTypeHints = true,
-  --         includeInlayFunctionLikeReturnTypeHints = true,
-  --         includeInlayEnumMemberValueHints = true,
-  --       },
-  --       suggest = {
-  --         includeCompletionsForModuleExports = true,
-  --       },
-  --     },
-  --   },
-  -- })
+  -- configure typescript server
+  lspconfig['tsserver'].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    settings = {
+      typescript = {
+        inlayHints = {
+          includeInlayParameterNameHints = 'all',
+          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayEnumMemberValueHints = true,
+        },
+        suggest = {
+          includeCompletionsForModuleExports = true,
+        },
+      },
+      javascript = {
+        inlayHints = {
+          includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
+          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayEnumMemberValueHints = true,
+        },
+        suggest = {
+          includeCompletionsForModuleExports = true,
+        },
+      },
+    },
+  })
 
   -- configure lua server (with special settings)
   lspconfig['lua_ls'].setup({
@@ -311,5 +279,11 @@ return function()
         },
       },
     },
+  })
+
+  --configure zig server
+  lspconfig['zls'].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
   })
 end

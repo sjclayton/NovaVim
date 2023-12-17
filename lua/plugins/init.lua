@@ -191,6 +191,7 @@ return {
   },
   {
     'neovim/nvim-lspconfig',
+    cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
     event = { 'LazyFile' },
     dependencies = { 'williamboman/mason-lspconfig.nvim', { 'folke/neodev.nvim', opts = {} } },
     config = conf('lsp'),
@@ -205,11 +206,10 @@ return {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-nvim-lsp',
-      'saadparwaiz1/cmp_luasnip', -- for autocompletion
       -- Snippets
       {
         'L3MON4D3/LuaSnip',
-        dependencies = { 'rafamadriz/friendly-snippets' },
+        dependencies = { 'saadparwaiz1/cmp_luasnip', 'rafamadriz/friendly-snippets' },
       },
       -- Extensions
       'onsails/lspkind.nvim',
@@ -225,6 +225,17 @@ return {
   },
   -- Linting
   --- Language Specific
+  {
+    'ray-x/go.nvim',
+    ft = { 'go', 'gomod' },
+    dependencies = { -- optional packages
+      'ray-x/guihua.lua',
+      'neovim/nvim-lspconfig',
+      'nvim-treesitter/nvim-treesitter',
+    },
+    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+    config = conf('langs.go'),
+  },
   --- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
