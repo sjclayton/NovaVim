@@ -8,6 +8,12 @@ local wk = require('which-key')
 -- General Keymappings
 ---
 
+-- Better up/down
+map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
+map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { expr = true })
+map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
+map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { expr = true })
+
 -- Better window navigation
 map('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
 map('n', '<C-j>', '<C-w>j', { desc = 'Move to lower window' })
@@ -31,6 +37,9 @@ map('n', '<a-j>', '<cmd>m .+1<cr>==', { desc = 'Move line down' })
 map('n', '<a-k>', '<cmd>m .-2<cr>==', { desc = 'Move line up' })
 map('v', '<a-j>', ":m '>+1<cr>gv=gv", { desc = 'Move selection down' })
 map('v', '<a-k>', ":m '<-2<cr>gv=gv", { desc = 'Move selection up' })
+
+-- Clear search with <esc>
+map({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
 
 -- Sorting
 map('v', '<leader>s', "<esc><cmd>'<,'>sort<cr>", { desc = 'Sort visual selection' })
@@ -56,11 +65,6 @@ map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
 wk.register({
   b = {
     name = icons.ui.Files .. 'Buffers',
-    c = {
-      ':Bdelete<CR>',
-      'Close current buffer',
-      noremap = true,
-    },
     j = { '<Plug>(cokeline-pick-focus)', 'Jump to buffer', noremap = true },
     C = {
       '<Plug>(cokeline-pick-close)',
@@ -69,11 +73,6 @@ wk.register({
     },
     n = { '<Plug>(cokeline-focus-next)', 'Cycle next buffer', noremap = true },
     p = { '<Plug>(cokeline-focus-prev)', 'Cycle previous buffer', noremap = true },
-    x = {
-      ':Bdelete!<CR>',
-      'Close current buffer (no confirm)',
-      noremap = true,
-    },
   },
   c = {
     name = icons.ui.Code .. 'Code',
@@ -98,6 +97,11 @@ wk.register({
         toggle('Line numbers', { enable = 'set nonumber', disable = 'set number' })
       end,
       'Toggle line numbers',
+      noremap = true,
+    },
+    Z = {
+      ':ZenMode<CR>',
+      'Toggle zen mode',
       noremap = true,
     },
   },

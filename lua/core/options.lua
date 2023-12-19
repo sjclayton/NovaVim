@@ -19,11 +19,10 @@ o.foldexpr = "v:lua.vim.require'core.util'.foldexpr()"
 o.foldlevel = 99
 o.foldmethod = 'expr'
 o.foldtext = "v:lua.require'core.util'.foldtext()"
--- TODO: Uncomment this when conform.nvim is setup and the function has been added to core.util
--- o.formatexpr = "v:lua.require'core.util'.formatexpr()"
+o.formatexpr = "v:lua.require'core.util'.formatexpr()"
 o.guicursor = ''
 o.laststatus = 3
-o.lazyredraw = false
+-- o.lazyredraw = false
 o.listchars = { extends = '→', lead = '․', nbsp = '␣', precedes = '←', tab = '¬ ' }
 o.mouse = 'a'
 o.mousemodel = 'extend'
@@ -36,6 +35,7 @@ o.ruler = false
 o.scrolloff = 8
 o.shiftwidth = 4
 o.shortmess:append('IWs')
+o.showmode = false
 o.sidescroll = 8
 o.signcolumn = 'yes'
 o.smartcase = true
@@ -45,6 +45,8 @@ o.splitbelow = true
 o.splitright = true
 o.statuscolumn = [[%!v:lua.require'core.util'.statuscolumn()]]
 o.swapfile = false
+o.timeout = true
+o.timeoutlen = 300
 o.tabstop = 4
 o.termguicolors = true
 o.undodir = os.getenv('HOME') .. '/.vim/undodir'

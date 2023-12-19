@@ -46,7 +46,7 @@ elseif util.has('rose-pine') then
   vim.cmd.colorscheme('rose-pine')
 else
   require('notify')('Could not load your colorscheme or a preferred fallback', 'error')
-  vim.cmd.colorscheme('habamax')
+  vim.cmd.colorscheme('default')
 end
 
 return M
