@@ -8,21 +8,8 @@ end
 return {
   --- General Plugins
   { 'Bekaboo/deadcolumn.nvim', event = { 'LazyFile', 'VeryLazy' }, config = conf('deadcolumn') },
-  {
-    'ThePrimeagen/harpoon',
-    event = 'VeryLazy',
-    keys = {
-      { '<leader>hm', "<cmd>lua require('harpoon.mark').add_file()<cr>", desc = 'Mark file with harpoon' },
-      { '<leader>ha', "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", desc = 'Show harpoon marks' },
-      { '<leader>1', "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", desc = 'Go to Harpoon File 1' },
-      { '<leader>2', "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", desc = 'Go to Harpoon File 2' },
-      { '<leader>3', "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", desc = 'Go to Harpoon File 3' },
-      { '<leader>4', "<cmd>lua require('harpoon.ui').nav_file(4)<cr>", desc = 'Go to Harpoon File 4' },
-      { '<leader>5', "<cmd>lua require('harpoon.ui').nav_file(5)<cr>", desc = 'Go to Harpoon File 5' },
-      { '<leader>6', "<cmd>lua require('harpoon.ui').nav_file(6)<cr>", desc = 'Go to Harpoon File 6' },
-    },
-    config = conf('harpoon'),
-  },
+  { 'ThePrimeagen/harpoon', event = 'VeryLazy', config = conf('harpoon') },
+  { 'lukas-reineke/headlines.nvim', ft = { 'markdown', 'norg', 'org' }, config = conf('headlines') },
   {
     'shellRaining/hlchunk.nvim',
     keys = {
@@ -53,6 +40,24 @@ return {
       },
     },
     config = conf('hlchunk'),
+  },
+  {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    build = function()
+      vim.fn['mkdp#util#install']()
+    end,
+    keys = {
+      {
+        '<leader>cp',
+        ft = 'markdown',
+        '<cmd>MarkdownPreviewToggle<cr>',
+        desc = 'Markdown Preview',
+      },
+    },
+    config = function()
+      vim.cmd([[do FileType]])
+    end,
   },
   --- AI
   {
@@ -131,6 +136,12 @@ return {
     config = true,
   },
   {
+    'ThePrimeagen/refactoring.nvim',
+    ft = { 'go', 'javascript', 'lua', 'python', 'typescript' },
+    dependencies = { 'nvim-treesitter' },
+    config = conf('refactoring'),
+  },
+  {
     'folke/trouble.nvim',
     cmd = { 'TroubleToggle', 'Trouble' },
     opts = { use_diagnostic_signs = true },
@@ -180,6 +191,7 @@ return {
   },
   --- LSP
   -- General
+  { 'kosayoda/nvim-lightbulb', event = 'LazyFile', opts = { autocmd = { enabled = true } } },
   {
     'williamboman/mason.nvim',
     cmd = 'Mason',
@@ -187,13 +199,28 @@ return {
       { '<leader>cm', '<CMD>Mason<cr>', desc = 'Open Mason' },
     },
     build = ':MasonUpdate',
-    config = true,
+    opts = {
+      ui = {
+        border = 'rounded',
+        height = 0.80,
+      },
+    },
+  },
+  {
+    'WhoIsSethDaniel/mason-tool-installer.nvim',
+    lazy = false,
+    cmd = { 'MasonToolsClean', 'MasonToolsInstall', 'MasonToolsUpdate' },
+    dependencies = 'williamboman/mason.nvim',
+    config = conf('masontools'),
   },
   {
     'neovim/nvim-lspconfig',
     cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
     event = { 'LazyFile' },
-    dependencies = { 'williamboman/mason-lspconfig.nvim', { 'folke/neodev.nvim', opts = {} } },
+    dependencies = {
+      'williamboman/mason-lspconfig.nvim',
+      { 'folke/neodev.nvim', opts = {} },
+    },
     config = conf('lsp'),
   },
   -- Completion
@@ -206,10 +233,11 @@ return {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-nvim-lsp',
+      'saadparwaiz1/cmp_luasnip',
       -- Snippets
       {
         'L3MON4D3/LuaSnip',
-        dependencies = { 'saadparwaiz1/cmp_luasnip', 'rafamadriz/friendly-snippets' },
+        dependencies = { 'rafamadriz/friendly-snippets' },
       },
       -- Extensions
       'onsails/lspkind.nvim',
@@ -217,30 +245,14 @@ return {
     config = conf('cmp'),
   },
   -- Formatting
-  {
-    'stevearc/conform.nvim',
-    event = { 'BufWritePre' },
-    cmd = { 'ConformInfo' },
-    config = conf('format'),
-  },
+  { 'stevearc/conform.nvim', cmd = { 'ConformInfo' }, event = { 'BufWritePre' }, config = conf('format') },
   -- Linting
-  {
-    'mfussenegger/nvim-lint',
-    event = 'LazyFile',
-    dependencies = { 'neovim/nvim-lspconfig' },
-    config = conf('lint'),
-  },
+  { 'mfussenegger/nvim-lint', event = 'LazyFile', config = conf('lint') },
   --- Language Specific
   {
-    'ray-x/go.nvim',
+    'olexsmir/gopher.nvim',
     ft = { 'go', 'gomod' },
-    dependencies = { -- optional packages
-      'ray-x/guihua.lua',
-      'neovim/nvim-lspconfig',
-      'nvim-treesitter/nvim-treesitter',
-    },
-    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
-    config = conf('langs.go-nvim'),
+    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
   },
   --- Treesitter
   {
@@ -271,12 +283,7 @@ return {
       end
     end,
   },
-  {
-    'j-hui/fidget.nvim',
-    tag = 'v1.0.0',
-    event = 'LspAttach',
-    config = conf('fidget'),
-  },
+  { 'j-hui/fidget.nvim', tag = 'v1.0.0', event = 'LspAttach', config = conf('fidget') },
   {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
@@ -293,11 +300,7 @@ return {
     end,
     config = conf('lualine'),
   },
-  {
-    'willothy/nvim-cokeline',
-    event = 'LazyFile',
-    config = conf('cokeline'),
-  },
+  { 'willothy/nvim-cokeline', event = 'LazyFile', config = conf('cokeline') },
   {
     'folke/noice.nvim',
     event = 'VeryLazy',
@@ -421,10 +424,10 @@ return {
       { '<leader>/', util.telescope('live_grep'), desc = 'Grep (root dir)' },
       -- Files
       { '<leader>fb', '<cmd>Telescope buffers<cr>', desc = 'Buffers' },
-      { '<leader>ff', util.telescope('files'), desc = 'Find files (root dir)' },
-      { '<leader>fF', util.telescope('files', { cwd = vim.loop.cwd() }), desc = 'Find files (cwd)' },
-      { '<leader>fr', '<cmd>Telescope frecency<cr>', desc = 'Recent files' },
-      { '<leader>fR', '<cmd>Telescope frecency workspace=CWD<cr>', desc = 'Recent files (cwd)' },
+      { '<leader>fF', util.telescope('files'), desc = 'Find files (root dir)' },
+      { '<leader>ff', util.telescope('files', { cwd = vim.loop.cwd() }), desc = 'Find files (cwd)' },
+      { '<leader>fR', '<cmd>Telescope frecency<cr>', desc = 'Recent files' },
+      { '<leader>fr', '<cmd>Telescope frecency workspace=CWD<cr>', desc = 'Recent files (cwd)' },
       -- search
       { '<leader>t"', '<cmd>Telescope registers<cr>', desc = 'Registers' },
       { '<leader>tk', '<cmd>Telescope keymaps<cr>', desc = 'Keymaps' },

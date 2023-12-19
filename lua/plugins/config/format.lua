@@ -1,8 +1,8 @@
 return function()
   local opts = {
-    -- Define your formatters
+    -- Define formatters
     formatters_by_ft = {
-      go = { 'goimports', 'gofumpt' },
+      go = { 'goimports-reviser', 'goimports', 'gofmt' },
       lua = { 'stylua' },
       -- javascript = { { "prettierd", "prettier" } },
       -- python = { "isort", "black" },
@@ -11,13 +11,16 @@ return function()
       ['_'] = { 'trim_whitespace' },
     },
     -- Set up format-on-save
-    format_on_save = { timeout_ms = 3000, lsp_fallback = false },
+    format_on_save = { async = false, timeout_ms = 3000, lsp_fallback = false },
     -- Customize formatters
-    -- formatters = {
-    --   shfmt = {
-    --     prepend_args = { "-i", "2" },
-    --   },
-    -- },
+    formatters = {
+      ['goimports-reviser'] = {
+        command = 'goimports-reviser',
+        inherit = false,
+        args = { '-set-alias', '-rm-unused', '$FILENAME' },
+        stdin = false,
+      },
+    },
   }
 
   require('conform').setup(opts)

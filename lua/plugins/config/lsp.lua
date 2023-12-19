@@ -10,6 +10,15 @@ return function()
 
   local opts = { noremap = true, silent = true }
 
+  -- used to enable autocompletion (assign to every lsp server config)
+  local capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+  -- Mason LSP Config
+  mason_lsp.setup({
+    ensure_installed = { 'bashls', 'gopls', 'lua_ls', 'tsserver' },
+  })
+
+  -- Neovim diagnostic format settings
   vim.diagnostic.config({
     virtual_text = {
       -- Only display errors w/ virtual text
@@ -35,6 +44,7 @@ return function()
     severity_sort = true,
   })
 
+  -- On attach (lspconfig)
   local on_attach = function(client, bufnr)
     opts.buffer = bufnr
 
@@ -109,14 +119,6 @@ return function()
     map('n', '<leader>rl', ':LspRestart<CR>', opts)
   end
 
-  -- used to enable autocompletion (assign to every lsp server config)
-  local capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-  -- Mason LSP Config
-  mason_lsp.setup({
-    ensure_installed = { 'bashls', 'gopls', 'lua_ls', 'tsserver' },
-  })
-
   -- configure bashls server
   lspconfig['bashls'].setup({
     capabilities = capabilities,
@@ -142,13 +144,19 @@ return function()
           range = true,
         }
       end
+      vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', 'InsertLeave' }, {
+        group = vim.api.nvim_create_augroup('go__codelenses', { clear = true }),
+        pattern = { '*.go', '*.mod' },
+        callback = function()
+          vim.lsp.codelens.refresh()
+        end,
+      })
       on_attach(client, bufnr)
     end,
     settings = {
       gopls = {
-        gofumpt = true,
         codelenses = {
-          gc_details = false,
+          gc_details = true,
           generate = true,
           regenerate_cgo = true,
           run_govulncheck = true,

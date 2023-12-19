@@ -4,7 +4,7 @@ return function()
   }
 
   vim.api.nvim_create_augroup('nvim-lint', { clear = true })
-  vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+  vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
     group = 'nvim-lint',
     callback = function()
       require('lint').try_lint()
