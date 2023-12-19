@@ -245,7 +245,21 @@ return {
     config = conf('cmp'),
   },
   -- Formatting
-  { 'stevearc/conform.nvim', cmd = { 'ConformInfo' }, event = { 'BufWritePre' }, config = conf('format') },
+  {
+    'stevearc/conform.nvim',
+    event = { 'BufWritePre' },
+    cmd = { 'ConformInfo' },
+    keys = {
+      {
+        '<leader>cf',
+        function()
+          require('conform').format({ async = true, lsp_fallback = true })
+        end,
+        desc = 'Format buffer',
+      },
+    },
+    config = conf('format'),
+  },
   -- Linting
   { 'mfussenegger/nvim-lint', event = 'LazyFile', config = conf('lint') },
   --- Language Specific
@@ -380,21 +394,19 @@ return {
     },
     keys = {
       {
-        '<leader>fe',
+        '<leader>fT',
         function()
           require('neo-tree.command').execute({ toggle = true, dir = util.get_root() })
         end,
-        desc = 'Explorer (root dir)',
+        desc = 'File tree (root dir)',
       },
       {
-        '<leader>fE',
+        '<leader>ft',
         function()
           require('neo-tree.command').execute({ toggle = true, dir = vim.loop.cwd() })
         end,
-        desc = 'Explorer (cwd)',
+        desc = 'File tree (cwd)',
       },
-      { '<leader>e', '<leader>fe', desc = 'Explorer (root dir)', remap = true },
-      { '<leader>E', '<leader>fE', desc = 'Explorer (cwd)', remap = true },
     },
     deactivate = function()
       vim.cmd([[Neotree close]])

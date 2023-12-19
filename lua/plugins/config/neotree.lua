@@ -14,6 +14,7 @@ return function()
       use_libuv_file_watcher = true,
     },
     window = {
+      width = 35,
       mappings = {
         ['<space>'] = 'none',
       },

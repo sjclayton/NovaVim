@@ -33,16 +33,23 @@ return function()
       source = 'if_many',
       border = 'rounded',
     },
-    signs = {
-      text = {
-        [vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
-        [vim.diagnostic.severity.WARN] = icons.diagnostics.Warn,
-        [vim.diagnostic.severity.INFO] = icons.diagnostics.Info,
-        [vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
-      },
-    },
+    -- NOTE: For future use config in Neovim 0.11.0
+    -- signs = {
+    --   text = {
+    --     [vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
+    --     [vim.diagnostic.severity.WARN] = icons.diagnostics.Warn,
+    --     [vim.diagnostic.severity.INFO] = icons.diagnostics.Info,
+    --     [vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
+    --   },
+    -- },
     severity_sort = true,
   })
+  -- Diagnostic sign settings
+  local signs = icons.diagnostics
+  for type, icon in pairs(signs) do
+    local hl = 'DiagnosticSign' .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+  end
 
   -- On attach (lspconfig)
   local on_attach = function(client, bufnr)
@@ -90,7 +97,7 @@ return function()
     opts.desc = 'Show hover documentation'
     map('n', 'K', vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
-    opts.desc = 'Toggle Inlay Hints'
+    opts.desc = 'Toggle inlay hints'
     if vim.bo[bufnr].filetype == 'rust' then
       map('n', '<leader>ci', function()
         require('core.helpers').toggle(
@@ -109,11 +116,6 @@ return function()
         end
       end, opts)
     end
-
-    -- opts.desc = 'Format file'
-    -- map('n', '<leader>cf', function()
-    --   lsp_formatting(0)
-    -- end, opts)
 
     opts.desc = 'Reload LSP'
     map('n', '<leader>rl', ':LspRestart<CR>', opts)
