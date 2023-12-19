@@ -1,4 +1,4 @@
-return function ()
+return function()
   local opts = {
     alternates = {
       ['enable'] = 'disable',
@@ -8,6 +8,7 @@ return function ()
       ['Enabled'] = 'Disabled',
       ['ENABLED'] = 'DISABLED',
       ['left'] = 'right',
+      ['top'] = 'bottom',
       ['on'] = 'off',
       ['show'] = 'hide',
       ['true'] = 'false',

@@ -424,10 +424,12 @@ return {
   { 'nvim-lua/plenary.nvim' },
   {
     'nvim-telescope/telescope.nvim',
-    cmd = 'Telescope',
+    event = 'VeryLazy',
+    -- cmd = 'Telescope',
     dependencies = {
       'nvim-telescope/telescope-frecency.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+      'debugloop/telescope-undo.nvim',
     },
     keys = {
       -- General
@@ -435,7 +437,6 @@ return {
       { '<leader>,', '<cmd>Telescope buffers show_all_buffers=true<cr>', desc = 'Switch buffer' },
       { '<leader>/', util.telescope('live_grep'), desc = 'Grep (root dir)' },
       -- Files
-      { '<leader>fb', '<cmd>Telescope buffers<cr>', desc = 'Buffers' },
       { '<leader>fF', util.telescope('files'), desc = 'Find files (root dir)' },
       { '<leader>ff', util.telescope('files', { cwd = vim.loop.cwd() }), desc = 'Find files (cwd)' },
       { '<leader>fR', '<cmd>Telescope frecency<cr>', desc = 'Recent files' },
@@ -443,6 +444,7 @@ return {
       -- search
       { '<leader>t"', '<cmd>Telescope registers<cr>', desc = 'Registers' },
       { '<leader>tk', '<cmd>Telescope keymaps<cr>', desc = 'Keymaps' },
+      { '<leader>tu', '<cmd>Telescope undo<cr>', desc = 'Undo history' },
       {
         '<leader>uC',
         function()

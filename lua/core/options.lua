@@ -23,7 +23,7 @@ o.formatexpr = "v:lua.require'core.util'.formatexpr()"
 o.guicursor = ''
 o.laststatus = 3
 -- o.lazyredraw = false
-o.listchars = { extends = '→', lead = '․', nbsp = '␣', precedes = '←', tab = '¬ ' }
+o.listchars = { extends = '→', nbsp = '␣', precedes = '←', tab = '¬ ' }
 o.mouse = 'a'
 o.mousemodel = 'extend'
 o.mousemoveevent = true
