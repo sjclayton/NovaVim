@@ -61,57 +61,33 @@ return {
   },
   --- AI
   {
-    'Exafunction/codeium.vim',
-    keys = {
-      {
-        '<leader>cC',
-        function()
-          helper.toggle('Codeium', { enable = 'CodeiumEnable', disable = 'CodeiumDisable' })
-        end,
-        desc = 'Toggle Codeium completion',
-        noremap = true,
-      },
-    },
-    config = conf('codeium'),
-  },
-  {
-    'sourcegraph/sg.nvim',
-    -- lazy = false,
-    keys = {
-      {
-        '<leader>cc',
-        function()
-          vim.cmd(':CodyToggle')
-          vim.cmd(':vertical resize +25N')
-        end,
-        desc = 'Toggle Cody chat',
-        noremap = true,
-      },
-      {
-        '<leader>cq',
-        function()
-          vim.ui.input({ prompt = 'What is your question:' }, function(input)
-            if input ~= nil or not '' then
-              vim.cmd("'<,'>:CodyAsk " .. input)
-              vim.cmd(':vertical resize +25N')
-            end
-          end)
-        end,
-        mode = 'v',
-        desc = 'Ask Cody about the current selection',
-        noremap = true,
-      },
+    'Exafunction/codeium.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'hrsh7th/nvim-cmp',
     },
     config = true,
+  },
+  {
+    'David-Kunz/gen.nvim',
+    keys = {
+      {
+        '<leader>gn',
+        ':Gen<cr>',
+        desc = 'Select AI prompt',
+        mode = { 'n', 'v' },
+      },
+    },
+    config = conf('gen'),
   },
   --- Coding Related
   {
     'rmagatti/alternate-toggler',
     keys = {
       {
-        '<CR>',
+        '<leader>v',
         "<cmd>lua require('alternate-toggler').toggleAlternate()<cr>",
-        desc = 'Toggle alternate',
+        desc = 'Alternate value',
         noremap = true,
       },
     },
@@ -119,6 +95,42 @@ return {
   },
   { 'numToStr/Comment.nvim', event = 'VeryLazy', config = true },
   { 'lewis6991/gitsigns.nvim', event = 'LazyFile', config = conf('gitsigns') },
+  { 'echasnovski/mini.pairs', event = 'VeryLazy', version = false, config = true },
+  {
+    'echasnovski/mini.surround',
+    event = 'VeryLazy',
+    keys = function(_, keys)
+      -- Populate the keys based on the user's options
+      local plugin = require('lazy.core.config').spec.plugins['mini.surround']
+      local opts = require('lazy.core.plugin').values(plugin, 'opts', false)
+      local mappings = {
+        { opts.mappings.add, desc = 'Add surrounding', mode = { 'n', 'v' } },
+        { opts.mappings.delete, desc = 'Delete surrounding' },
+        { opts.mappings.find, desc = 'Find right surrounding' },
+        { opts.mappings.find_left, desc = 'Find left surrounding' },
+        { opts.mappings.highlight, desc = 'Highlight surrounding' },
+        { opts.mappings.replace, desc = 'Replace surrounding' },
+        { opts.mappings.update_n_lines, desc = 'Update `MiniSurround.config.n_lines`' },
+      }
+      mappings = vim.tbl_filter(function(m)
+        return m[1] and #m[1] > 0
+      end, mappings)
+      return vim.list_extend(mappings, keys)
+    end,
+    opts = {
+      mappings = {
+        add = 'gs', -- Add surrounding in Normal and Visual modes
+        delete = 'gsd', -- Delete surrounding
+        find = 'gsf', -- Find surrounding (to the right)
+        find_left = 'gsF', -- Find surrounding (to the left)
+        highlight = 'gsh', -- Highlight surrounding
+        replace = 'gsr', -- Replace surrounding
+        update_n_lines = 'gsn', -- Update `n_lines`
+      },
+    },
+    version = false,
+    config = true,
+  },
   {
     'folke/todo-comments.nvim',
     event = { 'LazyFile' },
@@ -191,7 +203,7 @@ return {
   },
   --- LSP
   -- General
-  { 'kosayoda/nvim-lightbulb', event = 'LazyFile', opts = { autocmd = { enabled = true } } },
+  -- { 'kosayoda/nvim-lightbulb', event = 'LazyFile', opts = { autocmd = { enabled = true } } },
   {
     'williamboman/mason.nvim',
     cmd = 'Mason',
@@ -234,6 +246,7 @@ return {
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-nvim-lsp',
       'saadparwaiz1/cmp_luasnip',
+      'Exafunction/codeium.nvim',
       -- Snippets
       {
         'L3MON4D3/LuaSnip',
@@ -268,6 +281,7 @@ return {
     ft = { 'go', 'gomod' },
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
   },
+  { 'mrcjkb/rustaceanvim', version = '^3', ft = 'rust', config = conf('rustacean') },
   --- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
@@ -413,6 +427,7 @@ return {
     end,
     init = function()
       if vim.fn.argc() == 1 then
+        ---@diagnostic disable-next-line: param-type-mismatch
         local stat = vim.loop.fs_stat(vim.fn.argv(0))
         if stat and stat.type == 'directory' then
           require('neo-tree')
@@ -425,6 +440,7 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
+    branch = '0.1.x',
     dependencies = {
       'nvim-telescope/telescope-frecency.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
@@ -441,6 +457,7 @@ return {
       { '<leader>fR', '<cmd>Telescope frecency<cr>', desc = 'Recent files' },
       { '<leader>fr', '<cmd>Telescope frecency workspace=CWD<cr>', desc = 'Recent files (cwd)' },
       -- search
+      { '<leader>tm', '<cmd>Telescope marks<cr>', desc = 'Marks' },
       { '<leader>t"', '<cmd>Telescope registers<cr>', desc = 'Registers' },
       { '<leader>tk', '<cmd>Telescope keymaps<cr>', desc = 'Keymaps' },
       { '<leader>tu', '<cmd>Telescope undo<cr>', desc = 'Undo history' },
