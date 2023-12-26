@@ -10,17 +10,32 @@ return function()
       -- you can turn off/on auto_update per tool
       -- { 'bash-language-server', auto_update = true },
 
+      -- General
+      'bash-language-server',
+      -- 'misspell',
+      -- 'shfmt',
+      -- Golang
       'delve',
       'golangci-lint',
       'goimports',
       'goimports-reviser',
       'gomodifytags',
+      'gopls',
       'gotests',
       'impl',
       'iferr',
-      -- 'misspell',
       -- 'revive',
-      -- 'shfmt',
+      -- Javascript/Typescript
+      'typescript-language-server',
+      'eslint_d',
+      -- Lua
+      'lua-language-server',
+      'stylua',
+      -- Python
+      'black',
+      'isort',
+      'jedi-language-server',
+      'ruff',
     },
 
     -- if set to true this will check each tool for updates. If updates
@@ -51,4 +66,5 @@ return function()
   }
 
   require('mason-tool-installer').setup(opts)
+  require('mason-tool-installer').run_on_start()
 end

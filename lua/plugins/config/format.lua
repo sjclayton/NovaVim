@@ -5,13 +5,17 @@ return function()
       go = { 'goimports-reviser', 'goimports', 'gofmt' },
       lua = { 'stylua' },
       -- javascript = { { "prettierd", "prettier" } },
-      -- python = { "isort", "black" },
+      -- javascript = { { 'eslint_d', 'eslint' } },
+      javascript = { 'standardjs' },
+      python = { --[[ 'isort',  ]]
+        'ruff_fix',
+      },
       rust = { 'rustfmt' },
       zig = { 'zigfmt' },
       ['_'] = { 'trim_whitespace' },
     },
     -- Set up format-on-save
-    format_on_save = { async = false, timeout_ms = 3000, lsp_fallback = false },
+    format_on_save = { async = false, timeout_ms = 3000, lsp_fallback = true },
     -- Customize formatters
     formatters = {
       ['goimports-reviser'] = {
