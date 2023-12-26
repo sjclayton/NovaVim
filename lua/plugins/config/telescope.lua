@@ -28,7 +28,8 @@ return function()
         -- the default case_mode is "smart_case"
       },
       undo = {
-        side_by_side = true,
+        -- use_delta = false,
+        -- side_by_side = true,
         layout_strategy = 'vertical',
         layout_config = {
           preview_height = 0.65,
