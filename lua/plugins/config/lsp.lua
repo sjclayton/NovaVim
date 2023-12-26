@@ -15,7 +15,7 @@ return function()
 
   -- Mason LSP Config
   mason_lsp.setup({
-    ensure_installed = { 'bashls', 'gopls', 'lua_ls', 'tsserver' },
+    ensure_installed = { 'bashls', 'gopls', 'lua_ls', 'jedi_language_server', 'tsserver' },
   })
 
   -- Neovim diagnostic format settings
@@ -44,12 +44,27 @@ return function()
     -- },
     severity_sort = true,
   })
+
   -- Diagnostic sign settings
   local signs = icons.diagnostics
   for type, icon in pairs(signs) do
     local hl = 'DiagnosticSign' .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
   end
+
+  -- Enable inlay hints on LspAttach (for selected langs)
+  local inlay_ft = { 'go', 'rust' }
+
+  vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function()
+      local buf = vim.api.nvim_get_current_buf()
+      local filetype = vim.bo[buf].filetype
+
+      if vim.tbl_contains(inlay_ft, filetype) then
+        vim.lsp.inlay_hint.enable(buf, true)
+      end
+    end,
+  })
 
   -- On attach (lspconfig)
   local on_attach = function(client, bufnr)
@@ -98,38 +113,28 @@ return function()
     map('n', 'K', vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
     opts.desc = 'Toggle inlay hints'
-    if vim.bo[bufnr].filetype == 'rust' then
-      map('n', '<leader>ci', function()
-        require('core.helpers').toggle(
-          'Inlay hints',
-          { enable = 'RustDisableInlayHints', disable = 'RustEnableInlayHints' }
-        )
-      end, opts)
-    else
-      map('n', '<leader>ci', function()
-        bufnr = bufnr or 0
-        local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-        if inlay_hint.enable then
-          vim.lsp.inlay_hint.enable(bufnr, not inlay_hint.is_enabled())
-        else
-          vim.lsp.inlay_hint(bufnr, nil)
-        end
-      end, opts)
-    end
+    map('n', '<leader>ci', function()
+      bufnr = bufnr or 0
+      local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+      if inlay_hint.enable then
+        vim.lsp.inlay_hint.enable(bufnr, not inlay_hint.is_enabled())
+      else
+        vim.lsp.inlay_hint(bufnr, nil)
+      end
+    end, opts)
 
     opts.desc = 'Reload LSP'
     map('n', '<leader>rl', ':LspRestart<CR>', opts)
   end
 
-  -- configure bashls server
+  -- configure bash server
   lspconfig['bashls'].setup({
     capabilities = capabilities,
     on_attach = on_attach,
   })
 
-  -- configure gopls server
+  -- configure go server
   lspconfig['gopls'].setup({
-    formatting = false,
     capabilities = capabilities,
     flags = { debounce_text_changes = 150 },
     --- @diagnostic disable-next-line : unused-local
@@ -169,11 +174,11 @@ return function()
         },
         hints = {
           assignVariableTypes = true,
-          compositeLiteralFields = true,
+          compositeLiteralFields = false,
           compositeLiteralTypes = true,
           constantValues = true,
           functionTypeParameters = true,
-          parameterNames = true,
+          parameterNames = false,
           rangeVariableTypes = true,
         },
         analyses = {
@@ -183,55 +188,23 @@ return function()
           unusedwrite = true,
           useany = true,
         },
-        usePlaceholders = true,
-        completeUnimported = true,
-        directoryFilters = { '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules' },
         semanticTokens = true,
+        usePlaceholders = true,
+        directoryFilters = { '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules' },
       },
     },
   })
 
-  -- configure python server (pylsp)
-  -- lspconfig['pylsp'].setup({
-  --   capabilities = capabilities,
-  --   on_attach = on_attach,
-  --   settings = {
-  --     pylsp = {
-  --       plugins = {
-  --         pylsp_black = {
-  --           cache_config = true,
-  --           enabled = true,
-  --           line_length = 119,
-  --         },
-  --         pyls_isort = {
-  --           enabled = true,
-  --         },
-  --         flake8 = {
-  --           enabled = true,
-  --           maxLineLength = 119,
-  --         },
-  --         mypy = {
-  --           enabled = true,
-  --         },
-  --         mccabe = {
-  --           enabled = false,
-  --         },
-  --         autopep8 = {
-  --           enabled = false,
-  --         },
-  --         pycodestyle = {
-  --           enabled = false,
-  --         },
-  --         pyflakes = {
-  --           enabled = false,
-  --         },
-  --         yapf = {
-  --           enabled = false,
-  --         },
-  --       },
-  --     },
-  --   },
-  -- })
+  -- configure python server
+  lspconfig['jedi_language_server'].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    init_options = {
+      diagnostics = {
+        enable = false,
+      },
+    },
+  })
 
   -- configure typescript server
   lspconfig['tsserver'].setup({
@@ -290,7 +263,7 @@ return function()
     },
   })
 
-  --configure zig server
+  -- configure zig server (manually installed)
   lspconfig['zls'].setup({
     capabilities = capabilities,
     on_attach = on_attach,
