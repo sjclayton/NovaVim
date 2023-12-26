@@ -15,6 +15,7 @@ map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
 -- Better window navigation
+map('n', '<C-q>', '<C-w>q', { desc = 'Close window' })
 map('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
 map('n', '<C-j>', '<C-w>j', { desc = 'Move to lower window' })
 map('n', '<C-k>', '<C-w>k', { desc = 'Move to upper window' })
@@ -38,9 +39,6 @@ map('n', '<a-k>', '<cmd>m .-2<cr>==', { desc = 'Move line up' })
 map('v', '<a-j>', ":m '>+1<cr>gv=gv", { desc = 'Move selection down' })
 map('v', '<a-k>', ":m '<-2<cr>gv=gv", { desc = 'Move selection up' })
 
--- Clear search with <esc>
-map({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
-
 -- Sorting
 map('v', '<leader>s', "<esc><cmd>'<,'>sort<cr>", { desc = 'Sort visual selection' })
 map('v', '<leader>r', "<esc><cmd>'<,'>sort!<cr>", { desc = 'Sort visual selection (reverse)' })
@@ -49,6 +47,13 @@ map('v', '<leader>r', "<esc><cmd>'<,'>sort!<cr>", { desc = 'Sort visual selectio
 -- Misc
 ---
 
+-- Clear search with <esc>
+map({ 'n', 'i' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
+
+-- Disable some things
+map('n', 'Q', '<nop>')
+
+-- Useful stuff
 map('n', '<leader>fl', ":lua print(vim.fn.expand('%:h'))<cr>", { desc = 'Show CWD relative to project root' })
 map(
   'n',
