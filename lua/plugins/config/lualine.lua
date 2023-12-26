@@ -1,6 +1,6 @@
 return function()
   local util = require('core.util')
-  local lualine_util = require('core.util.lualine')
+  local util_lualine = require('core.util.lualine')
   local icons = require('core.icons')
   local colors = require('catppuccin.palettes')
 
@@ -46,8 +46,7 @@ return function()
       },
       lualine_c = {
         { 'filetype', icon_only = true },
-        -- { 'filename', padding = { left = 0 } },
-        { lualine_util.pretty_path() },
+        { util_lualine.pretty_path(), padding = { left = 0 } },
       },
       lualine_x = {
         {

@@ -6,8 +6,7 @@ return function()
       panel = 'base',
     },
     highlight_groups = {
-      -- Alpha Dashboard
-      AlphaHeaderLabel = { fg = 'gold' },
+      WinSeparator = { fg = 'muted' },
 
       -- Cmp
       CmpPmenu = { bg = 'base' },
