@@ -64,9 +64,73 @@ return function()
     sync_install = false,
     -- auto install above language parsers
     auto_install = true,
+
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = '<C-space>',
+        node_incremental = '<C-space>',
+        scope_incremental = false,
+        node_decremental = '<bs>',
+      },
+    },
+
+    -- treesitter-textobjects config
+    textobjects = {
+      select = {
+        enable = true,
+        lookahead = true,
+        keymaps = {
+          ['af'] = '@function.outer',
+          ['if'] = '@function.inner',
+          ['ac'] = '@class.outer',
+          ['ic'] = '@class.inner',
+
+          -- json
+          ['ak'] = '@key.outer',
+          ['ik'] = '@key.inner',
+          ['av'] = '@value.outer',
+          ['iv'] = '@value.inner',
+        },
+        selection_modes = {
+          -- ['@parameter.outer'] = 'v', -- charwise
+          ['@function.outer'] = 'V', -- linewise
+          -- ['@class.outer'] = '<c-v>', -- blockwise
+        },
+      },
+      swap = {
+        enable = true,
+        swap_next = {
+          ['<leader>rp'] = '@parameter.inner',
+        },
+        swap_previous = {
+          ['<leader>rP'] = '@parameter.inner',
+        },
+      },
+      move = {
+        enable = true,
+        set_jumps = true, -- whether to set jumps in the jumplist
+        goto_next_start = {
+          [']f'] = '@function.outer',
+          [']c'] = '@class.outer',
+        },
+        goto_next_end = {
+          [']F'] = '@function.outer',
+          [']C'] = '@class.outer',
+        },
+        goto_previous_start = {
+          ['[f'] = '@function.outer',
+          ['[c'] = '@class.outer',
+        },
+        goto_previous_end = {
+          ['[F'] = '@function.outer',
+          ['[C'] = '@class.outer',
+        },
+      },
+    },
   })
 
-  -- TS-context config
+  -- treesitter-context config
   local context = require('treesitter-context')
 
   context.setup({

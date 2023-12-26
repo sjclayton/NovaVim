@@ -11,6 +11,18 @@ return {
   { 'ThePrimeagen/harpoon', event = 'VeryLazy', config = conf('harpoon') },
   { 'lukas-reineke/headlines.nvim', ft = { 'markdown', 'norg', 'org' }, config = conf('headlines') },
   {
+    'smoka7/hop.nvim',
+    version = '*',
+    opts = {
+      keys = 'asdghklqwertyuiopzxcvbnmfj',
+    },
+    keys = {
+      { '<leader>j', '<CMD>HopWord<CR>', desc = 'Hop to any word' },
+      { '<leader>k', '<CMD>HopLineStart<CR>', desc = 'Hop to start of line' },
+      { '<leader>i', '<CMD>HopWordCurrentLine<CR>', desc = 'Hop to word (current line)' },
+    },
+  },
+  {
     'shellRaining/hlchunk.nvim',
     keys = {
       {
@@ -95,10 +107,11 @@ return {
   },
   { 'numToStr/Comment.nvim', event = 'VeryLazy', config = true },
   { 'lewis6991/gitsigns.nvim', event = 'LazyFile', config = conf('gitsigns') },
+  { 'echasnovski/mini.ai', event = 'VeryLazy', version = false, config = conf('mini-ai') },
   { 'echasnovski/mini.pairs', event = 'VeryLazy', version = false, config = true },
   {
     'echasnovski/mini.surround',
-    event = 'VeryLazy',
+    -- event = 'VeryLazy',
     keys = function(_, keys)
       -- Populate the keys based on the user's options
       local plugin = require('lazy.core.config').spec.plugins['mini.surround']
@@ -118,14 +131,15 @@ return {
       return vim.list_extend(mappings, keys)
     end,
     opts = {
+      silent = true,
       mappings = {
-        add = 'gs', -- Add surrounding in Normal and Visual modes
-        delete = 'gsd', -- Delete surrounding
-        find = 'gsf', -- Find surrounding (to the right)
-        find_left = 'gsF', -- Find surrounding (to the left)
-        highlight = 'gsh', -- Highlight surrounding
-        replace = 'gsr', -- Replace surrounding
-        update_n_lines = 'gsn', -- Update `n_lines`
+        add = 'sa', -- Add surrounding in Normal and Visual modes
+        delete = 'sd', -- Delete surrounding
+        find = 'sf', -- Find surrounding (to the right)
+        find_left = 'sF', -- Find surrounding (to the left)
+        highlight = 'sh', -- Highlight surrounding
+        replace = 'sr', -- Replace surrounding
+        update_n_lines = 'sn', -- Update `n_lines`
       },
     },
     version = false,
@@ -286,8 +300,41 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     event = { 'LazyFile', 'VeryLazy' },
+    cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' },
     version = false,
-    dependencies = { 'HiPhish/rainbow-delimiters.nvim', 'nvim-treesitter/nvim-treesitter-context' },
+    dependencies = {
+      'HiPhish/rainbow-delimiters.nvim',
+      'nvim-treesitter/nvim-treesitter-context',
+      {
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        config = function()
+          -- When in diff mode, we want to use the default
+          -- vim text objects c & C instead of the treesitter ones.
+          local move = require('nvim-treesitter.textobjects.move') ---@type table<string,fun(...)>
+          local configs = require('nvim-treesitter.configs')
+          for name, fn in pairs(move) do
+            if name:find('goto') == 1 then
+              move[name] = function(q, ...)
+                if vim.wo.diff then
+                  local config = configs.get_module('textobjects.move')[name] ---@type table<string,string>
+                  for key, query in pairs(config or {}) do
+                    if q == query and key:find('[%]%[][cC]') then
+                      vim.cmd('normal! ' .. key)
+                      return
+                    end
+                  end
+                end
+                return fn(q, ...)
+              end
+            end
+          end
+        end,
+      },
+    },
+    keys = {
+      { '<c-space>', desc = 'Increment selection' },
+      { '<bs>', desc = 'Decrement selection', mode = 'x' },
+    },
     build = ':TSUpdate',
     init = function(plugin)
       require('lazy.core.loader').add_to_rtp(plugin)

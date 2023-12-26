@@ -83,6 +83,7 @@ return function()
       gitsigns = true,
       harpoon = true,
       headlines = true,
+      hop = true,
       illuminate = true,
       lsp_trouble = true,
       mason = true,
