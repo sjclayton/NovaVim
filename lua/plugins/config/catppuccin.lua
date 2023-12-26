@@ -78,7 +78,6 @@ return function()
       end,
     },
     integrations = {
-      alpha = true,
       cmp = true,
       fidget = false,
       gitsigns = true,

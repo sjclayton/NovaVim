@@ -45,7 +45,7 @@ elseif util.has('rose-pine') then
   require('rose-pine')
   vim.cmd.colorscheme('rose-pine')
 else
-  require('notify')('Could not load your colorscheme or a preferred fallback', 'error')
+  pcall(require('notify')('Could not load your colorscheme or a preferred fallback', 'error'))
   vim.cmd.colorscheme('default')
 end
 
