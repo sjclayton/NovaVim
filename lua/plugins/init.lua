@@ -290,6 +290,12 @@ return {
   { 'mfussenegger/nvim-lint', event = 'LazyFile', config = conf('lint') },
   --- Language Specific
   {
+    'Saecki/crates.nvim',
+    event = { 'BufRead Cargo.toml' },
+    dependencies = { 'nvim-lua/plenary.nvim', 'hrsh7th/nvim-cmp' },
+    config = conf('crates'),
+  },
+  {
     'olexsmir/gopher.nvim',
     ft = { 'go', 'gomod' },
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },

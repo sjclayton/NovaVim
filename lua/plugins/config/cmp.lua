@@ -162,7 +162,8 @@ return function()
 
     -- sources for autocompletion
     sources = cmp.config.sources({
-      { name = 'codeium' }, -- Codeium AI
+      { name = 'crates' }, -- Rust crates
+      { name = 'codeium', keyword_length = 3 }, -- Codeium AI
       { name = 'nvim_lsp', keyword_length = 3 }, -- LSP
       { name = 'luasnip', keyword_length = 2 }, -- Snippets
       { name = 'path' }, -- File system paths
