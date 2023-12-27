@@ -9,10 +9,10 @@ local wk = require('which-key')
 ---
 
 -- Better up/down
-map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
-map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { expr = true })
-map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
-map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { expr = true })
+map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
+map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
 
 -- Better window navigation
 map('n', '<C-q>', '<C-w>q', { desc = 'Close window' })
@@ -88,8 +88,13 @@ wk.register({
   t = {
     name = icons.ui.Telescope .. 'Telescope',
   },
+  l = {
+    name = icons.ui.Gear .. 'LSP',
+    i = { ':LspInfo<CR>', 'LSP Info', noremap = true },
+    r = { ':LspRestart<CR>', 'Restart LSP', noremap = true },
+  },
   u = {
-    name = icons.ui.UI .. 'UI',
+    name = icons.ui.UI .. 'UI/Utils',
     c = {
       function()
         toggle('Listchars', { enable = 'set list', disable = 'set nolist' })
@@ -97,19 +102,22 @@ wk.register({
       'Toggle listchars',
       noremap = true,
     },
-    l = {
+    n = {
       function()
         toggle('Line numbers', { enable = 'set nonumber', disable = 'set number' })
       end,
       'Toggle line numbers',
       noremap = true,
     },
+    l = { ':Lazy<CR>', 'Open Lazy', noremap = true },
     Z = {
       ':ZenMode<CR>',
       'Toggle zen mode',
       noremap = true,
     },
   },
+  x = {
+    name = icons.diagnostics.Warn .. 'Diagnostics',
+  },
   ['<space>'] = { '<C-^>', 'Jump to alternate file', noremap = true },
-  l = { ':Lazy<CR>', 'Open Lazy', noremap = true },
 }, { prefix = '<leader>' })

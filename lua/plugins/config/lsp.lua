@@ -122,9 +122,6 @@ return function()
         vim.lsp.inlay_hint(bufnr, nil)
       end
     end, opts)
-
-    opts.desc = 'Reload LSP'
-    map('n', '<leader>rl', ':LspRestart<CR>', opts)
   end
 
   -- configure bash server

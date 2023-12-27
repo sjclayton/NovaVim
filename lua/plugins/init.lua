@@ -217,12 +217,11 @@ return {
   },
   --- LSP
   -- General
-  -- { 'kosayoda/nvim-lightbulb', event = 'LazyFile', opts = { autocmd = { enabled = true } } },
   {
     'williamboman/mason.nvim',
     cmd = 'Mason',
     keys = {
-      { '<leader>cm', '<CMD>Mason<cr>', desc = 'Open Mason' },
+      { '<leader>um', '<CMD>Mason<cr>', desc = 'Open Mason' },
     },
     build = ':MasonUpdate',
     opts = {

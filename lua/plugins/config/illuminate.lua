@@ -13,7 +13,7 @@ return function()
       'lazy',
       'markdown.cody_history',
       'markdown.cody_prompt',
-      'Mason',
+      'mason',
       'neo-tree',
       'noice',
       'TelescopePrompt',
