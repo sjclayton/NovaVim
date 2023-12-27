@@ -32,36 +32,39 @@ map('v', '<', '<gv')
 map('v', '>', '>gv')
 
 -- Move lines
-map('i', '<a-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'Move line down' })
-map('i', '<a-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move line up' })
-map('n', '<a-j>', '<cmd>m .+1<cr>==', { desc = 'Move line down' })
-map('n', '<a-k>', '<cmd>m .-2<cr>==', { desc = 'Move line up' })
-map('v', '<a-j>', ":m '>+1<cr>gv=gv", { desc = 'Move selection down' })
-map('v', '<a-k>', ":m '<-2<cr>gv=gv", { desc = 'Move selection up' })
+map('i', '<a-j>', '<ESC><CMD>m .+1<CR>==gi', { desc = 'Move line down' })
+map('i', '<a-k>', '<ESC><CMD>m .-2<CR>==gi', { desc = 'Move line up' })
+map('n', '<a-j>', '<CMD>m .+1<CR>==', { desc = 'Move line down' })
+map('n', '<a-k>', '<CMD>m .-2<CR>==', { desc = 'Move line up' })
+map('v', '<a-j>', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
+map('v', '<a-k>', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
+
+-- Jumping
+map('n', '<BS>', '^', { desc = 'Start of line (non-blank)' })
 
 -- Sorting
-map('v', '<leader>s', "<esc><cmd>'<,'>sort<cr>", { desc = 'Sort visual selection' })
-map('v', '<leader>r', "<esc><cmd>'<,'>sort!<cr>", { desc = 'Sort visual selection (reverse)' })
+map('v', '<leader>s', "<ESC><CMD>'<,'>sort<CR>", { desc = 'Sort visual selection' })
+map('v', '<leader>r', "<ESC><CMD>'<,'>sort!<CR>", { desc = 'Sort visual selection (reverse)' })
 
 ---
 -- Misc
 ---
 
--- Clear search with <esc>
-map({ 'n', 'i' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
+-- Clear search with <ESC>
+map({ 'n', 'i' }, '<ESC>', '<CMD>noh<CR><ESC>', { desc = 'Escape and clear hlsearch' })
 
 -- Disable some things
-map('n', 'Q', '<nop>')
+map('n', 'Q', '<NOP>')
 
 -- Useful stuff
-map('n', '<leader>fl', ":lua print(vim.fn.expand('%:h'))<cr>", { desc = 'Show CWD relative to project root' })
+map('n', '<leader>fl', ":lua print(vim.fn.expand('%:h'))<CR>", { desc = 'Show CWD relative to project root' })
 map(
   'n',
   'gx',
-  '<Cmd>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>',
+  '<CMD>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>',
   { desc = 'Open link under cursor in browser' }
 )
-map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
+map('n', '<leader>qq', '<CMD>qa<CR>', { desc = 'Quit all' })
 
 ---
 -- Which-key Mapping Table
@@ -90,8 +93,8 @@ wk.register({
   },
   l = {
     name = icons.ui.Gear .. 'LSP',
-    i = { ':LspInfo<CR>', 'LSP Info', noremap = true },
-    r = { ':LspRestart<CR>', 'Restart LSP', noremap = true },
+    i = { '<CMD>LspInfo<CR>', 'LSP Info', noremap = true },
+    r = { '<CMD>LspRestart<CR>', 'Restart LSP', noremap = true },
   },
   u = {
     name = icons.ui.UI .. 'UI/Utils',
@@ -109,9 +112,9 @@ wk.register({
       'Toggle line numbers',
       noremap = true,
     },
-    l = { ':Lazy<CR>', 'Open Lazy', noremap = true },
+    l = { '<CMD>Lazy<CR>', 'Open Lazy', noremap = true },
     Z = {
-      ':ZenMode<CR>',
+      '<CMD>ZenMode<CR>',
       'Toggle zen mode',
       noremap = true,
     },

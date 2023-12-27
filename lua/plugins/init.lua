@@ -63,7 +63,7 @@ return {
       {
         '<leader>cp',
         ft = 'markdown',
-        '<cmd>MarkdownPreviewToggle<cr>',
+        '<CMD>MarkdownPreviewToggle<CR>',
         desc = 'Markdown Preview',
       },
     },
@@ -85,7 +85,7 @@ return {
     keys = {
       {
         '<leader>gn',
-        ':Gen<cr>',
+        '<CMD>Gen<CR>',
         desc = 'Select AI prompt',
         mode = { 'n', 'v' },
       },
@@ -98,7 +98,7 @@ return {
     keys = {
       {
         '<leader>v',
-        "<cmd>lua require('alternate-toggler').toggleAlternate()<cr>",
+        "<CMD>lua require('alternate-toggler').toggleAlternate()<CR>",
         desc = 'Alternate value',
         noremap = true,
       },
@@ -154,10 +154,10 @@ return {
       { ']t', function() require('todo-comments').jump_next() end, desc = 'Next todo comment', },
       { '[t', function() require('todo-comments').jump_prev() end, desc = 'Previous todo comment', },
       -- stylua: ignore end
-      { '<leader>xt', '<cmd>TodoTrouble<cr>', desc = 'Todo (Trouble)' },
-      { '<leader>xT', '<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>', desc = 'Todo/Fix/Fixme (Trouble)' },
-      { '<leader>tt', '<cmd>TodoTelescope<cr>', desc = 'Todo' },
-      { '<leader>tT', '<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>', desc = 'Todo/Fix/Fixme' },
+      { '<leader>xt', '<CMD>TodoTrouble<CR>', desc = 'Todo (Trouble)' },
+      { '<leader>xT', '<CMD>TodoTrouble keywords=TODO,FIX,FIXME<CR>', desc = 'Todo/Fix/Fixme (Trouble)' },
+      { '<leader>tt', '<CMD>TodoTelescope<CR>', desc = 'Todo' },
+      { '<leader>tT', '<CMD>TodoTelescope keywords=TODO,FIX,FIXME<CR>', desc = 'Todo/Fix/Fixme' },
     },
     config = true,
   },
@@ -172,10 +172,10 @@ return {
     cmd = { 'TroubleToggle', 'Trouble' },
     opts = { use_diagnostic_signs = true },
     keys = {
-      { '<leader>xx', '<cmd>TroubleToggle document_diagnostics<cr>', desc = 'Document Diagnostics (Trouble)' },
-      { '<leader>xX', '<cmd>TroubleToggle workspace_diagnostics<cr>', desc = 'Workspace Diagnostics (Trouble)' },
-      { '<leader>xL', '<cmd>TroubleToggle loclist<cr>', desc = 'Location List (Trouble)' },
-      { '<leader>xQ', '<cmd>TroubleToggle quickfix<cr>', desc = 'Quickfix List (Trouble)' },
+      { '<leader>xx', '<CMD>TroubleToggle document_diagnostics<CR>', desc = 'Document Diagnostics (Trouble)' },
+      { '<leader>xX', '<CMD>TroubleToggle workspace_diagnostics<CR>', desc = 'Workspace Diagnostics (Trouble)' },
+      { '<leader>xL', '<CMD>TroubleToggle loclist<CR>', desc = 'Location List (Trouble)' },
+      { '<leader>xQ', '<CMD>TroubleToggle quickfix<CR>', desc = 'Quickfix List (Trouble)' },
       {
         '[q',
         function()
@@ -221,7 +221,7 @@ return {
     'williamboman/mason.nvim',
     cmd = 'Mason',
     keys = {
-      { '<leader>um', '<CMD>Mason<cr>', desc = 'Open Mason' },
+      { '<leader>um', '<CMD>Mason<CR>', desc = 'Open Mason' },
     },
     build = ':MasonUpdate',
     opts = {
@@ -440,9 +440,9 @@ return {
   {
     'JManch/nomodoro',
     keys = {
-      { '<leader>nw', '<cmd>NomoWork<cr>', desc = 'Nomo - Start Work' },
-      { '<leader>nb', '<cmd>NomoBreak<cr>', desc = 'Nomo - Start Break' },
-      { '<leader>ns', '<cmd>NomoStop<cr>', desc = 'Nomo - Stop Timer' },
+      { '<leader>nw', '<CMD>NomoWork<CR>', desc = 'Nomo - Start Work' },
+      { '<leader>nb', '<CMD>NomoBreak<CR>', desc = 'Nomo - Start Break' },
+      { '<leader>ns', '<CMD>NomoStop<CR>', desc = 'Nomo - Stop Timer' },
     },
     config = conf('nomodoro'),
   },
@@ -494,19 +494,19 @@ return {
     },
     keys = {
       -- General
-      { '<leader>:', '<cmd>Telescope command_history<cr>', desc = 'Command History' },
-      { '<leader>,', '<cmd>Telescope buffers show_all_buffers=true<cr>', desc = 'Switch buffer' },
+      { '<leader>:', '<CMD>Telescope command_history<CR>', desc = 'Command History' },
+      { '<leader>,', '<CMD>Telescope buffers show_all_buffers=true<CR>', desc = 'Switch buffer' },
       { '<leader>/', util.telescope('live_grep'), desc = 'Grep (root dir)' },
       -- Files
       { '<leader>fF', util.telescope('files'), desc = 'Find files (root dir)' },
       { '<leader>ff', util.telescope('files', { cwd = vim.loop.cwd() }), desc = 'Find files (cwd)' },
-      { '<leader>fR', '<cmd>Telescope frecency<cr>', desc = 'Recent files' },
-      { '<leader>fr', '<cmd>Telescope frecency workspace=CWD<cr>', desc = 'Recent files (cwd)' },
+      { '<leader>fR', '<CMD>Telescope frecency<CR>', desc = 'Recent files' },
+      { '<leader>fr', '<CMD>Telescope frecency workspace=CWD<CR>', desc = 'Recent files (cwd)' },
       -- search
-      { '<leader>tm', '<cmd>Telescope marks<cr>', desc = 'Marks' },
-      { '<leader>t"', '<cmd>Telescope registers<cr>', desc = 'Registers' },
-      { '<leader>tk', '<cmd>Telescope keymaps<cr>', desc = 'Keymaps' },
-      { '<leader>tu', '<cmd>Telescope undo<cr>', desc = 'Undo history' },
+      { '<leader>tm', '<CMD>Telescope marks<CR>', desc = 'Marks' },
+      { '<leader>t"', '<CMD>Telescope registers<CR>', desc = 'Registers' },
+      { '<leader>tk', '<CMD>Telescope keymaps<CR>', desc = 'Keymaps' },
+      { '<leader>tu', '<CMD>Telescope undo<CR>', desc = 'Undo history' },
       {
         '<leader>uC',
         function()
