@@ -69,9 +69,6 @@ return function()
           -- Neo-tree
           NeoTreeMessage = { fg = C.overlay0, style = { 'italic' } },
 
-          -- Nvim-Notify
-          NotifyBackground = { bg = C.base },
-
           -- Treesitter-Context
           TreesitterContextBottom = { sp = C.surface2, style = { 'underline' } },
         }

@@ -51,5 +51,6 @@ o.tabstop = 4
 o.termguicolors = true
 o.undodir = { os.getenv('HOME') .. '/.vim/undodir' }
 o.undofile = true
-o.updatetime = 500
+o.undolevels = 10000
+o.updatetime = 200
 o.wrap = false

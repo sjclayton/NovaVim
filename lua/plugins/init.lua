@@ -171,13 +171,14 @@ return {
   },
   {
     'Wansmer/treesj',
-    cmd = { 'TSJJoin', 'TSJSplit' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    opts = {
+      use_default_keymaps = false,
+    },
     keys = {
       { 'sj', '<CMD>TSJJoin<CR>', desc = 'TS join lines' },
       { 'sk', '<CMD>TSJSplit<CR>', desc = 'TS split lines' },
     },
-    config = true,
   },
   {
     'folke/trouble.nvim',
