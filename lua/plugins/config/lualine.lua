@@ -92,7 +92,7 @@ return function()
       lualine_y = {
         'diagnostics',
         {
-          util.lsp_clients,
+          util.lsp_client_names,
           icon = icons.ui.Gear,
           color = { fg = colors.get_palette(mocha).subtext1 },
           on_click = function()

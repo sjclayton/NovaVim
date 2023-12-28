@@ -449,7 +449,7 @@ end
 --- END of Lazy util functions
 ---
 
-function M.get_active_lsp_client_names()
+function M.lsp_client_names()
   local active_clients = vim.lsp.get_clients()
   local client_names = {}
   for _, client in pairs(active_clients or {}) do
@@ -463,23 +463,12 @@ function M.get_active_lsp_client_names()
   if not vim.tbl_isempty(client_names) then
     table.sort(client_names)
   end
-  return client_names
-end
 
-function M.lsp_clients()
-  local clients = M.get_active_lsp_client_names()
-  local client_str = ''
-
-  if #clients < 1 then
-    return client_str
+  if #client_names < 1 then
+    return ''
   end
 
-  for i, client in ipairs(clients) do
-    client_str = client_str .. client
-    if i < #clients then
-      client_str = client_str .. ', '
-    end
-  end
+  local client_str = table.concat(client_names, ', ')
 
   if client_str:len() < 1 then
     return
