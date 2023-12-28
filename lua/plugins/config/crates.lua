@@ -5,6 +5,9 @@ return function()
         enabled = true,
       },
     },
+    popup = {
+      autofocus = true,
+    },
   }
 
   require('crates').setup(opts)

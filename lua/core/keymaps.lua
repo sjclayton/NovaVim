@@ -84,6 +84,9 @@ wk.register({
   },
   c = {
     name = icons.ui.Code .. 'Code',
+    c = {
+      name = icons.kinds.Package .. 'Rust Crates',
+    },
   },
   f = {
     name = icons.kinds.File .. 'File',
@@ -92,7 +95,6 @@ wk.register({
     name = icons.ui.Telescope .. 'Telescope',
   },
   l = {
-    name = icons.ui.Gear .. 'LSP',
     i = { '<CMD>LspInfo<CR>', 'LSP Info', noremap = true },
     r = { '<CMD>LspRestart<CR>', 'Restart LSP', noremap = true },
   },
@@ -113,6 +115,13 @@ wk.register({
       noremap = true,
     },
     l = { '<CMD>Lazy<CR>', 'Open Lazy', noremap = true },
+    w = {
+      function()
+        toggle('Word wrap', { enable = 'set wrap', disable = 'set nowrap' })
+      end,
+      'Toggle word wrap',
+      noremap = true,
+    },
     Z = {
       '<CMD>ZenMode<CR>',
       'Toggle zen mode',

@@ -1,21 +1,19 @@
 return function()
-  local util = require('core.util')
   local icons = require('core.icons')
 
   local lspconfig = require('lspconfig')
   local mason_lsp = require('mason-lspconfig')
   local cmp_lsp = require('cmp_nvim_lsp')
 
-  local map = vim.keymap.set -- for conciseness
-
-  local opts = { noremap = true, silent = true }
+  -- pull in general keymaps for on_attach
+  local on_attach = require('plugins.config.lsp.keymaps').on_attach
 
   -- used to enable autocompletion (assign to every lsp server config)
   local capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
   -- Mason LSP Config
   mason_lsp.setup({
-    ensure_installed = { 'bashls', 'gopls', 'lua_ls', 'jedi_language_server', 'tsserver' },
+    ensure_installed = { 'bashls', 'gopls', 'lua_ls', 'jedi_language_server', 'taplo', 'tsserver' },
   })
 
   -- Neovim diagnostic format settings
@@ -53,8 +51,10 @@ return function()
   end
 
   -- Enable inlay hints on LspAttach (for selected langs)
-  local inlay_ft = { 'go', 'rust' }
-
+  local inlay_ft = {
+    'go',
+    -- 'rust',
+  }
   vim.api.nvim_create_autocmd('LspAttach', {
     callback = function()
       local buf = vim.api.nvim_get_current_buf()
@@ -65,64 +65,6 @@ return function()
       end
     end,
   })
-
-  -- On attach (lspconfig)
-  local on_attach = function(client, bufnr)
-    opts.buffer = bufnr
-
-    -- Set keybinds
-    opts.desc = 'Show LSP references'
-    map('n', 'gR', '<cmd>Telescope lsp_references<CR>', opts)
-
-    opts.desc = 'Go to declaration'
-    map('n', 'gD', vim.lsp.buf.declaration, opts)
-
-    opts.desc = 'Show LSP definitions'
-    map('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts)
-
-    opts.desc = 'Show LSP implementations'
-    map('n', 'gi', '<cmd>Telescope lsp_implementations<CR>', opts)
-
-    opts.desc = 'Show LSP type definitions'
-    map('n', 'gt', '<cmd>Telescope lsp_type_definitions<CR>', opts)
-
-    opts.desc = 'Run an available codelens'
-    -- see available code actions, in visual mode will apply to selection
-    map('n', '<leader>cl', vim.lsp.codelens.run, opts)
-
-    opts.desc = 'See available code actions'
-    -- see available code actions, in visual mode will apply to selection
-    map({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
-
-    opts.desc = 'Smart rename'
-    map('n', '<leader>rn', vim.lsp.buf.rename, opts)
-
-    opts.desc = 'Show buffer diagnostics'
-    map('n', '<leader>D', '<cmd>Telescope diagnostics bufnr=0<CR>', opts) -- show  diagnostics for file
-
-    opts.desc = 'Show line diagnostics'
-    map('n', '<leader>d', vim.diagnostic.open_float, opts) -- show diagnostics for line
-
-    opts.desc = 'Go to previous diagnostic'
-    map('n', '[d', vim.diagnostic.goto_prev, opts)
-
-    opts.desc = 'Go to next diagnostic'
-    map('n', ']d', vim.diagnostic.goto_next, opts)
-
-    opts.desc = 'Show hover documentation'
-    map('n', 'K', vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
-
-    opts.desc = 'Toggle inlay hints'
-    map('n', '<leader>ci', function()
-      bufnr = bufnr or 0
-      local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-      if inlay_hint.enable then
-        vim.lsp.inlay_hint.enable(bufnr, not inlay_hint.is_enabled())
-      else
-        vim.lsp.inlay_hint(bufnr, nil)
-      end
-    end, opts)
-  end
 
   -- configure bash server
   lspconfig['bashls'].setup({
@@ -148,7 +90,7 @@ return function()
           range = true,
         }
       end
-      vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', 'InsertLeave' }, {
+      vim.api.nvim_create_autocmd({ 'CursorHold', 'InsertLeave' }, {
         group = vim.api.nvim_create_augroup('go__codelenses', { clear = true }),
         pattern = { '*.go', '*.mod' },
         callback = function()
@@ -239,6 +181,12 @@ return function()
         },
       },
     },
+  })
+
+  -- configure toml server (taplo)
+  lspconfig['taplo'].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
   })
 
   -- configure lua server (with special settings)

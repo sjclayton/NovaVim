@@ -71,6 +71,7 @@ return {
       vim.cmd([[do FileType]])
     end,
   },
+
   --- AI
   {
     'Exafunction/codeium.nvim',
@@ -85,13 +86,14 @@ return {
     keys = {
       {
         '<leader>gn',
-        '<CMD>Gen<CR>',
+        ':Gen<CR>',
         desc = 'Select AI prompt',
         mode = { 'n', 'v' },
       },
     },
     config = conf('gen'),
   },
+
   --- Coding Related
   {
     'rmagatti/alternate-toggler',
@@ -215,6 +217,7 @@ return {
     },
     config = conf('illuminate'),
   },
+
   --- LSP
   -- General
   {
@@ -288,11 +291,19 @@ return {
   },
   -- Linting
   { 'mfussenegger/nvim-lint', event = 'LazyFile', config = conf('lint') },
+
   --- Language Specific
   {
     'Saecki/crates.nvim',
     event = { 'BufRead Cargo.toml' },
     dependencies = { 'nvim-lua/plenary.nvim', 'hrsh7th/nvim-cmp' },
+    keys = {
+      -- stylua: ignore start
+      { '<leader>ccp', function() require('crates').show_popup() end, desc = 'Show crate popup', ft = 'toml' },
+      { '<leader>cci', function() require('crates').show_crate_popup() end, desc = 'Show crate info', ft = 'toml' },
+      { '<leader>ccd', function() require('crates').open_documentation() end, desc = 'Show crate docs', ft = 'toml' },
+      -- stylua: ignore end
+    },
     config = conf('crates'),
   },
   {
@@ -301,6 +312,7 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
   },
   { 'mrcjkb/rustaceanvim', version = '^3', ft = 'rust', config = conf('rustacean') },
+
   --- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
@@ -347,6 +359,7 @@ return {
     end,
     config = conf('treesitter'),
   },
+
   --- UI
   {
     'stevearc/dressing.nvim',
@@ -400,6 +413,7 @@ return {
     config = conf('notify'),
   },
   { 'folke/zen-mode.nvim', cmd = 'ZenMode', config = conf('zenmode') },
+
   --- Colorschemes
   {
     'catppuccin/nvim',
@@ -415,6 +429,7 @@ return {
     name = 'rose-pine',
     config = conf('rosepine'),
   },
+
   --- Utils
   {
     'echasnovski/mini.bufremove',

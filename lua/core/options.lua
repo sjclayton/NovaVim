@@ -22,7 +22,6 @@ o.foldtext = "v:lua.require'core.util'.foldtext()"
 o.formatexpr = "v:lua.require'core.util'.formatexpr()"
 o.guicursor = ''
 o.laststatus = 3
--- o.lazyredraw = false
 o.linebreak = true
 o.listchars = { extends = '→', nbsp = '␣', precedes = '←', tab = '¬ ' }
 o.mouse = 'a'
@@ -50,7 +49,7 @@ o.timeout = true
 o.timeoutlen = 300
 o.tabstop = 4
 o.termguicolors = true
-o.undodir = os.getenv('HOME') .. '/.vim/undodir'
+o.undodir = { os.getenv('HOME') .. '/.vim/undodir' }
 o.undofile = true
 o.updatetime = 500
 o.wrap = false
