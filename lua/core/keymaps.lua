@@ -31,7 +31,9 @@ map('n', '<C-Right>', ':vertical resize +5<CR>', { desc = 'Increase window width
 map('v', '<', '<gv')
 map('v', '>', '>gv')
 
--- Move lines
+-- Line operations
+map('n', 'J', 'mzJ`z`', { desc = 'Join lines' })
+
 map('i', '<a-j>', '<ESC><CMD>m .+1<CR>==gi', { desc = 'Move line down' })
 map('i', '<a-k>', '<ESC><CMD>m .-2<CR>==gi', { desc = 'Move line up' })
 map('n', '<a-j>', '<CMD>m .+1<CR>==', { desc = 'Move line down' })

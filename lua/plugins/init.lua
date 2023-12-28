@@ -166,8 +166,18 @@ return {
   {
     'ThePrimeagen/refactoring.nvim',
     ft = { 'go', 'javascript', 'lua', 'python', 'typescript' },
-    dependencies = { 'nvim-treesitter' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = conf('refactoring'),
+  },
+  {
+    'Wansmer/treesj',
+    cmd = { 'TSJJoin', 'TSJSplit' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    keys = {
+      { 'sj', '<CMD>TSJJoin<CR>', desc = 'TS join lines' },
+      { 'sk', '<CMD>TSJSplit<CR>', desc = 'TS split lines' },
+    },
+    config = true,
   },
   {
     'folke/trouble.nvim',
@@ -509,9 +519,9 @@ return {
     cmd = 'Telescope',
     branch = '0.1.x',
     dependencies = {
+      'debugloop/telescope-undo.nvim',
       'nvim-telescope/telescope-frecency.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-      'debugloop/telescope-undo.nvim',
     },
     keys = {
       -- General
