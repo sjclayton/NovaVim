@@ -1,3 +1,5 @@
+local Util = require('lazy.core.util')
+
 local M = {}
 
 -- Key mapping helper
@@ -37,6 +39,20 @@ function M.toggle(name, cmds)
   end
 
   return toggle_state[name]
+end
+
+local nu = { number = true, relativenumber = true }
+function M.number()
+  if vim.opt_local.number:get() or vim.opt_local.relativenumber:get() then
+    nu = { number = vim.opt_local.number:get(), relativenumber = vim.opt_local.relativenumber:get() }
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+    Util.warn('Line numbers', { title = 'Toggled' })
+  else
+    vim.opt_local.number = nu.number
+    vim.opt_local.relativenumber = nu.relativenumber
+    Util.info('Line numbers', { title = 'Toggled' })
+  end
 end
 
 return M

@@ -41,6 +41,7 @@ o.signcolumn = 'yes'
 o.smartcase = true
 o.smartindent = true
 o.smoothscroll = true
+o.spelllang = 'en'
 o.splitbelow = true
 o.splitright = true
 o.statuscolumn = [[%!v:lua.require'core.util'.statuscolumn()]]

@@ -1,6 +1,6 @@
 local icons = require('core.icons')
+local helper = require('core.helpers')
 local map = require('core.helpers').map
-local toggle = require('core.helpers').toggle
 
 local wk = require('which-key')
 
@@ -59,7 +59,6 @@ map({ 'n', 'i' }, '<ESC>', '<CMD>noh<CR><ESC>', { desc = 'Escape and clear hlsea
 map('n', 'Q', '<NOP>')
 
 -- Useful stuff
-map('n', '<leader>fl', ":lua print(vim.fn.expand('%:h'))<CR>", { desc = 'Show CWD relative to project root' })
 map(
   'n',
   'gx',
@@ -104,22 +103,36 @@ wk.register({
     name = icons.ui.UI .. 'UI/Utils',
     c = {
       function()
-        toggle('Listchars', { enable = 'set list', disable = 'set nolist' })
+        helper.toggle('Listchars', { enable = 'set list', disable = 'set nolist' })
       end,
       'Toggle listchars',
       noremap = true,
     },
     n = {
       function()
-        toggle('Line numbers', { enable = 'set nonumber', disable = 'set number' })
+        helper.number()
       end,
       'Toggle line numbers',
       noremap = true,
     },
+    N = {
+      function()
+        helper.toggle('Relative numbers', { enable = 'set norelativenumber', disable = 'set relativenumber' })
+      end,
+      'Toggle relative line numbers',
+      noremap = true,
+    },
     l = { '<CMD>Lazy<CR>', 'Open Lazy', noremap = true },
+    s = {
+      function()
+        helper.toggle('Spell check', { enable = 'set spell', disable = 'set nospell' })
+      end,
+      'Toggle spell check',
+      noremap = true,
+    },
     w = {
       function()
-        toggle('Word wrap', { enable = 'set wrap', disable = 'set nowrap' })
+        helper.toggle('Word wrap', { enable = 'set wrap', disable = 'set nowrap' })
       end,
       'Toggle word wrap',
       noremap = true,
@@ -132,6 +145,12 @@ wk.register({
   },
   x = {
     name = icons.diagnostics.Warn .. 'Diagnostics',
+  },
+  ['.'] = {
+    name = icons.ui.Notes .. 'Notes',
+    j = {
+      name = 'Journal',
+    },
   },
   ['<space>'] = { '<C-^>', 'Jump to alternate file', noremap = true },
 }, { prefix = '<leader>' })

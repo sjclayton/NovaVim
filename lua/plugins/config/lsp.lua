@@ -16,7 +16,7 @@ return function()
     ensure_installed = { 'bashls', 'gopls', 'lua_ls', 'jedi_language_server', 'taplo', 'tsserver' },
   })
 
-  -- Neovim diagnostic format settings
+  -- Diagnostic format settings
   vim.diagnostic.config({
     virtual_text = {
       -- Only display errors w/ virtual text
