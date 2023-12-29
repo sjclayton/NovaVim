@@ -2,9 +2,9 @@ local M = {}
 
 local util = require('core.util')
 
-require('core.helpers')
 require('core.options')
 require('core.lazy')
+require('core.helpers')
 
 if vim.fn.argc(-1) == 0 then
   -- Defer loading of autocmds and keymaps.
