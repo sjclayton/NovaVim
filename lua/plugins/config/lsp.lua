@@ -198,10 +198,12 @@ return function()
         format = { enable = false },
         hint = {
           enable = true,
+          paramType = true,
+          paramName = 'Literal',
           arrayIndex = 'Disable',
+          setType = true,
         },
         workspace = {
-          maxPreload = 1500,
           checkThirdParty = 'Disable',
         },
       },

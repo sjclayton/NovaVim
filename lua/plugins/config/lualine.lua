@@ -3,9 +3,22 @@ return function()
   local icons = require('core.icons')
   local colors = require('catppuccin.palettes')
 
-  local function ts_status()
-    return 'TS'
-  end
+  local custom_components = {
+    ts_status = function()
+      return 'TS'
+    end,
+    -- Override 'encoding': Don't display if encoding is UTF-8.
+    encoding = function()
+      local ret, _ = (vim.bo.fenc or vim.go.enc):gsub('^utf%-8$', '')
+      return ret
+    end,
+    -- Override 'fileformat': Don't display if &ff is unix.
+    fileformat = function()
+      local ret, _ = vim.bo.fileformat:gsub('^unix$', '')
+      return ret
+    end,
+  }
+  _G.lualine_components = custom_components
 
   vim.o.laststatus = vim.g.lualine_laststatus
 
@@ -99,7 +112,7 @@ return function()
           end,
         },
         {
-          ts_status,
+          custom_components.ts_status,
           cond = util.treesitter_available,
           icon = icons.ui.Braces,
           color = function()
@@ -115,12 +128,17 @@ return function()
           end,
         },
       },
+      lualine_z = {
+        'location',
+        { custom_components.encoding, padding = { left = 0, right = 1 } },
+        { custom_components.fileformat, padding = { left = 0, right = 1 } },
+      },
     },
     inactive_sections = {
       lualine_a = {},
       lualine_b = {},
-      lualine_c = { 'filename' },
-      lualine_x = { 'location' },
+      lualine_c = { { 'filename', path = 1 } },
+      lualine_x = {},
       lualine_y = {},
       lualine_z = {},
     },
