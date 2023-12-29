@@ -1,6 +1,6 @@
 return function()
   local opts = {
-    transparent_background = true,
+    transparent_background = false,
     term_colors = true,
     -- Workaround for using transparent_background with kitty terminal, set false if using another terminal
     kitty = true,

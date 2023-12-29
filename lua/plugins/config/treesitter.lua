@@ -9,7 +9,9 @@ return function()
       disable = { 'zig' },
     },
     -- disable indentation
-    indent = { enable = false },
+    indent = {
+      enable = false,
+    },
     -- ensure these language parsers are installed
     ignore_install = {},
     ensure_installed = {
@@ -39,7 +41,6 @@ return function()
       'markdown',
       'markdown_inline',
       'meson',
-      'norg',
       'pug',
       'python',
       'regex',
@@ -71,7 +72,7 @@ return function()
         init_selection = '<C-space>',
         node_incremental = '<C-space>',
         scope_incremental = false,
-        node_decremental = '<bs>',
+        node_decremental = '<BS>',
       },
     },
 

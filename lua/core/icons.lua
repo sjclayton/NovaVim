@@ -108,6 +108,7 @@ return {
     History = ' ',
     Lightbulb = ' ',
     Modified = '●',
+    Notes = '🗊 ',
     Project = ' ',
     Search = ' ',
     Telescope = ' ',

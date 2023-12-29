@@ -211,11 +211,12 @@ return function()
         local kind = lspkind.cmp_format({
           mode = 'symbol',
           menu = {
-            codeium = '[AI]',
-            nvim_lsp = '[LSP]',
-            luasnip = '[LuaSnip]',
-            calc = '[Calc]',
             buffer = '[Buffer]',
+            calc = '[Calc]',
+            codeium = '[AI]',
+            luasnip = '[LuaSnip]',
+            neorg = '[Neorg]',
+            nvim_lsp = '[LSP]',
             path = '[Path]',
           },
           maxwidth = 50,
@@ -256,6 +257,16 @@ return function()
       { name = 'luasnip', keyword_length = 2 }, -- Snippets
       { name = 'path' }, -- File system paths
       { name = 'buffer', keyword_length = 5 }, -- Text within current buffer
+    }),
+  })
+
+  -- override sources for norg
+  cmp.setup.filetype({ 'norg' }, {
+    sources = cmp.config.sources({
+      { name = 'buffer', keyword_length = 5 }, -- Text within current buffer
+      { name = 'neorg' },
+      { name = 'calc' },
+      { name = 'path' }, -- File system paths
     }),
   })
 end

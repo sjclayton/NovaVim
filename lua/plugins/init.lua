@@ -9,7 +9,7 @@ return {
   --- General Plugins
   { 'Bekaboo/deadcolumn.nvim', event = { 'LazyFile', 'VeryLazy' }, config = conf('deadcolumn') },
   { 'ThePrimeagen/harpoon', event = 'VeryLazy', config = conf('harpoon') },
-  { 'lukas-reineke/headlines.nvim', ft = { 'markdown', 'norg', 'org' }, config = conf('headlines') },
+  { 'lukas-reineke/headlines.nvim', ft = { 'markdown' }, config = conf('headlines') },
   {
     'smoka7/hop.nvim',
     version = '*',
@@ -34,7 +34,7 @@ return {
         noremap = true,
       },
       {
-        '<leader>us',
+        '<leader>uB',
         function()
           helper.toggle('Scope highlight', { enable = 'EnableHLChunk', disable = 'DisableHLChunk' })
         end,
@@ -60,25 +60,30 @@ return {
       vim.fn['mkdp#util#install']()
     end,
     keys = {
-      {
-        '<leader>cp',
-        ft = 'markdown',
-        '<CMD>MarkdownPreviewToggle<CR>',
-        desc = 'Markdown Preview',
-      },
+      { '<leader>cp', ft = 'markdown', '<CMD>MarkdownPreviewToggle<CR>', desc = 'Markdown Preview' },
     },
     config = function()
       vim.cmd([[do FileType]])
     end,
   },
+  {
+    'nvim-neorg/neorg',
+    ft = 'norg',
+    cmd = 'Neorg',
+    build = ':Neorg sync-parsers',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'hrsh7th/nvim-cmp', 'nvim-lua/plenary.nvim' },
+    keys = {
+      { '<leader>.i', '<CMD>Neorg index<CR>', desc = 'Index' },
+      { '<leader>.jt', '<CMD>Neorg journal today<CR>', desc = 'Journal today' },
+      { '<leader>.jT', '<CMD>Neorg journal template<CR>', desc = 'Journal template' },
+    },
+    config = conf('neorg'),
+  },
 
   --- AI
   {
     'Exafunction/codeium.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'hrsh7th/nvim-cmp',
-    },
+    dependencies = { 'nvim-lua/plenary.nvim', 'hrsh7th/nvim-cmp' },
     config = true,
   },
   {
