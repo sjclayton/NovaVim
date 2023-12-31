@@ -64,7 +64,7 @@ return function()
     modules = {},
     sync_install = false,
     -- auto install above language parsers
-    auto_install = true,
+    auto_install = false,
 
     incremental_selection = {
       enable = true,

@@ -1,6 +1,7 @@
 local icons = require('core.icons')
 local helper = require('core.helpers')
 local map = require('core.helpers').map
+local util = require('core.util')
 
 local wk = require('which-key')
 
@@ -16,20 +17,26 @@ map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = tru
 
 -- Better window navigation
 map('n', '<C-q>', '<C-w>q', { desc = 'Close window' })
-map('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
-map('n', '<C-j>', '<C-w>j', { desc = 'Move to lower window' })
-map('n', '<C-k>', '<C-w>k', { desc = 'Move to upper window' })
-map('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
+
+if not util.has('nvim-tmux-navigation') then
+  map('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
+  map('n', '<C-j>', '<C-w>j', { desc = 'Move to lower window' })
+  map('n', '<C-k>', '<C-w>k', { desc = 'Move to upper window' })
+  map('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
+end
 
 -- Resize with arrows
-map('n', '<C-Up>', ':resize +5<CR>', { desc = 'Increase window height' })
-map('n', '<C-Down>', ':resize -5<CR>', { desc = 'Decrease window height' })
-map('n', '<C-Left>', ':vertical resize -5<CR>', { desc = 'Decrease window width' })
-map('n', '<C-Right>', ':vertical resize +5<CR>', { desc = 'Increase window width' })
+map('n', '<C-M-k>', ':resize +5<CR>', { desc = 'Increase window height' })
+map('n', '<C-M-j>', ':resize -5<CR>', { desc = 'Decrease window height' })
+map('n', '<C-M-h>', ':vertical resize -5<CR>', { desc = 'Decrease window width' })
+map('n', '<C-M-l>', ':vertical resize +5<CR>', { desc = 'Increase window width' })
 
 -- Better indenting
 map('v', '<', '<gv')
 map('v', '>', '>gv')
+
+-- Yanking and pasting
+map('x', '<leader>p', '"_dP')
 
 -- Line operations
 map('n', 'J', 'mzJ`z`', { desc = 'Join lines' })

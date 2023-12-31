@@ -8,8 +8,13 @@ end
 return {
   --- General Plugins
   { 'Bekaboo/deadcolumn.nvim', event = { 'LazyFile', 'VeryLazy' }, config = conf('deadcolumn') },
-  { 'ThePrimeagen/harpoon', event = 'VeryLazy', config = conf('harpoon') },
-  { 'lukas-reineke/headlines.nvim', ft = { 'markdown' }, config = conf('headlines') },
+  { 'ThePrimeagen/harpoon', event = 'VeryLazy', dependencies = 'nvim-lua/plenary.nvim', config = conf('harpoon') },
+  {
+    'lukas-reineke/headlines.nvim',
+    ft = { 'markdown' },
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    config = conf('headlines'),
+  },
   {
     'smoka7/hop.nvim',
     version = '*',
@@ -53,6 +58,16 @@ return {
     },
     config = conf('hlchunk'),
   },
+  -- {
+  --   '3rd/image.nvim',
+  --   ft = { 'markdown', 'norg' },
+  --   opts = {
+  --     only_render_image_at_cursor = true,
+  --     window_overlap_clear_enabled = true,
+  --     tmux_show_only_in_active_window = true,
+  --   },
+  --   config = true,
+  -- },
   {
     'iamcco/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
@@ -118,7 +133,6 @@ return {
   { 'echasnovski/mini.pairs', event = 'VeryLazy', version = false, config = true },
   {
     'echasnovski/mini.surround',
-    -- event = 'VeryLazy',
     keys = function(_, keys)
       -- Populate the keys based on the user's options
       local plugin = require('lazy.core.config').spec.plugins['mini.surround']
@@ -156,6 +170,7 @@ return {
     'folke/todo-comments.nvim',
     event = { 'LazyFile' },
     cmd = { 'TodoTrouble', 'TodoTelescope' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
     keys = {
       -- stylua: ignore start
       { ']t', function() require('todo-comments').jump_next() end, desc = 'Next todo comment', },
@@ -171,7 +186,7 @@ return {
   {
     'ThePrimeagen/refactoring.nvim',
     ft = { 'go', 'javascript', 'lua', 'python', 'typescript' },
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
     config = conf('refactoring'),
   },
   {
@@ -188,6 +203,7 @@ return {
   {
     'folke/trouble.nvim',
     cmd = { 'TroubleToggle', 'Trouble' },
+    dependencies = 'nvim-tree/nvim-web-devicons',
     opts = { use_diagnostic_signs = true },
     keys = {
       { '<leader>xx', '<CMD>TroubleToggle document_diagnostics<CR>', desc = 'Document Diagnostics (Trouble)' },
@@ -259,8 +275,8 @@ return {
   },
   {
     'neovim/nvim-lspconfig',
-    cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
     event = { 'LazyFile' },
+    cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
     dependencies = {
       'williamboman/mason-lspconfig.nvim',
       { 'folke/neodev.nvim', opts = {} },
@@ -396,9 +412,7 @@ return {
   {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
-    dependencies = {
-      -- 'nvim-telescope/telescope.nvim', -- Switch filetype and git branches
-    },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     init = function()
       vim.g.lualine_laststatus = vim.o.laststatus
       if vim.fn.argc(-1) > 0 then
@@ -409,7 +423,12 @@ return {
     end,
     config = conf('lualine'),
   },
-  { 'willothy/nvim-cokeline', event = 'LazyFile', config = conf('cokeline') },
+  {
+    'willothy/nvim-cokeline',
+    event = 'LazyFile',
+    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons' },
+    config = conf('cokeline'),
+  },
   {
     'folke/noice.nvim',
     event = 'VeryLazy',
@@ -487,6 +506,8 @@ return {
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v3.x',
     dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons',
       'MunifTanjim/nui.nvim',
     },
     keys = {
@@ -526,6 +547,7 @@ return {
     branch = '0.1.x',
     dependencies = {
       'debugloop/telescope-undo.nvim',
+      'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-frecency.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     },
@@ -556,7 +578,21 @@ return {
     },
     config = conf('telescope'),
   },
-  { 'wakatime/vim-wakatime', event = 'InsertEnter' },
+  {
+    'alexghergh/nvim-tmux-navigation',
+    opts = {
+      disable_when_zoomed = true, -- defaults to false
+    },
+    keys = {
+      { '<c-h>', '<cmd>NvimTmuxNavigateLeft<cr>', desc = 'TmuxNavigateLeft' },
+      { '<c-j>', '<cmd>NvimTmuxNavigateDown<cr>', desc = 'TmuxNavigateDown' },
+      { '<c-k>', '<cmd>NvimTmuxNavigateUp<cr>', desc = 'TmuxNavigateUp' },
+      { '<c-l>', '<cmd>NvimTmuxNavigateRight<cr>', desc = 'TmuxNavigateRight' },
+      { '<c-\\>', '<cmd>NvimTmuxNavigateLastActive<cr>', desc = 'TmuxNavigateLast' },
+    },
+    config = true,
+  },
   { 'nvim-tree/nvim-web-devicons' },
+  { 'wakatime/vim-wakatime', event = 'InsertEnter' },
   { 'folke/which-key.nvim', event = 'VeryLazy', config = conf('whichkey') },
 }
