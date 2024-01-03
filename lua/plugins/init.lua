@@ -60,7 +60,7 @@ return {
   },
   -- {
   --   '3rd/image.nvim',
-  --   ft = { 'markdown', 'norg' },
+  --   ft = { 'markdown' },
   --   opts = {
   --     only_render_image_at_cursor = true,
   --     window_overlap_clear_enabled = true,
@@ -71,28 +71,39 @@ return {
   {
     'iamcco/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-    build = function()
-      vim.fn['mkdp#util#install']()
-    end,
     keys = {
       { '<leader>cp', ft = 'markdown', '<CMD>MarkdownPreviewToggle<CR>', desc = 'Markdown Preview' },
     },
+    build = function()
+      vim.fn['mkdp#util#install']()
+    end,
     config = function()
       vim.cmd([[do FileType]])
     end,
   },
   {
-    'nvim-neorg/neorg',
-    ft = 'norg',
-    cmd = 'Neorg',
-    build = ':Neorg sync-parsers',
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'hrsh7th/nvim-cmp', 'nvim-lua/plenary.nvim' },
-    keys = {
-      { '<leader>.i', '<CMD>Neorg index<CR>', desc = 'Index' },
-      { '<leader>.jt', '<CMD>Neorg journal today<CR>', desc = 'Journal today' },
-      { '<leader>.jT', '<CMD>Neorg journal template<CR>', desc = 'Journal template' },
+    'epwalsh/obsidian.nvim',
+    event = {
+      'BufReadPre ' .. vim.fn.expand('~') .. '/Notes/**.md',
+      'BufNewFile ' .. vim.fn.expand('~') .. '/Notes/**.md',
     },
-    config = conf('neorg'),
+    cmd = {
+      'ObsidianOpen',
+      'ObsidianNew',
+      'ObsidianQuickSwitch',
+      'ObsidianFollowLink',
+      'ObsidianBacklinks',
+      'ObsidianToday',
+      'ObsidianYesterday',
+      'ObsidianTemplate',
+      'ObsidianSearch',
+      'ObsidianLink',
+      'ObsidianLinkNew',
+    },
+    version = '*',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    keys = {},
+    config = conf('obsidian'),
   },
 
   --- AI
@@ -133,6 +144,19 @@ return {
   { 'echasnovski/mini.pairs', event = 'VeryLazy', version = false, config = true },
   {
     'echasnovski/mini.surround',
+    version = false,
+    opts = {
+      silent = true,
+      mappings = {
+        add = 'sa', -- Add surrounding in Normal and Visual modes
+        delete = 'sd', -- Delete surrounding
+        find = 'sf', -- Find surrounding (to the right)
+        find_left = 'sF', -- Find surrounding (to the left)
+        highlight = 'sh', -- Highlight surrounding
+        replace = 'sr', -- Replace surrounding
+        update_n_lines = 'sn', -- Update `n_lines`
+      },
+    },
     keys = function(_, keys)
       -- Populate the keys based on the user's options
       local plugin = require('lazy.core.config').spec.plugins['mini.surround']
@@ -151,19 +175,6 @@ return {
       end, mappings)
       return vim.list_extend(mappings, keys)
     end,
-    opts = {
-      silent = true,
-      mappings = {
-        add = 'sa', -- Add surrounding in Normal and Visual modes
-        delete = 'sd', -- Delete surrounding
-        find = 'sf', -- Find surrounding (to the right)
-        find_left = 'sF', -- Find surrounding (to the left)
-        highlight = 'sh', -- Highlight surrounding
-        replace = 'sr', -- Replace surrounding
-        update_n_lines = 'sn', -- Update `n_lines`
-      },
-    },
-    version = false,
     config = true,
   },
   {
@@ -255,16 +266,16 @@ return {
   {
     'williamboman/mason.nvim',
     cmd = 'Mason',
-    keys = {
-      { '<leader>um', '<CMD>Mason<CR>', desc = 'Open Mason' },
-    },
-    build = ':MasonUpdate',
     opts = {
       ui = {
         border = 'rounded',
         height = 0.80,
       },
     },
+    keys = {
+      { '<leader>um', '<CMD>Mason<CR>', desc = 'Open Mason' },
+    },
+    build = ':MasonUpdate',
   },
   {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -343,7 +354,7 @@ return {
     ft = { 'go', 'gomod' },
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
   },
-  { 'mrcjkb/rustaceanvim', version = '^3', ft = 'rust', config = conf('rustacean') },
+  { 'mrcjkb/rustaceanvim', ft = 'rust', version = '^3', config = conf('rustacean') },
 
   --- Treesitter
   {
@@ -381,8 +392,8 @@ return {
       },
     },
     keys = {
-      { '<c-space>', desc = 'Increment selection' },
-      { '<bs>', desc = 'Decrement selection', mode = 'x' },
+      { '<C-space>', desc = 'Increment selection' },
+      { '<BS>', desc = 'Decrement selection', mode = 'x' },
     },
     build = ':TSUpdate',
     init = function(plugin)
@@ -438,7 +449,7 @@ return {
   {
     'rcarriga/nvim-notify',
     init = function()
-      -- If noice is not enabled, Load  notify on VeryLazy
+      -- If noice is not enabled, Load notify on VeryLazy
       if not util.has('noice.nvim') then
         util.on_very_lazy(function()
           vim.notify = require('notify')
@@ -540,7 +551,6 @@ return {
     end,
     config = conf('neotree'),
   },
-  { 'nvim-lua/plenary.nvim' },
   {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
@@ -550,6 +560,7 @@ return {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-frecency.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+      { 'nvim-telescope/telescope-symbols.nvim' },
     },
     keys = {
       -- General
@@ -565,6 +576,11 @@ return {
       { '<leader>tm', '<CMD>Telescope marks<CR>', desc = 'Marks' },
       { '<leader>t"', '<CMD>Telescope registers<CR>', desc = 'Registers' },
       { '<leader>tk', '<CMD>Telescope keymaps<CR>', desc = 'Keymaps' },
+      {
+        '<leader>ts',
+        '<CMD>lua require"telescope.builtin".symbols{ sources = { "emoji", "gitmoji", "nerd" } }<CR>',
+        desc = 'Emoji',
+      },
       { '<leader>tu', '<CMD>Telescope undo<CR>', desc = 'Undo history' },
       {
         '<leader>uC',
@@ -584,15 +600,14 @@ return {
       disable_when_zoomed = true, -- defaults to false
     },
     keys = {
-      { '<c-h>', '<cmd>NvimTmuxNavigateLeft<cr>', desc = 'TmuxNavigateLeft' },
-      { '<c-j>', '<cmd>NvimTmuxNavigateDown<cr>', desc = 'TmuxNavigateDown' },
-      { '<c-k>', '<cmd>NvimTmuxNavigateUp<cr>', desc = 'TmuxNavigateUp' },
-      { '<c-l>', '<cmd>NvimTmuxNavigateRight<cr>', desc = 'TmuxNavigateRight' },
-      { '<c-\\>', '<cmd>NvimTmuxNavigateLastActive<cr>', desc = 'TmuxNavigateLast' },
+      { '<C-h>', '<CMD>NvimTmuxNavigateLeft<CR>', desc = 'TmuxNavigateLeft' },
+      { '<C-j>', '<CMD>NvimTmuxNavigateDown<CR>', desc = 'TmuxNavigateDown' },
+      { '<C-k>', '<CMD>NvimTmuxNavigateUp<CR>', desc = 'TmuxNavigateUp' },
+      { '<C-l>', '<CMD>NvimTmuxNavigateRight<CR>', desc = 'TmuxNavigateRight' },
+      { '<C-\\>', '<CMD>NvimTmuxNavigateLastActive<CR>', desc = 'TmuxNavigateLast' },
     },
     config = true,
   },
-  { 'nvim-tree/nvim-web-devicons' },
   { 'wakatime/vim-wakatime', event = 'InsertEnter' },
   { 'folke/which-key.nvim', event = 'VeryLazy', config = conf('whichkey') },
 }

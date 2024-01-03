@@ -20,6 +20,12 @@ return function()
       },
     },
     extensions = {
+      frecency = {
+        ignore_patterns = { '*.git/*', '*/tmp/*', 'term://*', '*.obsidian/*' },
+        workspaces = {
+          ['notes'] = '~/Notes/',
+        },
+      },
       fzf = {
         fuzzy = true, -- false will only do exact matching
         override_generic_sorter = true, -- override the generic sorter

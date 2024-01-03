@@ -36,7 +36,7 @@ map('v', '<', '<gv')
 map('v', '>', '>gv')
 
 -- Yanking and pasting
-map('x', '<leader>p', '"_dP')
+map('x', '<leader>p', '"_dP', { desc = 'Paste preserved' })
 
 -- Line operations
 map('n', 'J', 'mzJ`z`', { desc = 'Join lines' })
@@ -99,6 +99,44 @@ wk.register({
   f = {
     name = icons.kinds.File .. 'File',
   },
+  o = {
+    name = icons.ui.Notes .. 'Notes',
+    f = { '<CMD>Telescope frecency workspace=notes<CR>', 'Recent notes', noremap = true },
+    j = {
+      name = 'Journal',
+      t = { '<CMD>ObsidianToday<CR>', 'Today', noremap = true },
+      y = { '<CMD>ObsidianYesterday<CR>', 'Yesterday', noremap = true },
+    },
+    n = {
+      function()
+        vim.ui.input({ prompt = 'Note title:' }, function(input)
+          if input ~= nil then
+            vim.cmd('ObsidianNew ' .. input)
+          else
+            return
+          end
+        end)
+      end,
+      'New note',
+      noremap = true,
+    },
+    r = {
+      function()
+        local current_name = vim.fn.expand('%:t:r')
+        vim.ui.input({ prompt = 'Rename note: ', default = current_name }, function(input)
+          if input ~= nil then
+            vim.cmd('ObsidianRename ' .. input)
+          else
+            return
+          end
+        end)
+      end,
+      'Rename note',
+      noremap = true,
+    },
+    s = { '<CMD>ObsidianSearch<CR>', 'Search notes', noremap = true },
+    t = { '<CMD>ObsidianTemplate<CR>', 'Insert template', noremap = true },
+  },
   t = {
     name = icons.ui.Telescope .. 'Telescope',
   },
@@ -152,12 +190,6 @@ wk.register({
   },
   x = {
     name = icons.diagnostics.Warn .. 'Diagnostics',
-  },
-  ['.'] = {
-    name = icons.ui.Notes .. 'Notes',
-    j = {
-      name = 'Journal',
-    },
   },
   ['<space>'] = { '<C-^>', 'Jump to alternate file', noremap = true },
 }, { prefix = '<leader>' })

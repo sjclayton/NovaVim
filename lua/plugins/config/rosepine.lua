@@ -1,6 +1,6 @@
 return function()
   local opts = {
-    disable_background = false,
+    disable_background = true,
     dim_nc_background = false,
     groups = {
       panel = 'base',

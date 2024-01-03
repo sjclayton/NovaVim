@@ -7,6 +7,7 @@ return function()
     highlight = {
       enable = true,
       disable = { 'zig' },
+      additional_vim_regex_highlighting = { 'markdown' },
     },
     -- disable indentation
     indent = {
