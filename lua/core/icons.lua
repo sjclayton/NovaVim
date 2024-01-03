@@ -107,6 +107,7 @@ return {
     Gear = ' ',
     History = ' ',
     Lightbulb = ' ',
+    Lock = ' ',
     Modified = '●',
     Notes = '🗊 ',
     Project = ' ',

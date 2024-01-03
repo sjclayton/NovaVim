@@ -58,7 +58,19 @@ return function()
       },
       lualine_c = {
         { 'filetype', icon_only = true },
-        { 'filename', path = 1, padding = { left = 0 } },
+        {
+          'filename',
+          path = 1,
+          cond = function()
+            return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
+          end,
+          padding = { left = 0 },
+          symbols = {
+            modified = icons.ui.Modified,
+            readonly = icons.ui.Lock,
+            unnamed = '',
+          },
+        },
       },
       lualine_x = {
         {

@@ -53,6 +53,7 @@ return function()
       'scss',
       'svelte',
       'sql',
+      'templ',
       'toml',
       'tsx',
       'typescript',
