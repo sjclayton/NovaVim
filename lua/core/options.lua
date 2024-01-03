@@ -10,12 +10,12 @@ g.zig_fmt_autosave = 0
 o.backup = false
 o.clipboard = 'unnamedplus'
 o.colorcolumn = '120'
-o.conceallevel = 3
+o.conceallevel = 2
 o.confirm = true
 o.cursorline = true
 o.expandtab = true
-o.fillchars = { eob = ' ' }
-o.foldexpr = "v:lua.vim.require'core.util'.foldexpr()"
+o.fillchars = { foldopen = '', foldclose = '', fold = ' ', foldsep = ' ', diff = '╱', eob = ' ' }
+o.foldexpr = "v:lua.require'core.util'.foldexpr()"
 o.foldlevel = 99
 o.foldmethod = 'expr'
 o.foldtext = "v:lua.require'core.util'.foldtext()"
@@ -46,12 +46,22 @@ o.splitbelow = true
 o.splitright = true
 o.statuscolumn = [[%!v:lua.require'core.util'.statuscolumn()]]
 o.swapfile = false
-o.timeout = true
-o.timeoutlen = 300
 o.tabstop = 4
 o.termguicolors = true
+o.timeout = true
+o.timeoutlen = 300
 o.undodir = { os.getenv('HOME') .. '/.vim/undodir' }
 o.undofile = true
 o.undolevels = 10000
 o.updatetime = 200
 o.wrap = false
+
+-- o.fillchars = {
+--   foldopen = '',
+--   foldclose = '',
+--   -- fold = "⸱",
+--   fold = ' ',
+--   foldsep = ' ',
+--   diff = '╱',
+--   eob = ' ',
+-- }
