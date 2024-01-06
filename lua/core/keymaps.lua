@@ -25,7 +25,7 @@ if not util.has('nvim-tmux-navigation') then
   map('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
 end
 
--- Resize with arrows
+-- Resize windows
 map('n', '<C-M-k>', ':resize +5<CR>', { desc = 'Increase window height' })
 map('n', '<C-M-j>', ':resize -5<CR>', { desc = 'Decrease window height' })
 map('n', '<C-M-h>', ':vertical resize -5<CR>', { desc = 'Decrease window width' })

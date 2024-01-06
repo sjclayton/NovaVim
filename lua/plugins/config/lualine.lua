@@ -4,9 +4,6 @@ return function()
   local colors = require('catppuccin.palettes')
 
   local custom_components = {
-    ts_status = function()
-      return 'TS'
-    end,
     -- Override 'encoding': Don't display if encoding is UTF-8.
     encoding = function()
       local ret, _ = (vim.bo.fenc or vim.go.enc):gsub('^utf%-8$', '')
@@ -16,6 +13,20 @@ return function()
     fileformat = function()
       local ret, _ = vim.bo.fileformat:gsub('^unix$', '')
       return ret
+    end,
+    modified = function()
+      if vim.bo.modified == true then
+        return icons.ui.Modified
+      else
+        return ''
+      end
+    end,
+    is_writable = function()
+      if vim.bo.modifiable == false or vim.bo.readonly == true then
+        return icons.ui.Lock
+      else
+        return ''
+      end
     end,
   }
   _G.lualine_components = custom_components
@@ -61,16 +72,14 @@ return function()
         {
           'filename',
           path = 1,
+          file_status = false,
           cond = function()
             return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
           end,
-          padding = { left = 0 },
-          symbols = {
-            modified = icons.ui.Modified,
-            readonly = icons.ui.Lock,
-            unnamed = '',
-          },
+          padding = { left = 0, right = 1 },
         },
+        { custom_components.modified, padding = { right = 1 }, color = 'String' },
+        { custom_components.is_writable, padding = { left = 0 }, color = 'Error' },
       },
       lualine_x = {
         {
@@ -124,7 +133,9 @@ return function()
           end,
         },
         {
-          custom_components.ts_status,
+          function()
+            return 'TS'
+          end,
           cond = util.treesitter_available,
           icon = icons.ui.Braces,
           color = function()

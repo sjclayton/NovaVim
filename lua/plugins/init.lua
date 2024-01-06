@@ -178,6 +178,14 @@ return {
     config = true,
   },
   {
+    'luckasRanarison/nvim-devdocs',
+    ft = { 'go', 'rust' },
+    opts = {
+      ensure_installed = { 'go', 'rust' },
+    },
+    build = ':DevdocsFetch',
+  },
+  {
     'folke/todo-comments.nvim',
     event = { 'LazyFile' },
     cmd = { 'TodoTrouble', 'TodoTelescope' },
@@ -554,25 +562,35 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
-    branch = '0.1.x',
+    -- branch = '0.1.x',
+    version = false,
     dependencies = {
       'debugloop/telescope-undo.nvim',
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-frecency.nvim',
-      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build = 'make',
+        enabled = vim.fn.executable('make') == 1,
+        config = function()
+          util.on_load('telescope.nvim', function()
+            require('telescope').load_extension('fzf')
+          end)
+        end,
+      },
       { 'nvim-telescope/telescope-symbols.nvim' },
     },
     keys = {
       -- General
       { '<leader>:', '<CMD>Telescope command_history<CR>', desc = 'Command History' },
-      { '<leader>,', '<CMD>Telescope buffers show_all_buffers=true<CR>', desc = 'Switch buffer' },
+      { '<leader>,', '<CMD>Telescope buffers sort_mru=true sort_lastused=true<CR>', desc = 'Switch buffer' },
       { '<leader>/', util.telescope('live_grep'), desc = 'Grep (root dir)' },
       -- Files
       { '<leader>fF', util.telescope('files'), desc = 'Find files (root dir)' },
       { '<leader>ff', util.telescope('files', { cwd = vim.loop.cwd() }), desc = 'Find files (cwd)' },
       { '<leader>fR', '<CMD>Telescope frecency<CR>', desc = 'Recent files' },
       { '<leader>fr', '<CMD>Telescope frecency workspace=CWD<CR>', desc = 'Recent files (cwd)' },
-      -- search
+      -- Search
       { '<leader>tm', '<CMD>Telescope marks<CR>', desc = 'Marks' },
       { '<leader>t"', '<CMD>Telescope registers<CR>', desc = 'Registers' },
       { '<leader>tk', '<CMD>Telescope keymaps<CR>', desc = 'Keymaps' },
@@ -591,6 +609,7 @@ return {
         desc = 'Switch colorscheme',
         noremap = true,
       },
+      { '<leader>uo', '<CMD>Telescope vim_options<CR>', desc = 'Options', noremap = true },
     },
     config = conf('telescope'),
   },
