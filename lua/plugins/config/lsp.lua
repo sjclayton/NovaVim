@@ -97,6 +97,7 @@ return function()
           vim.lsp.codelens.refresh()
         end,
       })
+
       on_attach(client, bufnr)
     end,
     settings = {
@@ -213,6 +214,11 @@ return function()
   -- configure zig server (manually installed)
   lspconfig['zls'].setup({
     capabilities = capabilities,
-    on_attach = on_attach,
+    on_attach = function(client, bufnr)
+      -- handle zigfmt through conform instead
+      vim.g.zig_fmt_autosave = 0
+
+      on_attach(client, bufnr)
+    end,
   })
 end

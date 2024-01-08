@@ -5,8 +5,6 @@ g.mapleader = ' '
 g.maplocalleader = '\\'
 g.markdown_recommended_style = 0
 
-g.zig_fmt_autosave = 0
-
 o.backup = false
 o.clipboard = 'unnamedplus'
 o.colorcolumn = '120'

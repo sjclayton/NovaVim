@@ -17,14 +17,6 @@ return function()
       -- Fidget
       FidgetTitle = { fg = 'pine' },
 
-      -- GitSigns
-      -- HACK: Override background color because it doesn't get set properly by the plugin
-      -- itself when the transparent background is enabled.
-      GitSignsAdd = { bg = '' },
-      GitSignsChange = { bg = '' },
-      GitSignsDelete = { bg = '' },
-      GitSignsUntracked = { bg = '' },
-
       -- Harpoon
       HarpoonBorder = { link = 'FloatBorder' },
       HarpoonCurrentFile = { fg = 'rose' },
