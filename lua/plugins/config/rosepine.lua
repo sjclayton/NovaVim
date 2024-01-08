@@ -1,18 +1,15 @@
 return function()
   local opts = {
-    dim_inactive_windows = true,
+    dim_inactive_windows = false,
     extend_background_behind_borders = true,
     styles = {
       transparency = false,
-    },
-    groups = {
-      -- panel = 'base',
     },
     highlight_groups = {
       WinSeparator = { fg = 'muted' },
 
       -- Cmp
-      CmpPmenu = { bg = 'surface' },
+      CmpPmenu = { link = 'NormalFloat' },
 
       -- Cokeline
       TabLineFill = { fg = 'surface', bg = 'base' },
@@ -29,9 +26,9 @@ return function()
       GitSignsUntracked = { bg = '' },
 
       -- Harpoon
-      HarpoonBorder = { fg = 'muted', bg = 'surface' },
+      HarpoonBorder = { link = 'FloatBorder' },
       HarpoonCurrentFile = { fg = 'rose' },
-      HarpoonWindow = { fg = 'text', bg = 'surface' },
+      HarpoonWindow = { link = 'NormalFloat' },
 
       -- Headlines
       Dash = { fg = 'overlay' },
@@ -51,15 +48,14 @@ return function()
       NeoTreeWinSeparator = { fg = 'muted' },
 
       -- Noice
-      NoicePopup = { bg = 'base' },
-      NoiceMini = { bg = 'surface' },
+      -- NoicePopup = { bg = 'base' },
+      -- NoiceMini = { bg = 'surface' },
 
       -- Nvim-Notify
       NotifyBackground = { bg = 'base' },
 
       -- Which-key
       WhichKeyBorder = { link = 'FloatBorder' },
-      WhichKeyFloat = { link = 'NormalFloat' },
 
       -- Treesitter-Context
       TreesitterContextBottom = { sp = 'muted', underline = true },
