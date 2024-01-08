@@ -105,6 +105,8 @@ return {
     Files = ' ',
     Fire = ' ',
     Gear = ' ',
+    Harpoon = ' ',
+    -- Harpoon = ' ',
     History = ' ',
     Lightbulb = ' ',
     Lock = ' ',

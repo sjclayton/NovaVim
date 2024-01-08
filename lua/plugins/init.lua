@@ -6,7 +6,7 @@ local conf = function(plugin)
 end
 
 return {
-  --- General Plugins
+  --- General
   { 'Bekaboo/deadcolumn.nvim', event = { 'LazyFile', 'VeryLazy' }, config = conf('deadcolumn') },
   { 'ThePrimeagen/harpoon', event = 'VeryLazy', dependencies = 'nvim-lua/plenary.nvim', config = conf('harpoon') },
   {
@@ -58,16 +58,16 @@ return {
     },
     config = conf('hlchunk'),
   },
-  -- {
-  --   '3rd/image.nvim',
-  --   ft = { 'markdown' },
-  --   opts = {
-  --     only_render_image_at_cursor = true,
-  --     window_overlap_clear_enabled = true,
-  --     tmux_show_only_in_active_window = true,
-  --   },
-  --   config = true,
-  -- },
+  {
+    '3rd/image.nvim',
+    ft = { 'markdown' },
+    opts = {
+      only_render_image_at_cursor = true,
+      window_overlap_clear_enabled = true,
+      tmux_show_only_in_active_window = true,
+    },
+    config = true,
+  },
   {
     'iamcco/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
@@ -125,7 +125,7 @@ return {
     config = conf('gen'),
   },
 
-  --- Coding Related
+  --- Coding
   {
     'rmagatti/alternate-toggler',
     keys = {

@@ -166,7 +166,7 @@ return function()
       local idx = harpoon.get_index_of(buffer.path)
 
       if marked and idx ~= nil then
-        return '  ' .. idx .. ' '
+        return ' ' .. icons.ui.Harpoon .. idx .. ' '
       end
       return ' '
     end,

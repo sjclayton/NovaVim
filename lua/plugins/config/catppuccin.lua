@@ -22,6 +22,9 @@ return function()
           -- Gitsigns
           GitSignsCurrentLineBlame = { fg = C.overlay1 },
 
+          -- Harpoon
+          HarpoonCurrentFile = { fg = C.green },
+
           -- Headlines
           CodeBlock = { bg = C.crust },
           Headline1 = { style = { 'bold' } },
@@ -56,6 +59,9 @@ return function()
 
           -- Gitsigns
           GitSignsCurrentLineBlame = { fg = C.overlay1 },
+
+          -- Harpoon
+          HarpoonCurrentFile = { fg = C.green },
 
           -- Headlines
           CodeBlock = { bg = '#181825' },
