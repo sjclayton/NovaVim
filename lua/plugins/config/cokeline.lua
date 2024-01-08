@@ -38,12 +38,12 @@ return function()
         if buffer.is_focused then
           return get_hex('ColorColumn', 'bg')
         else
-          return get_hex('TabLine', 'bg')
+          return get_hex('TabLineFill', 'bg')
         end
       end,
       bg = function(buffer)
         if not buffer.is_focused then
-          return get_hex('TabLine', 'bg')
+          return get_hex('TabLineFill', 'bg')
         end
       end,
     },

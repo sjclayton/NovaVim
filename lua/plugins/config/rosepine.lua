@@ -1,15 +1,18 @@
 return function()
   local opts = {
-    disable_background = true,
-    dim_nc_background = false,
+    dim_inactive_windows = true,
+    extend_background_behind_borders = true,
+    styles = {
+      transparency = false,
+    },
     groups = {
-      panel = 'base',
+      -- panel = 'base',
     },
     highlight_groups = {
       WinSeparator = { fg = 'muted' },
 
       -- Cmp
-      CmpPmenu = { bg = 'base' },
+      CmpPmenu = { bg = 'surface' },
 
       -- Cokeline
       TabLineFill = { fg = 'surface', bg = 'base' },
@@ -26,9 +29,9 @@ return function()
       GitSignsUntracked = { bg = '' },
 
       -- Harpoon
-      HarpoonBorder = { fg = 'muted', bg = 'base' },
+      HarpoonBorder = { fg = 'muted', bg = 'surface' },
       HarpoonCurrentFile = { fg = 'rose' },
-      HarpoonWindow = { fg = 'text', bg = 'base' },
+      HarpoonWindow = { fg = 'text', bg = 'surface' },
 
       -- Headlines
       Dash = { fg = 'overlay' },
