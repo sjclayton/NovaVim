@@ -96,6 +96,9 @@ wk.register({
       name = icons.kinds.Package .. 'Rust Crates',
     },
   },
+  d = {
+    name = icons.ui.Bug .. 'Debug',
+  },
   f = {
     name = icons.kinds.File .. 'File',
   },

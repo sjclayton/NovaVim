@@ -1,6 +1,6 @@
 return function()
   local opts = {
-    dim_inactive_windows = false,
+    dim_inactive_windows = true,
     extend_background_behind_borders = true,
     styles = {
       transparency = false,
@@ -13,9 +13,6 @@ return function()
 
       -- Cokeline
       TabLineFill = { fg = 'surface', bg = 'base' },
-
-      -- Fidget
-      FidgetTitle = { fg = 'pine' },
 
       -- Harpoon
       HarpoonBorder = { link = 'FloatBorder' },

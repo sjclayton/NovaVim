@@ -12,6 +12,7 @@ return function()
 
       -- General
       'bash-language-server',
+      'codelldb',
       -- 'misspell',
       -- 'shfmt',
       -- Golang
@@ -26,8 +27,9 @@ return function()
       'iferr',
       -- 'revive',
       -- Javascript/Typescript
-      'typescript-language-server',
       'eslint_d',
+      'standardjs',
+      'typescript-language-server',
       -- Lua
       'lua-language-server',
       'stylua',

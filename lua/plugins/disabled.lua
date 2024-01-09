@@ -35,6 +35,7 @@ return {
   { 'hrsh7th/nvim-cmp', enabled = true },
   { 'stevearc/conform.nvim', enabled = true },
   { 'mfussenegger/nvim-lint', enabled = true },
+  { 'mfussenegger/nvim-dap', enabled = true },
   -- Language Specific
   { 'Saecki/crates.nvim', enabled = true },
   { 'olexsmir/gopher.nvim', enabled = true },

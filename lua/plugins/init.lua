@@ -5,6 +5,17 @@ local conf = function(plugin)
   return require('plugins.config.' .. plugin)
 end
 
+local function get_args(config)
+  local args = type(config.args) == 'function' and (config.args() or {}) or config.args or {}
+  config = vim.deepcopy(config)
+  ---@cast args string[]
+  config.args = function()
+    local new_args = vim.fn.input('Run with args: ', table.concat(args, ' ')) --[[@as string]]
+    return vim.split(vim.fn.expand(new_args) --[[@as string]], ' ')
+  end
+  return config
+end
+
 return {
   --- General
   { 'Bekaboo/deadcolumn.nvim', event = { 'LazyFile', 'VeryLazy' }, config = conf('deadcolumn') },
@@ -342,6 +353,57 @@ return {
   },
   -- Linting
   { 'mfussenegger/nvim-lint', event = 'LazyFile', config = conf('lint') },
+  -- Debugging
+  {
+    'mfussenegger/nvim-dap',
+    dependencies = {
+      {
+        'rcarriga/nvim-dap-ui',
+        opts = {},
+        -- stylua: ignore
+        keys = {
+          { '<leader>du', function() require('dapui').toggle() end, desc = 'Toggle DAP UI' },
+          { '<leader>de', function() require('dapui').eval() end, desc = 'Eval', mode = { 'n', 'v' } },
+        },
+        config = function(_, opts)
+          local dap = require('dap')
+          local dapui = require('dapui')
+          dapui.setup(opts)
+          dap.listeners.after.event_initialized['dapui_config'] = function()
+            dapui.open({})
+          end
+          dap.listeners.before.event_terminated['dapui_config'] = function()
+            dapui.close({})
+          end
+          dap.listeners.before.event_exited['dapui_config'] = function()
+            dapui.close({})
+          end
+        end,
+      },
+      { 'theHamsta/nvim-dap-virtual-text', opts = {} },
+    },
+    -- stylua: ignore
+    keys = {
+      { '<leader>dB', function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = 'Breakpoint condition', },
+      { '<leader>db', function() require('dap').toggle_breakpoint() end, desc = 'Toggle breakpoint', },
+      { '<leader>dc', function() require('dap').continue() end, desc = 'Continue', },
+      { '<leader>da', function() require('dap').continue({ before = get_args }) end, desc = 'Run with Args', },
+      { '<leader>dC', function() require('dap').run_to_cursor() end, desc = 'Run to Cursor', },
+      { '<leader>dg', function() require('dap').goto_() end, desc = 'Go to line (no execute)', },
+      { '<leader>di', function() require('dap').step_into() end, desc = 'Step Into', },
+      { '<leader>dj', function() require('dap').down() end, desc = 'Down', },
+      { '<leader>dk', function() require('dap').up() end, desc = 'Up', },
+      { '<leader>dl', function() require('dap').run_last() end, desc = 'Run Last', },
+      { '<leader>do', function() require('dap').step_out() end, desc = 'Step Out', },
+      { '<leader>dO', function() require('dap').step_over() end, desc = 'Step Over', },
+      { '<leader>dp', function() require('dap').pause() end, desc = 'Pause', },
+      { '<leader>dr', function() require('dap').repl.toggle() end, desc = 'Toggle REPL', },
+      { '<leader>ds', function() require('dap').session() end, desc = 'Session', },
+      { '<leader>dt', function() require('dap').terminate() end, desc = 'Terminate', },
+      { '<leader>dw', function() require('dap.ui.widgets').hover() end, desc = 'Widgets', },
+    },
+    config = conf('debug'),
+  },
 
   --- Language Specific
   {
@@ -353,7 +415,6 @@ return {
       { '<leader>ccp', function() require('crates').show_popup() end, desc = 'Show crate popup', ft = 'toml' },
       { '<leader>cci', function() require('crates').show_crate_popup() end, desc = 'Show crate info', ft = 'toml' },
       { '<leader>ccd', function() require('crates').open_documentation() end, desc = 'Show crate docs', ft = 'toml' },
-      -- stylua: ignore end
     },
     config = conf('crates'),
   },
@@ -361,6 +422,9 @@ return {
     'olexsmir/gopher.nvim',
     ft = { 'go', 'gomod' },
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('gopher.dap').setup()
+    end,
   },
   { 'mrcjkb/rustaceanvim', ft = 'rust', version = '^3', config = conf('rustacean') },
 
@@ -427,7 +491,7 @@ return {
       end
     end,
   },
-  { 'j-hui/fidget.nvim', tag = 'v1.0.0', event = 'LspAttach', config = conf('fidget') },
+  { 'j-hui/fidget.nvim', tag = 'v1.2.0', event = 'LspAttach', config = conf('fidget') },
   {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',

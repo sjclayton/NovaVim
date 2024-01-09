@@ -70,7 +70,7 @@ M.on_attach = function(client, bufnr)
   opts.desc = 'Show buffer diagnostics'
   map('n', '<leader>D', '<cmd>Telescope diagnostics bufnr=0<CR>', opts)
   opts.desc = 'Show line diagnostics'
-  map('n', '<leader>d', vim.diagnostic.open_float, opts)
+  map('n', '<leader>cd', vim.diagnostic.open_float, opts)
 
   -- Go to previous and next diagnostic
   opts.desc = 'Go to previous diagnostic'
