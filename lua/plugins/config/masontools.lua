@@ -35,6 +35,7 @@ return function()
       'stylua',
       -- Python
       'black',
+      'debugpy',
       'isort',
       'jedi-language-server',
       'ruff',

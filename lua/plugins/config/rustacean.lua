@@ -63,16 +63,6 @@ return function()
         },
       },
     },
-    dap = {
-      adapter = {
-        type = 'server',
-        port = '${port}',
-        executable = {
-          command = 'codelldb',
-          args = { '--port', '${port}' },
-        },
-      },
-    },
   }
   vim.g.rustaceanvim = vim.tbl_deep_extend('force', {}, opts or {})
 end

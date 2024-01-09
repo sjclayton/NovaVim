@@ -48,7 +48,7 @@ return {
     Breakpoint = ' ',
     BreakpointCondition = ' ',
     BreakpointRejected = { ' ', 'DiagnosticError' },
-    LogPoint = '.>',
+    LogPoint = '◆',
   },
   diagnostics = {
     Error = ' ',
