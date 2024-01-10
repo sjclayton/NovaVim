@@ -14,15 +14,9 @@ return function()
     )
   end
 
-  dap.adapters.python = {
-    type = 'executable',
-    command = 'python',
-    args = { '-m', 'debugpy.adapter' },
-  }
-
   dap.adapters.codelldb = {
     type = 'server',
-    host = '127.0.0.1',
+    -- host = '127.0.0.1',
     port = '${port}',
     executable = {
       command = vim.fn.stdpath('data') .. '/mason/packages/codelldb/extension/adapter/codelldb',
@@ -32,13 +26,13 @@ return function()
 
   dap.configurations.rust = {
     {
-      name = 'Debug (Rust)',
+      name = 'Launch file',
       type = 'codelldb',
       request = 'launch',
-      -- program = '${workspaceFolder}/target/debug/app',
-      program = function()
-        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-      end,
+      program = '${workspaceFolder}/target/debug/${workspaceFolderBasename}',
+      -- program = function()
+      --   return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+      -- end,
       cwd = '${workspaceFolder}',
       stopOnEntry = false,
       args = {},

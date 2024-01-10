@@ -2,6 +2,9 @@ return function()
   local opts = {
     progress = {
       suppress_on_insert = true,
+      lsp = {
+        progress_ringbuf_size = 10000,
+      },
     },
     notification = {
       window = {

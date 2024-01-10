@@ -17,14 +17,14 @@ return function()
       -- 'shfmt',
       -- Golang
       'delve',
-      'golangci-lint',
       'goimports',
       'goimports-reviser',
+      'golangci-lint',
       'gomodifytags',
       'gopls',
       'gotests',
-      'impl',
       'iferr',
+      'impl',
       -- 'revive',
       -- Javascript/Typescript
       'eslint_d',
@@ -65,7 +65,7 @@ return function()
     -- This is only relevant when you are using 'run_on_start'. It has no
     -- effect when running manually via ':MasonToolsInstall' etc....
     -- Default: nil
-    debounce_hours = 5, -- at least 5 hours between attempts to install/update
+    debounce_hours = 6, -- at least 6 hours between attempts to install/update
   }
 
   require('mason-tool-installer').setup(opts)

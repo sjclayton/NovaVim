@@ -28,7 +28,7 @@ return {
   { 'Wansmer/treesj', enabled = true },
   { 'folke/trouble.nvim', enabled = true },
   { 'RRethy/vim-illuminate', enabled = true },
-  -- LSP
+  -- LSP / Completion / Formatting / Linting / Debugging
   { 'williamboman/mason.nvim', enabled = true },
   { 'WhoIsSethDaniel/mason-tool-installer.nvim', enabled = true },
   { 'neovim/nvim-lspconfig', enabled = true },
@@ -36,6 +36,7 @@ return {
   { 'stevearc/conform.nvim', enabled = true },
   { 'mfussenegger/nvim-lint', enabled = true },
   { 'mfussenegger/nvim-dap', enabled = true },
+  { 'mfussenegger/nvim-dap-python', enabled = true },
   -- Language Specific
   { 'Saecki/crates.nvim', enabled = true },
   { 'olexsmir/gopher.nvim', enabled = true },

@@ -113,7 +113,6 @@ return {
     },
     version = '*',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    keys = {},
     config = conf('obsidian'),
   },
 
@@ -126,12 +125,7 @@ return {
   {
     'David-Kunz/gen.nvim',
     keys = {
-      {
-        '<leader>gn',
-        ':Gen<CR>',
-        desc = 'Select AI prompt',
-        mode = { 'n', 'v' },
-      },
+      { '<leader>gn', ':Gen<CR>', desc = 'Select AI prompt', mode = { 'n', 'v' } },
     },
     config = conf('gen'),
   },
@@ -190,9 +184,11 @@ return {
   },
   {
     'luckasRanarison/nvim-devdocs',
-    ft = { 'go', 'rust' },
     opts = {
       ensure_installed = { 'go', 'rust' },
+    },
+    keys = {
+      { '<leader>cD', '<CMD>DevdocsOpenCurrentFloat<CR>', desc = 'Browse language docs', ft = { 'go', 'rust' } },
     },
     build = ':DevdocsFetch',
   },
@@ -399,6 +395,16 @@ return {
       -- { '<leader>dw', function() require('dap.ui.widgets').hover() end, desc = 'Widgets', },
     },
     config = conf('debug'),
+  },
+  {
+    'mfussenegger/nvim-dap-python',
+    ft = 'python',
+    config = function()
+      local mason_path = vim.fn.glob(vim.fn.stdpath('data') .. '/mason/')
+      pcall(function()
+        require('dap-python').setup(mason_path .. 'packages/debugpy/venv/bin/python')
+      end)
+    end,
   },
 
   --- Language Specific
@@ -660,6 +666,7 @@ return {
         desc = 'Emoji',
       },
       { '<leader>tu', '<CMD>Telescope undo<CR>', desc = 'Undo history' },
+      -- Misc
       {
         '<leader>uC',
         function()
