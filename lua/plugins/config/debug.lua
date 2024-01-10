@@ -14,9 +14,9 @@ return function()
     )
   end
 
+  -- adapters
   dap.adapters.codelldb = {
     type = 'server',
-    -- host = '127.0.0.1',
     port = '${port}',
     executable = {
       command = vim.fn.stdpath('data') .. '/mason/packages/codelldb/extension/adapter/codelldb',
@@ -24,15 +24,32 @@ return function()
     },
   }
 
+  -- configurations
+
   dap.configurations.rust = {
     {
       name = 'Launch file',
       type = 'codelldb',
       request = 'launch',
-      program = '${workspaceFolder}/target/debug/${workspaceFolderBasename}',
-      -- program = function()
-      --   return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-      -- end,
+      -- program = '${workspaceFolder}/target/debug/${workspaceFolderBasename}',
+      program = function()
+        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+      end,
+      cwd = '${workspaceFolder}',
+      stopOnEntry = false,
+      args = {},
+    },
+  }
+
+  dap.configurations.zig = {
+    {
+      name = 'Launch file',
+      type = 'codelldb',
+      request = 'launch',
+      -- program = '${workspaceFolder}/zig-out/bin/${workspaceFolderBasename}',
+      program = function()
+        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/zig-out/bin/', 'file')
+      end,
       cwd = '${workspaceFolder}',
       stopOnEntry = false,
       args = {},

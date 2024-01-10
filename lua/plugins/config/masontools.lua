@@ -1,7 +1,6 @@
 return function()
   local opts = {
-    -- a list of all tools you want to ensure are installed upon
-    -- start
+    -- a list of all tools you want to ensure are installed upon start
     ensure_installed = {
 
       -- you can pin a tool to a particular version

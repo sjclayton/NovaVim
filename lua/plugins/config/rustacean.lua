@@ -29,6 +29,9 @@ return function()
         map('n', '<leader>ce', function()
           vim.cmd('RustLsp expandMacro')
         end, { desc = 'Expand macro (Rust)', buffer = bufnr })
+        map('n', '<leader>dR', function()
+          vim.cmd('RustLsp debuggables')
+        end, { desc = 'Debuggables (Rust)', buffer = bufnr })
 
         vim.api.nvim_create_autocmd({ 'CursorHold', 'InsertLeave' }, {
           group = vim.api.nvim_create_augroup('rust__codelenses', { clear = true }),
@@ -62,6 +65,9 @@ return function()
           },
         },
       },
+    },
+    dap = {
+      auto_generate_source_map = true,
     },
   }
   vim.g.rustaceanvim = vim.tbl_deep_extend('force', {}, opts or {})
