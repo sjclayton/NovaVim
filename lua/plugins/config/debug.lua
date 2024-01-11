@@ -25,7 +25,6 @@ return function()
   }
 
   -- configurations
-
   dap.configurations.rust = {
     {
       name = 'Launch file',

@@ -55,6 +55,7 @@ return {
   { 'echasnovski/mini.bufremove', enabled = true },
   { 'JManch/nomodoro', enabled = true },
   { 'nvim-neo-tree/neo-tree.nvim', enabled = true },
+  { 'nyngwang/NeoZoom.lua', enabled = true },
   { 'nvim-telescope/telescope.nvim', enabled = true },
   { 'alexghergh/nvim-tmux-navigation', enabled = true },
   { 'wakatime/vim-wakatime', enabled = true },
