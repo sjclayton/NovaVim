@@ -5,17 +5,6 @@ local conf = function(plugin)
   return require('plugins.config.' .. plugin)
 end
 
-local function get_args(config)
-  local args = type(config.args) == 'function' and (config.args() or {}) or config.args or {}
-  config = vim.deepcopy(config)
-  ---@cast args string[]
-  config.args = function()
-    local new_args = vim.fn.input('Run with args: ', table.concat(args, ' ')) --[[@as string]]
-    return vim.split(vim.fn.expand(new_args) --[[@as string]], ' ')
-  end
-  return config
-end
-
 return {
   --- General
   { 'Bekaboo/deadcolumn.nvim', event = { 'LazyFile', 'VeryLazy' }, config = conf('deadcolumn') },
@@ -206,10 +195,10 @@ return {
       { ']t', function() require('todo-comments').jump_next() end, desc = 'Next todo comment', },
       { '[t', function() require('todo-comments').jump_prev() end, desc = 'Previous todo comment', },
       -- stylua: ignore end
-      { '<leader>xt', '<CMD>TodoTrouble<CR>', desc = 'Todo (Trouble)' },
-      { '<leader>xT', '<CMD>TodoTrouble keywords=TODO,FIX,FIXME<CR>', desc = 'Todo/Fix/Fixme (Trouble)' },
-      { '<leader>tt', '<CMD>TodoTelescope<CR>', desc = 'Todo' },
-      { '<leader>tT', '<CMD>TodoTelescope keywords=TODO,FIX,FIXME<CR>', desc = 'Todo/Fix/Fixme' },
+      { '<leader>xT', '<CMD>TodoTrouble<CR>', desc = 'Todo Comments (Trouble)' },
+      { '<leader>xt', '<CMD>TodoTrouble keywords=TODO,FIX,FIXME<CR>', desc = 'Todo/Fix/Fixme (Trouble)' },
+      { '<leader>tT', '<CMD>TodoTelescope<CR>', desc = 'Todo Comments' },
+      { '<leader>tt', '<CMD>TodoTelescope keywords=TODO,FIX,FIXME<CR>', desc = 'Todo/Fix/Fixme' },
     },
     config = true,
   },
@@ -236,10 +225,10 @@ return {
     dependencies = 'nvim-tree/nvim-web-devicons',
     opts = { use_diagnostic_signs = true },
     keys = {
-      { '<leader>xx', '<CMD>TroubleToggle document_diagnostics<CR>', desc = 'Document Diagnostics (Trouble)' },
-      { '<leader>xX', '<CMD>TroubleToggle workspace_diagnostics<CR>', desc = 'Workspace Diagnostics (Trouble)' },
-      { '<leader>xL', '<CMD>TroubleToggle loclist<CR>', desc = 'Location List (Trouble)' },
-      { '<leader>xQ', '<CMD>TroubleToggle quickfix<CR>', desc = 'Quickfix List (Trouble)' },
+      { '<leader>xd', '<CMD>TroubleToggle document_diagnostics<CR>', desc = 'Document Diagnostics (Trouble)' },
+      { '<leader>xw', '<CMD>TroubleToggle workspace_diagnostics<CR>', desc = 'Workspace Diagnostics (Trouble)' },
+      { '<leader>xl', '<CMD>TroubleToggle loclist<CR>', desc = 'Location List (Trouble)' },
+      { '<leader>xq', '<CMD>TroubleToggle quickfix<CR>', desc = 'Quickfix List (Trouble)' },
       {
         '[q',
         function()
@@ -372,7 +361,7 @@ return {
           -- stylua: ignore start
           dap.listeners.after.event_initialized['dapui_config'] = dapui.open
           dap.listeners.before.event_terminated['dapui_config'] = dapui.close
-          dap.listeners.before.event_exited['dapui_config'] = dapui.close
+          -- dap.listeners.before.event_exited['dapui_config'] = dapui.close
           -- stylua: ignore end
         end,
       },
@@ -383,7 +372,7 @@ return {
       { '<leader>dB', function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = 'Breakpoint condition' },
       { '<leader>db', function() require('dap').toggle_breakpoint() end, desc = 'Toggle breakpoint' },
       { '<leader>dc', function() require('dap').continue() end, desc = 'Run / Continue' },
-      { '<leader>da', function() require('dap').continue({ before = get_args }) end, desc = 'Run with args' },
+      { '<leader>da', function() require('dap').continue({ before = util.dap_run_args }) end, desc = 'Run with args' },
       { '<leader>dC', function() require('dap').run_to_cursor() end, desc = 'Run to cursor' },
       { '<leader>dg', function() require('dap').goto_() end, desc = 'Go to line (no execute)' },
       { '<leader>dh', function() require('dap').step_back() end, desc = 'Step back' },
@@ -397,16 +386,6 @@ return {
       { '<leader>dt', function() require('dap').terminate() end, desc = 'Terminate' },
     },
     config = conf('debug'),
-  },
-  {
-    'mfussenegger/nvim-dap-python',
-    ft = 'python',
-    config = function()
-      local mason_path = vim.fn.glob(vim.fn.stdpath('data') .. '/mason/')
-      pcall(function()
-        require('dap-python').setup(mason_path .. 'packages/debugpy/venv/bin/python')
-      end)
-    end,
   },
 
   --- Language Specific
@@ -428,6 +407,16 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
     config = function()
       require('gopher.dap').setup()
+    end,
+  },
+  {
+    'mfussenegger/nvim-dap-python',
+    ft = 'python',
+    config = function()
+      local mason_path = vim.fn.glob(vim.fn.stdpath('data') .. '/mason/')
+      pcall(function()
+        require('dap-python').setup(mason_path .. 'packages/debugpy/venv/bin/python')
+      end)
     end,
   },
   { 'mrcjkb/rustaceanvim', ft = 'rust', version = '^3', config = conf('rustacean') },
@@ -534,7 +523,11 @@ return {
     end,
     config = conf('notify'),
   },
-  { 'folke/zen-mode.nvim', cmd = 'ZenMode', config = conf('zenmode') },
+  {
+    'folke/zen-mode.nvim',
+    keys = { { '<leader>uz', '<CMD>ZenMode<CR>', desc = 'Toggle zen mode' } },
+    config = conf('zenmode'),
+  },
 
   --- Colorschemes
   {
@@ -553,6 +546,12 @@ return {
   },
 
   --- Utils
+  {
+    'tris203/hawtkeys.nvim',
+    cmd = { 'Hawtkeys', 'HawtkeysAll', 'HawtkeysDupes' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = conf('hawtkeys'),
+  },
   {
     'echasnovski/mini.bufremove',
     version = false,
@@ -583,9 +582,9 @@ return {
   {
     'JManch/nomodoro',
     keys = {
-      { '<leader>nw', '<CMD>NomoWork<CR>', desc = 'Nomo - Start Work' },
-      { '<leader>nb', '<CMD>NomoBreak<CR>', desc = 'Nomo - Start Break' },
-      { '<leader>ns', '<CMD>NomoStop<CR>', desc = 'Nomo - Stop Timer' },
+      { '<leader>up', '<CMD>NomoWork<CR>', desc = 'Nomodoro - Start timer' },
+      { '<leader>uk', '<CMD>NomoBreak<CR>', desc = 'Nomodoro - Start break' },
+      { '<leader>uP', '<CMD>NomoStop<CR>', desc = 'Nomodoro - Stop timer' },
     },
     config = conf('nomodoro'),
   },
@@ -632,7 +631,7 @@ return {
     cmd = 'NeoZoomToggle',
     name = 'neo-zoom',
     keys = {
-      { '<leader><CR>', ':NeoZoomToggle<CR>', desc = 'Zoom Window' },
+      { '<leader><CR>', '<CMD>NeoZoomToggle<CR>', desc = 'Zoom Window' },
     },
     config = conf('neozoom'),
   },
@@ -668,11 +667,12 @@ return {
       { '<leader>fR', '<CMD>Telescope frecency<CR>', desc = 'Recent files' },
       { '<leader>fr', '<CMD>Telescope frecency workspace=CWD<CR>', desc = 'Recent files (cwd)' },
       -- Search
+      { '<leader>tb', '<CMD>Telescope buffers sort_mru=true sort_lastused=true<CR>', desc = 'Buffers' },
       { '<leader>tm', '<CMD>Telescope marks<CR>', desc = 'Marks' },
-      { '<leader>t"', '<CMD>Telescope registers<CR>', desc = 'Registers' },
+      { '<leader>tr', '<CMD>Telescope registers<CR>', desc = 'Registers' },
       { '<leader>tk', '<CMD>Telescope keymaps<CR>', desc = 'Keymaps' },
       {
-        '<leader>ts',
+        '<leader>te',
         '<CMD>lua require"telescope.builtin".symbols{ sources = { "emoji", "gitmoji", "nerd" } }<CR>',
         desc = 'Emoji',
       },

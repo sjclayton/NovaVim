@@ -82,6 +82,8 @@ return function()
     },
     integrations = {
       cmp = true,
+      dap = true,
+      dap_ui = true,
       fidget = false,
       gitsigns = true,
       harpoon = true,
@@ -92,11 +94,20 @@ return function()
       mason = true,
       native_lsp = {
         enabled = true,
+        -- virtual_text = {
+        --   errors = { 'italic' },
+        --   hints = { 'italic' },
+        --   warnings = { 'italic' },
+        --   information = { 'italic' },
+        -- },
         underlines = {
           errors = { 'undercurl' },
           hints = { 'undercurl' },
           warnings = { 'undercurl' },
           information = { 'undercurl' },
+        },
+        inlay_hints = {
+          background = true,
         },
       },
       neotree = true,

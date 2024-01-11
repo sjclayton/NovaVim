@@ -102,14 +102,11 @@ wk.register({
   f = {
     name = icons.kinds.File .. 'File',
   },
-  o = {
+  n = {
     name = icons.ui.Notes .. 'Notes',
     f = { '<CMD>Telescope frecency workspace=notes<CR>', 'Recent notes', noremap = true },
-    j = {
-      name = 'Journal',
-      t = { '<CMD>ObsidianToday<CR>', 'Today', noremap = true },
-      y = { '<CMD>ObsidianYesterday<CR>', 'Yesterday', noremap = true },
-    },
+    j = { '<CMD>ObsidianToday<CR>', 'Journal - Today', noremap = true },
+    y = { '<CMD>ObsidianYesterday<CR>', 'Journal - Yesterday', noremap = true },
     n = {
       function()
         vim.ui.input({ prompt = 'Note title:' }, function(input)
@@ -183,11 +180,6 @@ wk.register({
         helper.toggle('Word wrap', { enable = 'set wrap', disable = 'set nowrap' })
       end,
       'Toggle word wrap',
-      noremap = true,
-    },
-    Z = {
-      '<CMD>ZenMode<CR>',
-      'Toggle zen mode',
       noremap = true,
     },
   },

@@ -18,6 +18,7 @@ return function()
     --- @diagnostic disable-next-line : missing-fields
     performance = {
       debounce = 150,
+      throttle = 175, -- NOTE: testing this out!
     },
 
     preselect = cmp.PreselectMode.None,

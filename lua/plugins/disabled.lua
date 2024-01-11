@@ -36,10 +36,10 @@ return {
   { 'stevearc/conform.nvim', enabled = true },
   { 'mfussenegger/nvim-lint', enabled = true },
   { 'mfussenegger/nvim-dap', enabled = true },
-  { 'mfussenegger/nvim-dap-python', enabled = true },
   -- Language Specific
   { 'Saecki/crates.nvim', enabled = true },
   { 'olexsmir/gopher.nvim', enabled = true },
+  { 'mfussenegger/nvim-dap-python', enabled = true },
   { 'mrcjkb/rustaceanvim', enabled = true },
   -- Treesitter
   { 'nvim-treesitter/nvim-treesitter', enabled = true },
@@ -52,6 +52,7 @@ return {
   { 'rcarriga/nvim-notify', enabled = true },
   { 'folke/zen-mode.nvim', enabled = true },
   -- Utils
+  { 'tris203/hawtkeys.nvim', enabled = true },
   { 'echasnovski/mini.bufremove', enabled = true },
   { 'JManch/nomodoro', enabled = true },
   { 'nvim-neo-tree/neo-tree.nvim', enabled = true },

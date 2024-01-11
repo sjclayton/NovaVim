@@ -486,6 +486,17 @@ end
 --- END of Lazy util functions
 ---
 
+function M.dap_run_args(config)
+  local args = type(config.args) == 'function' and (config.args() or {}) or config.args or {}
+  config = vim.deepcopy(config)
+  ---@cast args string[]
+  config.args = function()
+    local new_args = vim.fn.input('Run with args: ', table.concat(args, ' ')) --[[@as string]]
+    return vim.split(vim.fn.expand(new_args) --[[@as string]], ' ')
+  end
+  return config
+end
+
 function M.lsp_client_names()
   local active_clients = vim.lsp.get_clients()
   local client_names = {}
