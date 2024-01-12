@@ -50,6 +50,7 @@ map('v', '<a-k>', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
 
 -- Jumping
 map('n', '<BS>', '^', { desc = 'Start of line (non-blank)' })
+map('n', 'G', 'Gzz', { desc = 'Last line' })
 
 -- Sorting
 map('v', '<leader>s', "<ESC><CMD>'<,'>sort<CR>", { desc = 'Sort visual selection' })
@@ -81,14 +82,10 @@ map('n', '<leader>qq', '<CMD>qa<CR>', { desc = 'Quit all' })
 wk.register({
   b = {
     name = icons.ui.Files .. 'Buffers',
-    j = { '<Plug>(cokeline-pick-focus)', 'Jump to buffer', noremap = true },
-    C = {
-      '<Plug>(cokeline-pick-close)',
-      'Pick buffer to close',
-      noremap = true,
-    },
-    n = { '<Plug>(cokeline-focus-next)', 'Cycle next buffer', noremap = true },
-    p = { '<Plug>(cokeline-focus-prev)', 'Cycle previous buffer', noremap = true },
+    j = { '<Plug>(cokeline-pick-focus)', 'Jump to buffer' },
+    c = { '<Plug>(cokeline-pick-close)', 'Pick buffer to close' },
+    n = { '<Plug>(cokeline-focus-next)', 'Cycle next buffer' },
+    p = { '<Plug>(cokeline-focus-prev)', 'Cycle previous buffer' },
   },
   c = {
     name = icons.ui.Code .. 'Code',
@@ -104,9 +101,9 @@ wk.register({
   },
   n = {
     name = icons.ui.Notes .. 'Notes',
-    f = { '<CMD>Telescope frecency workspace=notes<CR>', 'Recent notes', noremap = true },
-    j = { '<CMD>ObsidianToday<CR>', 'Journal - Today', noremap = true },
-    y = { '<CMD>ObsidianYesterday<CR>', 'Journal - Yesterday', noremap = true },
+    f = { '<CMD>Telescope frecency workspace=notes<CR>', 'Recent notes' },
+    j = { '<CMD>ObsidianToday<CR>', 'Journal - Today' },
+    y = { '<CMD>ObsidianYesterday<CR>', 'Journal - Yesterday' },
     n = {
       function()
         vim.ui.input({ prompt = 'Note title:' }, function(input)
@@ -118,12 +115,11 @@ wk.register({
         end)
       end,
       'New note',
-      noremap = true,
     },
     r = {
       function()
         local current_name = vim.fn.expand('%:t:r')
-        vim.ui.input({ prompt = 'Rename note: ', default = current_name }, function(input)
+        vim.ui.input({ prompt = 'Rename note:', default = current_name }, function(input)
           if input ~= nil then
             vim.cmd('ObsidianRename ' .. input)
           else
@@ -132,17 +128,16 @@ wk.register({
         end)
       end,
       'Rename note',
-      noremap = true,
     },
-    s = { '<CMD>ObsidianSearch<CR>', 'Search notes', noremap = true },
-    t = { '<CMD>ObsidianTemplate<CR>', 'Insert template', noremap = true },
+    s = { '<CMD>ObsidianSearch<CR>', 'Search notes' },
+    t = { '<CMD>ObsidianTemplate<CR>', 'Insert template' },
   },
   t = {
     name = icons.ui.Telescope .. 'Telescope',
   },
   l = {
-    i = { '<CMD>LspInfo<CR>', 'LSP Info', noremap = true },
-    r = { '<CMD>LspRestart<CR>', 'Restart LSP', noremap = true },
+    i = { '<CMD>LspInfo<CR>', 'LSP Info' },
+    r = { '<CMD>LspRestart<CR>', 'Restart LSP' },
   },
   u = {
     name = icons.ui.UI .. 'UI/Utils',
@@ -151,40 +146,35 @@ wk.register({
         helper.toggle('Listchars', { enable = 'set list', disable = 'set nolist' })
       end,
       'Toggle listchars',
-      noremap = true,
     },
     n = {
       function()
         helper.number()
       end,
       'Toggle line numbers',
-      noremap = true,
     },
     N = {
       function()
         helper.toggle('Relative numbers', { enable = 'set norelativenumber', disable = 'set relativenumber' })
       end,
       'Toggle relative line numbers',
-      noremap = true,
     },
-    l = { '<CMD>Lazy<CR>', 'Open Lazy', noremap = true },
+    l = { '<CMD>Lazy<CR>', 'Open Lazy' },
     s = {
       function()
         helper.toggle('Spell check', { enable = 'set spell', disable = 'set nospell' })
       end,
       'Toggle spell check',
-      noremap = true,
     },
     w = {
       function()
         helper.toggle('Word wrap', { enable = 'set wrap', disable = 'set nowrap' })
       end,
       'Toggle word wrap',
-      noremap = true,
     },
   },
   x = {
     name = icons.diagnostics.Warn .. 'Diagnostics',
   },
-  ['<space>'] = { '<C-^>', 'Jump to alternate file', noremap = true },
+  ['<space>'] = { '<C-^>', 'Jump to alternate file' },
 }, { prefix = '<leader>' })

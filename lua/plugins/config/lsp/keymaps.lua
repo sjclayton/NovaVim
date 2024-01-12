@@ -53,7 +53,7 @@ M.on_attach = function(client, bufnr)
 
   if M.has(bufnr, 'rename') then
     opts.desc = 'Rename variable'
-    map('n', '<leader>cr', vim.lsp.buf.rename, opts)
+    map('n', '<leader>cv', vim.lsp.buf.rename, opts)
   end
 
   if M.has(bufnr, 'hover') then

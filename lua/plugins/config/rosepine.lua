@@ -6,6 +6,7 @@ return function()
       transparency = false,
     },
     highlight_groups = {
+      Search = { bg = 'rose' },
       WinSeparator = { fg = 'muted' },
 
       -- Cmp
