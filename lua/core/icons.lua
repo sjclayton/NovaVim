@@ -75,7 +75,7 @@ return {
   kinds = {
     Array = ' ',
     Boolean = ' ',
-    Class = ' ',
+    Class = '󰠱 ',
     Constant = ' ',
     Constructor = ' ',
     Enum = ' ',
@@ -98,7 +98,7 @@ return {
     String = ' ',
     Struct = ' ',
     TypeParameter = ' ',
-    Variable = ' ',
+    Variable = '󰀫',
   },
   ui = {
     Braces = '󰅩',
@@ -112,6 +112,7 @@ return {
     Files = ' ',
     Fire = ' ',
     Gear = ' ',
+    Git = ' ',
     Harpoon = ' ',
     -- Harpoon = ' ',
     History = ' ',

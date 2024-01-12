@@ -30,6 +30,9 @@ require('lazy').setup('plugins', {
   change_detection = {
     notify = false,
   },
+  install = {
+    colorscheme = { 'rose-pine', 'default' },
+  },
   checker = {
     -- automatically check for plugin updates
     enabled = true,

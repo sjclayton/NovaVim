@@ -11,8 +11,6 @@ return function()
       'fugitive',
       'harpoon',
       'lazy',
-      'markdown.cody_history',
-      'markdown.cody_prompt',
       'mason',
       'neo-tree',
       'noice',

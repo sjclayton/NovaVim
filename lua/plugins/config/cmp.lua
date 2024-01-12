@@ -222,7 +222,22 @@ return function()
           },
           maxwidth = 50,
           ellipsis_char = '...',
-          symbol_map = { Codeium = '' },
+          symbol_map = {
+            Codeium = '',
+            -- default overrides
+            Constant = '',
+            Constructor = '',
+            Enum = '',
+            EnumMember = '',
+            Event = '',
+            Field = '󰉺',
+            File = '',
+            Interface = '',
+            Module = '',
+            Operator = '',
+            Struct = '',
+            TypeParameter = '',
+          },
         })(entry, vim_item)
 
         if vim.tbl_contains({ 'path' }, entry.source.name) then
