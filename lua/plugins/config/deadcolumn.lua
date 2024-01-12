@@ -1,23 +1,20 @@
 return function()
   local opts = {
     scope = 'buffer',
-    modes = { 'i', 'ic', 'ix', 'R', 'Rc', 'Rx', 'Rv', 'Rvc', 'Rvx' },
+    ---@type string[]|fun(mode: string): boolean
+    modes = function(mode)
+      return mode:find('^[ictRss\x13]') ~= nil
+    end,
     blending = {
       threshold = 1.0,
       colorcode = '#000000',
-      hlgroup = {
-        'Normal',
-        'background',
-      },
+      hlgroup = { 'Normal', 'bg' },
     },
     warning = {
       alpha = 0.4,
       offset = 0,
       colorcode = '#6e6a86',
-      -- hlgroup = {
-      --   'Normal',
-      --   'background',
-      -- },
+      -- hlgroup = { 'Normal', 'bg' },
     },
     extra = {
       follow_tw = nil,
