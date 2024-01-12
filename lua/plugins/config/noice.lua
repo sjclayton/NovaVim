@@ -66,7 +66,10 @@ return function()
       },
       {
         filter = {
-          find = 'hlchunk',
+          any = {
+            { find = 'hlchunk' },
+            { find = 'deadcolumn' },
+          },
         },
         opts = { skip = true, title = 'lazy.nvim' },
       },
