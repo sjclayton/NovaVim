@@ -48,7 +48,7 @@ return {
     Breakpoint = ' ',
     BreakpointCondition = ' ',
     BreakpointRejected = { ' ', 'DiagnosticError' },
-    LogPoint = '◆',
+    LogPoint = '🞜 ',
   },
   diagnostics = {
     Error = ' ',
@@ -58,8 +58,8 @@ return {
     Warn = ' ',
   },
   documents = {
-    File = ' ',
-    Files = ' ',
+    File = ' ',
+    Files = ' ',
     Folder = ' ',
     OpenFolder = ' ',
   },

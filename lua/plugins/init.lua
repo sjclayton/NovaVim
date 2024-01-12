@@ -564,7 +564,6 @@ return {
   {
     'tris203/hawtkeys.nvim',
     cmd = { 'Hawtkeys', 'HawtkeysAll', 'HawtkeysDupes' },
-    branch = 'issue81',
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
     config = conf('hawtkeys'),
   },

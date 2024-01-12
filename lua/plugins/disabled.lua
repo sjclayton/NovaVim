@@ -22,6 +22,7 @@ return {
   { 'echasnovski/mini.ai', enabled = true },
   { 'echasnovski/mini.pairs', enabled = true },
   { 'echasnovski/mini.surround', enabled = true },
+  { 'NeogitOrg/neogit', enabled = true },
   { 'luckasRanarison/nvim-devdocs', enabled = true },
   { 'folke/todo-comments.nvim', enabled = true },
   { 'ThePrimeagen/refactoring.nvim', enabled = true },
