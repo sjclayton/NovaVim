@@ -1,5 +1,6 @@
-local util = require('core.util')
 local helper = require('core.helpers')
+local icons = require('core.icons')
+local util = require('core.util')
 
 local conf = function(plugin)
   return require('plugins.config.' .. plugin)
@@ -176,7 +177,14 @@ return {
     cmd = 'Neogit',
     dependencies = { 'plenary.nvim', 'nvim-telescope/telescope.nvim' },
     opts = {
+      disable_hint = true,
       kind = 'split_above',
+      signs = {
+        -- { CLOSED, OPENED }
+        hunk = { '', '' },
+        item = { icons.ui.ChevronRight, icons.ui.ChevronDown },
+        section = { icons.ui.ChevronRight, icons.ui.ChevronDown },
+      },
     },
     keys = {
       { '<leader>gn', '<CMD>Neogit<CR>', desc = 'Open Neogit' },
