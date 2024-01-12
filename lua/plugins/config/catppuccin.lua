@@ -12,6 +12,8 @@ return function()
     highlight_overrides = {
       macchiato = function(macchiato)
         return {
+          WinSeparator = { fg = C.dim and C.surface2 or C.crust },
+
           -- Overrides for the Cokeline
           TabLine = { fg = C.subtext0, bg = C.dim },
           TabLineFill = { bg = C.dim },
@@ -46,6 +48,8 @@ return function()
       end,
       mocha = function(mocha)
         return {
+          WinSeparator = { fg = C.dim and C.surface2 or C.crust },
+
           -- Adjust contrast of line numbers
           LineNr = { fg = U.darken(mocha.lavender, 0.50) },
           CursorLineNr = { fg = U.lighten(mocha.lavender, 1.10), style = { 'bold' } },
@@ -110,6 +114,7 @@ return function()
           background = true,
         },
       },
+      neogit = true,
       neotree = true,
       noice = true,
       notify = true,
