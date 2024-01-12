@@ -99,6 +99,10 @@ wk.register({
   f = {
     name = icons.kinds.File .. 'File',
   },
+  g = {
+    name = icons.ui.Git .. 'Git',
+    n = { '<CMD>Neogit<CR>', 'Open Neogit' },
+  },
   n = {
     name = icons.ui.Notes .. 'Notes',
     f = { '<CMD>Telescope frecency workspace=notes<CR>', 'Recent notes' },

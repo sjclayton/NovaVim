@@ -8,6 +8,7 @@ g.markdown_recommended_style = 0
 o.backup = false
 o.clipboard = 'unnamedplus'
 o.colorcolumn = '120'
+o.completeopt = 'menu,preview,noinsert'
 o.conceallevel = 2
 o.confirm = true
 o.cursorline = true
