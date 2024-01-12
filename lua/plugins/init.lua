@@ -175,7 +175,12 @@ return {
     'NeogitOrg/neogit',
     cmd = 'Neogit',
     dependencies = { 'plenary.nvim', 'nvim-telescope/telescope.nvim' },
-    config = conf('neogit'),
+    opts = {
+      kind = 'split_above',
+    },
+    keys = {
+      { '<leader>gn', '<CMD>Neogit<CR>', desc = 'Open Neogit' },
+    },
   },
   {
     'luckasRanarison/nvim-devdocs',

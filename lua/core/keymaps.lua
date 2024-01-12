@@ -101,7 +101,6 @@ wk.register({
   },
   g = {
     name = icons.ui.Git .. 'Git',
-    n = { '<CMD>Neogit<CR>', 'Open Neogit' },
   },
   n = {
     name = icons.ui.Notes .. 'Notes',
