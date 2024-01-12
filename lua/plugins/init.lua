@@ -36,7 +36,6 @@ return {
           helper.toggle('Scope line numbers', { enable = 'EnableHLLineNum', disable = 'DisableHLLineNum' })
         end,
         desc = 'Toggle scope line numbers',
-        noremap = true,
       },
       {
         '<leader>uB',
@@ -44,7 +43,6 @@ return {
           helper.toggle('Scope highlight', { enable = 'EnableHLChunk', disable = 'DisableHLChunk' })
         end,
         desc = 'Toggle scope chunk highlight',
-        noremap = true,
       },
 
       {
@@ -53,7 +51,6 @@ return {
           helper.toggle('Indention highlights', { enable = 'EnableHLIndent', disable = 'DisableHLIndent' })
         end,
         desc = 'Toggle indention highlights',
-        noremap = true,
       },
     },
     config = conf('hlchunk'),
@@ -118,7 +115,7 @@ return {
   {
     'David-Kunz/gen.nvim',
     keys = {
-      { '<leader>gn', ':Gen<CR>', desc = 'Select AI prompt', mode = { 'n', 'v' } },
+      { '<leader>aa', ':Gen<CR>', desc = 'Select AI prompt', mode = { 'n', 'v' } },
     },
     config = conf('gen'),
   },
@@ -130,8 +127,7 @@ return {
       {
         '<leader>v',
         "<CMD>lua require('alternate-toggler').toggleAlternate()<CR>",
-        desc = 'Alternate value',
-        noremap = true,
+        desc = 'Swap value',
       },
     },
     config = conf('alternatetoggler'),
@@ -174,6 +170,12 @@ return {
       return vim.list_extend(mappings, keys)
     end,
     config = true,
+  },
+  {
+    'NeogitOrg/neogit',
+    cmd = 'Neogit',
+    dependencies = { 'plenary.nvim', 'nvim-telescope/telescope.nvim' },
+    config = conf('neogit'),
   },
   {
     'luckasRanarison/nvim-devdocs',
@@ -549,7 +551,8 @@ return {
   {
     'tris203/hawtkeys.nvim',
     cmd = { 'Hawtkeys', 'HawtkeysAll', 'HawtkeysDupes' },
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    branch = 'issue81',
+    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
     config = conf('hawtkeys'),
   },
   {
@@ -685,9 +688,8 @@ return {
           vim.cmd('Telescope colorscheme')
         end,
         desc = 'Switch colorscheme',
-        noremap = true,
       },
-      { '<leader>uo', '<CMD>Telescope vim_options<CR>', desc = 'Options', noremap = true },
+      { '<leader>uo', '<CMD>Telescope vim_options<CR>', desc = 'Options' },
     },
     config = conf('telescope'),
   },
