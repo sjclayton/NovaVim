@@ -1,5 +1,6 @@
 return function()
   local icons = require('core.icons')
+
   local harpoon = require('harpoon.mark')
   local mappings = require('cokeline.mappings')
   local get_hex = require('cokeline.hlgroups').get_hl_attr

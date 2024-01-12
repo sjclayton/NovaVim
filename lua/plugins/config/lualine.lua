@@ -1,6 +1,7 @@
 return function()
-  local util = require('core.util')
   local icons = require('core.icons')
+  local util = require('core.util')
+
   local colors = require('catppuccin.palettes')
 
   local custom_components = {

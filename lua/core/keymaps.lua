@@ -1,5 +1,5 @@
-local icons = require('core.icons')
 local helper = require('core.helpers')
+local icons = require('core.icons')
 local map = require('core.helpers').map
 local util = require('core.util')
 
