@@ -74,9 +74,6 @@ return function()
           'filename',
           path = 1,
           file_status = false,
-          cond = function()
-            return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
-          end,
           padding = { left = 0, right = 1 },
         },
         { custom_components.modified, padding = { right = 1 }, color = 'String' },

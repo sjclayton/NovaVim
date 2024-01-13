@@ -37,10 +37,6 @@ return function()
       NeoTreeMessage = { fg = 'muted', italic = true },
       NeoTreeWinSeparator = { fg = 'muted' },
 
-      -- Noice
-      -- NoicePopup = { bg = 'base' },
-      -- NoiceMini = { bg = 'surface' },
-
       -- Nvim-Notify
       NotifyBackground = { bg = 'base' },
 
