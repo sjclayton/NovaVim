@@ -32,6 +32,24 @@ return function()
       Headline5 = { bg = 'overlay', fg = 'foam' },
       Headline6 = { bg = 'overlay', fg = 'iris' },
 
+      -- Neotest
+      NeotestPassed = { fg = 'green' },
+      NeotestFailed = { fg = 'love' },
+      NeotestRunning = { fg = 'gold' },
+      NeotestSkipped = { fg = 'foam' },
+      NeotestTest = { fg = 'text' },
+      NeotestNamespace = { fg = 'iris' },
+      NeotestFocused = { bold = true, underline = true },
+      NeotestFile = { fg = 'foam' },
+      NeotestDir = { fg = 'foam' },
+      NeotestIndent = { fg = 'muted' },
+      NeotestExpandMarker = { fg = 'muted' },
+      NeotestAdapterName = { fg = 'rose' },
+      NeotestWinSelect = { fg = 'foam', bold = true },
+      NeotestMarked = { fg = 'gold', bold = true },
+      NeotestTarget = { fg = 'love' },
+      NeotestUnknown = { fg = 'text' },
+
       -- Neo-tree
       NeoTreeDimText = { fg = 'muted' },
       NeoTreeMessage = { fg = 'muted', italic = true },
