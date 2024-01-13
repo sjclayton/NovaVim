@@ -73,9 +73,9 @@ M.on_attach = function(client, bufnr)
   map('n', '<leader>cd', vim.diagnostic.open_float, opts)
 
   -- Go to previous and next diagnostic
-  opts.desc = 'Go to previous diagnostic'
+  opts.desc = 'Goto previous diagnostic'
   map('n', '[d', vim.diagnostic.goto_prev, opts)
-  opts.desc = 'Go to next diagnostic'
+  opts.desc = 'Goto next diagnostic'
   map('n', ']d', vim.diagnostic.goto_next, opts)
 
   -- Toggle inlay hints

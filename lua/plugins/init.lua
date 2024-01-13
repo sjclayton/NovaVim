@@ -421,6 +421,7 @@ return {
       { '<leader>cta', '<CMD>lua require("neotest").run.run(vim.fn.getcwd())<CR>', desc = 'Run all tests (cwd)' },
       { '<leader>ctf', '<CMD>lua require("neotest").run.run(vim.fn.expand("%"))<CR>', desc = 'Run all tests (file)' },
       { '<leader>ctn', '<CMD>lua require("neotest").run.run()<CR>', desc = 'Run nearest test' },
+      { '<leader>ctl', '<CMD>lua require("neotest").run.run_last()<CR>', desc = 'Run last test' },
       { '<leader>cto', '<CMD>lua require("neotest").output.open()<CR>', desc = 'Show test output' },
       { '<leader>cts', '<CMD>lua require("neotest").summary.toggle()<CR>', desc = 'Show test summary' },
       { '<leader>ctw', '<CMD>lua require("neotest").watch.toggle(vim.fn.expand("%"))<CR>', desc = 'Watch tests (file)' },
