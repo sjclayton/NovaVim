@@ -416,6 +416,8 @@ return {
     },
     keys = {
       -- stylua: ignore start
+      { '[n', '<CMD>lua require("neotest").jump.prev({ status="failed" })<CR>', desc = 'Previous failing test' },
+      { ']n', '<CMD>lua require("neotest").jump.next({ status="failed" })<CR>', desc = 'Next failing test' },
       { '<leader>cta', '<CMD>lua require("neotest").run.run(vim.fn.getcwd())<CR>', desc = 'Run all tests (cwd)' },
       { '<leader>ctf', '<CMD>lua require("neotest").run.run(vim.fn.expand("%"))<CR>', desc = 'Run all tests (file)' },
       { '<leader>ctn', '<CMD>lua require("neotest").run.run()<CR>', desc = 'Run nearest test' },

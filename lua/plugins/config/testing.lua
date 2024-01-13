@@ -16,6 +16,11 @@ return function()
       require('neotest-rust'),
       require('neotest-zig'),
     },
+    icons = {
+      passed = '',
+      failed = '',
+      unknown = '',
+    },
   }
 
   require('neotest').setup(opts)
