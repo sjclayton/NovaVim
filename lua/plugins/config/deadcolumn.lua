@@ -31,6 +31,7 @@ return function()
       follow_tw = nil,
     },
   }
+
   require('deadcolumn').setup(opts)
 
   vim.api.nvim_create_augroup('reload_deadcolumn', { clear = true })
