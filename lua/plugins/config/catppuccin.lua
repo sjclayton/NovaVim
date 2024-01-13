@@ -115,6 +115,7 @@ return function()
         },
       },
       neogit = true,
+      neotest = true,
       neotree = true,
       noice = true,
       notify = true,

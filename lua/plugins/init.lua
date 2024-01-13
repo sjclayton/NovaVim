@@ -285,7 +285,6 @@ return {
   },
 
   --- LSP
-  -- General
   {
     'williamboman/mason.nvim',
     cmd = 'Mason',
@@ -402,8 +401,52 @@ return {
     },
     config = conf('debug'),
   },
+  -- Testing
+  {
+    'nvim-neotest/neotest',
+    ft = { 'go', 'python', 'rust', 'zig' },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
+      -- Adapters
+      'nvim-neotest/neotest-go',
+      'nvim-neotest/neotest-python',
+      'rouge8/neotest-rust',
+      'lawrence-laz/neotest-zig',
+    },
+    keys = {
+      -- stylua: ignore start
+      { '<leader>ctn', '<CMD>lua require("neotest").run.run()<CR>', desc = 'Run nearest test' },
+      { '<leader>ctf', '<CMD>lua require("neotest").run.run(vim.fn.expand("%"))<CR>', desc = 'Run all tests (current file)' },
+      { '<leader>cto', '<CMD>lua require("neotest").output.open()<CR>', desc = 'Show test output' },
+      { '<leader>cts', '<CMD>lua require("neotest").summary.toggle()<CR>', desc = 'Show test summary' },
+    },
+    config = conf('testing'),
+  },
 
   --- Language Specific
+  -- Go
+  {
+    'olexsmir/gopher.nvim',
+    ft = { 'go', 'gomod' },
+    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('gopher.dap').setup()
+    end,
+  },
+  -- Python
+  {
+    'mfussenegger/nvim-dap-python',
+    ft = 'python',
+    dependencies = 'mfussenegger/nvim-dap',
+    config = function()
+      local mason_path = vim.fn.glob(vim.fn.stdpath('data') .. '/mason/')
+      pcall(function()
+        require('dap-python').setup(mason_path .. 'packages/debugpy/venv/bin/python')
+      end)
+    end,
+  },
+  -- Rust
   {
     'Saecki/crates.nvim',
     event = { 'BufRead Cargo.toml' },
@@ -415,24 +458,6 @@ return {
       { '<leader>ccd', function() require('crates').open_documentation() end, desc = 'Show crate docs', ft = 'toml' },
     },
     config = conf('crates'),
-  },
-  {
-    'olexsmir/gopher.nvim',
-    ft = { 'go', 'gomod' },
-    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
-    config = function()
-      require('gopher.dap').setup()
-    end,
-  },
-  {
-    'mfussenegger/nvim-dap-python',
-    ft = 'python',
-    config = function()
-      local mason_path = vim.fn.glob(vim.fn.stdpath('data') .. '/mason/')
-      pcall(function()
-        require('dap-python').setup(mason_path .. 'packages/debugpy/venv/bin/python')
-      end)
-    end,
   },
   { 'mrcjkb/rustaceanvim', ft = 'rust', version = '^3', config = conf('rustacean') },
 

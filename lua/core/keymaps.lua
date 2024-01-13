@@ -92,6 +92,9 @@ wk.register({
     c = {
       name = icons.kinds.Package .. 'Rust Crates',
     },
+    t = {
+      name = 'Test',
+    },
   },
   d = {
     name = icons.ui.Bug .. 'Debug',
