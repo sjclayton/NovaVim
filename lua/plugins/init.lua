@@ -678,7 +678,7 @@ return {
     cmd = 'NeoZoomToggle',
     name = 'neo-zoom',
     keys = {
-      { '<leader><CR>', '<CMD>NeoZoomToggle<CR>', desc = 'Zoom Window' },
+      { '<leader><CR>', '<CMD>NeoZoomToggle<CR>', desc = 'Zoom window' },
     },
     config = conf('neozoom'),
   },
@@ -705,7 +705,7 @@ return {
     },
     keys = {
       -- General
-      { '<leader>:', '<CMD>Telescope command_history<CR>', desc = 'Command History' },
+      { '<leader>:', '<CMD>Telescope command_history<CR>', desc = 'Command history' },
       { '<leader>,', '<CMD>Telescope buffers sort_mru=true sort_lastused=true<CR>', desc = 'Switch buffer' },
       { '<leader>/', util.telescope('live_grep'), desc = 'Grep (root dir)' },
       -- Files
