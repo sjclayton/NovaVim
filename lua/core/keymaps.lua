@@ -162,6 +162,12 @@ wk.register({
       end,
       'Toggle listchars',
     },
+    d = {
+      function()
+        helper.diagnostics()
+      end,
+      'Toggle diagnostics',
+    },
     n = {
       function()
         helper.number()
@@ -183,7 +189,7 @@ wk.register({
     },
     t = {
       function()
-        helper.toggle_cmd('Treesitter context', { enable = 'TSContextToggle', disable = 'TSContextToggle' }, false)
+        helper.toggle_cmd('Treesitter context', { enable = 'TSContextToggle', disable = 'TSContextToggle' }, true)
       end,
       'Toggle Treesitter context',
     },

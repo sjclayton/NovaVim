@@ -1,5 +1,14 @@
 local Util = require('lazy.core.util')
 
+---@param state boolean?
+local function notify(field, state)
+  if state == false then
+    Util.warn(field .. ' off', { title = 'Toggle' })
+  else
+    Util.info(field .. ' on', { title = 'Toggle' })
+  end
+end
+
 local M = {}
 
 -- Key mapping helper
@@ -28,9 +37,9 @@ function M.toggle_opt(option, silent, values)
   vim.opt_local[option] = not vim.opt_local[option]:get()
   if not silent then
     if vim.opt_local[option]:get() then
-      Util.info(option .. ' on', { title = 'Toggled' })
+      notify(option)
     else
-      Util.warn(option .. ' off', { title = 'Toggled' })
+      notify(option, false)
     end
   end
 end
@@ -55,13 +64,13 @@ function M.toggle_cmd(name, cmds, default, silent)
   local function enabled()
     vim.cmd(enable)
     if not silent then
-      Util.info(name .. ' on', { title = 'Toggled' })
+      notify(name)
     end
   end
   local function disabled()
     vim.cmd(disable)
     if not silent then
-      Util.warn(name .. ' off', { title = 'Toggled' })
+      notify(name, false)
     end
   end
 
@@ -87,11 +96,23 @@ function M.number()
     nu = { number = vim.opt_local.number:get(), relativenumber = vim.opt_local.relativenumber:get() }
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
-    Util.warn('number off', { title = 'Toggled' })
+    notify('number', false)
   else
     vim.opt_local.number = nu.number
     vim.opt_local.relativenumber = nu.relativenumber
-    Util.info('number on', { title = 'Toggled' })
+    notify('number')
+  end
+end
+
+local enabled = true
+function M.diagnostics()
+  enabled = not enabled
+  if enabled then
+    vim.diagnostic.enable()
+    notify('Diagnostics')
+  else
+    vim.diagnostic.disable()
+    notify('Diagnostics', false)
   end
 end
 
