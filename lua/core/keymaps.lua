@@ -39,7 +39,7 @@ map('v', '>', '>gv')
 map('x', '<leader>p', '"_dP', { desc = 'Paste preserved' })
 
 -- Line operations
-map('n', 'J', 'mzJ`z`', { desc = 'Join lines' })
+map('n', 'J', 'mzJ`z', { desc = 'Join lines' })
 
 map('i', '<a-j>', '<ESC><CMD>m .+1<CR>==gi', { desc = 'Move line down' })
 map('i', '<a-k>', '<ESC><CMD>m .-2<CR>==gi', { desc = 'Move line up' })
@@ -73,6 +73,7 @@ map(
   '<CMD>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>',
   { desc = 'Open link under cursor in browser' }
 )
+map({ 'i', 'x', 'n', 's' }, '<C-s>', '<CMD>w<CR><ESC>', { desc = 'Save file' })
 map('n', '<leader>qq', '<CMD>qa<CR>', { desc = 'Quit' })
 map('n', '<leader>qQ', '<CMD>qa!<CR>', { desc = 'Quit (force)' })
 map('n', '<leader>qs', '<CMD>wq<CR>', { desc = 'Save and quit' })
@@ -95,7 +96,7 @@ wk.register({
       name = icons.kinds.Package .. 'Rust Crates',
     },
     t = {
-      name = icons.ui.Test .. 'Test',
+      name = icons.ui.Test .. 'Testing',
     },
   },
   d = {
