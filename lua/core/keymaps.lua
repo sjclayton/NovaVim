@@ -172,6 +172,18 @@ wk.register({
       end,
       'Toggle spell check',
     },
+    t = {
+      function()
+        helper.toggle('Treesitter context', { enable = 'TSContextToggle', disable = 'TSContextToggle' })
+      end,
+      'Toggle Treesitter context',
+    },
+    T = {
+      function()
+        helper.toggle('Treesitter highlight', { enable = 'TSBufToggle highlight', disable = 'TSBufToggle highlight' })
+      end,
+      'Toggle Treesitter highlight',
+    },
     w = {
       function()
         helper.toggle('Word wrap', { enable = 'set wrap', disable = 'set nowrap' })
