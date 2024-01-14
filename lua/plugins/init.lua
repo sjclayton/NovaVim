@@ -30,18 +30,19 @@ return {
   },
   {
     'shellRaining/hlchunk.nvim',
+    event = 'LazyFile',
     keys = {
       {
         '<leader>ub',
         function()
-          helper.toggle('Scope line numbers', { enable = 'EnableHLLineNum', disable = 'DisableHLLineNum' })
+          helper.toggle_cmd('Scope line numbers', { enable = 'EnableHLLineNum', disable = 'DisableHLLineNum' })
         end,
         desc = 'Toggle scope line numbers',
       },
       {
         '<leader>uB',
         function()
-          helper.toggle('Scope highlight', { enable = 'EnableHLChunk', disable = 'DisableHLChunk' })
+          helper.toggle_cmd('Scope highlight', { enable = 'EnableHLChunk', disable = 'DisableHLChunk' })
         end,
         desc = 'Toggle scope chunk highlight',
       },
@@ -49,7 +50,7 @@ return {
       {
         '<leader>ui',
         function()
-          helper.toggle('Indention highlights', { enable = 'EnableHLIndent', disable = 'DisableHLIndent' })
+          helper.toggle_cmd('Indention highlights', { enable = 'EnableHLIndent', disable = 'DisableHLIndent' }, true)
         end,
         desc = 'Toggle indention highlights',
       },

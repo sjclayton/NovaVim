@@ -61,7 +61,6 @@ return function()
   require('hlchunk').setup(opts)
 
   vim.cmd('DisableHLChunk')
-  vim.cmd('DisableHLIndent')
   vim.cmd('DisableHLLineNum')
 
   -- HACK: Workaround to fix scope highlights not being properly set when colorscheme is changed.

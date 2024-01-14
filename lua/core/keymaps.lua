@@ -158,7 +158,7 @@ wk.register({
     name = icons.ui.UI .. 'UI/Utils',
     c = {
       function()
-        helper.toggle('Listchars', { enable = 'set list', disable = 'set nolist' })
+        helper.toggle_cmd('listchars', { enable = 'set list', disable = 'set nolist' })
       end,
       'Toggle listchars',
     },
@@ -170,32 +170,36 @@ wk.register({
     },
     N = {
       function()
-        helper.toggle('Relative numbers', { enable = 'set norelativenumber', disable = 'set relativenumber' })
+        helper.toggle_opt('relativenumber')
       end,
       'Toggle relative line numbers',
     },
     l = { '<CMD>Lazy<CR>', 'Open Lazy' },
     s = {
       function()
-        helper.toggle('Spell check', { enable = 'set spell', disable = 'set nospell' })
+        helper.toggle_opt('spell')
       end,
       'Toggle spell check',
     },
     t = {
       function()
-        helper.toggle('Treesitter context', { enable = 'TSContextToggle', disable = 'TSContextToggle' })
+        helper.toggle_cmd('Treesitter context', { enable = 'TSContextToggle', disable = 'TSContextToggle' }, false)
       end,
       'Toggle Treesitter context',
     },
     T = {
       function()
-        helper.toggle('Treesitter highlight', { enable = 'TSBufToggle highlight', disable = 'TSBufToggle highlight' })
+        helper.toggle_cmd(
+          'Treesitter highlight',
+          { enable = 'TSBufToggle highlight', disable = 'TSBufToggle highlight' },
+          true
+        )
       end,
       'Toggle Treesitter highlight',
     },
     w = {
       function()
-        helper.toggle('Word wrap', { enable = 'set wrap', disable = 'set nowrap' })
+        helper.toggle_opt('wrap')
       end,
       'Toggle word wrap',
     },
