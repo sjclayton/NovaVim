@@ -126,9 +126,6 @@ return function()
           util.lsp_client_names,
           icon = icons.ui.Gear,
           color = { fg = colors.get_palette(mocha).subtext1 },
-          on_click = function()
-            vim.cmd('LspInfo')
-          end,
         },
         {
           function()

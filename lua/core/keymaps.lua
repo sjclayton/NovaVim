@@ -73,7 +73,9 @@ map(
   '<CMD>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>',
   { desc = 'Open link under cursor in browser' }
 )
-map('n', '<leader>qq', '<CMD>qa<CR>', { desc = 'Quit all' })
+map('n', '<leader>qq', '<CMD>qa<CR>', { desc = 'Quit' })
+map('n', '<leader>qQ', '<CMD>qa!<CR>', { desc = 'Quit (force)' })
+map('n', '<leader>qs', '<CMD>wq<CR>', { desc = 'Save and quit' })
 
 ---
 -- Which-key Mapping Table
@@ -93,7 +95,7 @@ wk.register({
       name = icons.kinds.Package .. 'Rust Crates',
     },
     t = {
-      name = 'Test',
+      name = icons.ui.Test .. 'Test',
     },
   },
   d = {
@@ -138,12 +140,18 @@ wk.register({
     s = { '<CMD>ObsidianSearch<CR>', 'Search notes' },
     t = { '<CMD>ObsidianTemplate<CR>', 'Insert template' },
   },
+  q = {
+    name = icons.ui.Exit .. 'Quit',
+  },
   t = {
     name = icons.ui.Telescope .. 'Telescope',
   },
   l = {
+    name = icons.ui.Gear .. 'LSP',
     i = { '<CMD>LspInfo<CR>', 'LSP Info' },
     r = { '<CMD>LspRestart<CR>', 'Restart LSP' },
+    s = { '<CMD>LspStop<CR>', 'Stop LSP' },
+    S = { '<CMD>LspStart<CR>', 'Start LSP' },
   },
   u = {
     name = icons.ui.UI .. 'UI/Utils',

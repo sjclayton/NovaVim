@@ -459,9 +459,9 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim', 'hrsh7th/nvim-cmp' },
     keys = {
       -- stylua: ignore start
-      { '<leader>ccp', function() require('crates').show_popup() end, desc = 'Show crate popup', ft = 'toml' },
-      { '<leader>cci', function() require('crates').show_crate_popup() end, desc = 'Show crate info', ft = 'toml' },
-      { '<leader>ccd', function() require('crates').open_documentation() end, desc = 'Show crate docs', ft = 'toml' },
+      { '<leader>ccp', function() require('crates').show_popup() end, desc = 'Show crate popup' },
+      { '<leader>cci', function() require('crates').show_crate_popup() end, desc = 'Show crate info' },
+      { '<leader>ccd', function() require('crates').open_documentation() end, desc = 'Show crate docs' },
     },
     config = conf('crates'),
   },
