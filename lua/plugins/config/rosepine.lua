@@ -6,6 +6,7 @@ return function()
       transparency = false,
     },
     highlight_groups = {
+      FloatTitle = { link = 'NormalFloat' },
       Search = { bg = 'rose' },
       WinSeparator = { fg = 'muted' },
 
