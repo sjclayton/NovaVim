@@ -189,17 +189,13 @@ wk.register({
     },
     t = {
       function()
-        helper.toggle_cmd('Treesitter context', { enable = 'TSContextToggle', disable = 'TSContextToggle' }, true)
+        helper.toggle_cmd('Treesitter context', { toggle = 'TSContextToggle' }, true)
       end,
       'Toggle Treesitter context',
     },
     T = {
       function()
-        helper.toggle_cmd(
-          'Treesitter highlight',
-          { enable = 'TSBufToggle highlight', disable = 'TSBufToggle highlight' },
-          true
-        )
+        helper.toggle_cmd('Treesitter highlight', { toggle = 'TSBufToggle highlight' }, true)
       end,
       'Toggle Treesitter highlight',
     },

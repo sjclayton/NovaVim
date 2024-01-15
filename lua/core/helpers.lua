@@ -11,7 +11,7 @@ end
 
 local M = {}
 
--- Key mapping helper
+-- Helper for keymaps
 function M.map(mode, lhs, rhs, opts)
   local options = { noremap = true, silent = true }
   if opts then
@@ -20,6 +20,7 @@ function M.map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, options)
 end
 
+-- Helper for toggling vim options
 ---@param silent boolean?
 ---@param values? {[1]:any, [2]:any}
 function M.toggle_opt(option, silent, values)
@@ -45,30 +46,42 @@ function M.toggle_opt(option, silent, values)
 end
 
 local toggle_state = {}
+-- Helper for enabling/disabling or toggling commands
 ---@param name string Name of the feature to toggle, used as display name for notifications.
----@param cmds table Contains commands required to enable/disable this feature. Expects: { enable=string, disable=string }
+---@param cmds table Contains commands required to enable/disable or toggle this feature.
+---Expects: { enable=string, disable=string or toggle=string }
 ---@param default boolean? optional - Whether the feature is considered enabled by default. Default: false if not provided.
----@param silent boolean? optional - Whether to show notifications about toggled commands.
+---@param silent boolean? optional - Whether to show notifications about toggled features.
 function M.toggle_cmd(name, cmds, default, silent)
   local enable = cmds.enable
   local disable = cmds.disable
+  local toggle = cmds.toggle
 
   default = default or false
 
-  if not (enable and disable) then
+  if not (enable and disable or toggle) then
     error("Couldn't toggle " .. name .. ': missing command in cmds table.', 2)
   end
 
   toggle_state[name] = not toggle_state[name]
 
-  local function enabled()
-    vim.cmd(enable)
+  local function enabler()
+    if enable then
+      vim.cmd(enable)
+    else
+      vim.cmd(toggle)
+    end
     if not silent then
       notify(name)
     end
   end
-  local function disabled()
-    vim.cmd(disable)
+
+  local function disabler()
+    if disable then
+      vim.cmd(disable)
+    else
+      vim.cmd(toggle)
+    end
     if not silent then
       notify(name, false)
     end
@@ -76,17 +89,18 @@ function M.toggle_cmd(name, cmds, default, silent)
 
   if not default then
     if toggle_state[name] then
-      enabled()
+      enabler()
     else
-      disabled()
+      disabler()
     end
   else
     if toggle_state[name] then
-      disabled()
+      disabler()
     else
-      enabled()
+      enabler()
     end
   end
+
   return toggle_state[name]
 end
 

@@ -375,7 +375,7 @@ return {
           dapui.setup(opts)
           -- stylua: ignore start
           dap.listeners.after.event_initialized['dapui_config'] = dapui.open
-          dap.listeners.before.event_terminated['dapui_config'] = dapui.close
+          -- dap.listeners.before.event_terminated['dapui_config'] = dapui.close
           -- dap.listeners.before.event_exited['dapui_config'] = dapui.close
           -- stylua: ignore end
         end,
@@ -466,7 +466,12 @@ return {
     },
     config = conf('crates'),
   },
-  { 'mrcjkb/rustaceanvim', ft = 'rust', version = '^3', config = conf('rustacean') },
+  {
+    'mrcjkb/rustaceanvim',
+    ft = 'rust',
+    version = '3.15.0', --[[ '^3', ]]
+    config = conf('rustacean'),
+  },
 
   --- Treesitter
   {
@@ -596,6 +601,7 @@ return {
   {
     'tris203/hawtkeys.nvim',
     cmd = { 'Hawtkeys', 'HawtkeysAll', 'HawtkeysDupes' },
+    branch = 'issue81',
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
     config = conf('hawtkeys'),
   },
