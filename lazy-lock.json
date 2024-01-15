@@ -64,7 +64,7 @@
   "nvim-web-devicons": { "branch": "master", "commit": "140edfcf25093e8b321d13e154cbce89ee868ca0" },
   "obsidian.nvim": { "branch": "main", "commit": "bc2561cd4d8049a5c91415f15bfb5c3e68b79c48" },
   "plenary.nvim": { "branch": "master", "commit": "55d9fe89e33efd26f532ef20223e5f9430c8b0c0" },
-  "rainbow-delimiters.nvim": { "branch": "master", "commit": "7c171bbefff6d45481ec73a3e607cac6cd3da472" },
+  "rainbow-delimiters.nvim": { "branch": "master", "commit": "bbe08e16aef994d7137f627a8e692ad863e63b13" },
   "refactoring.nvim": { "branch": "master", "commit": "c067e44b8171494fc1b5206ab4c267cd74c043b1" },
   "rose-pine": { "branch": "main", "commit": "b00800948e35df1df02c80cdea07988c4325d3ac" },
   "rustaceanvim": { "branch": "master", "commit": "d03f72788b81cb311250d9fe0692f3435d609b5a" },

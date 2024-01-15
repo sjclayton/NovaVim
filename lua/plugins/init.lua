@@ -203,7 +203,7 @@ return {
   },
   {
     'folke/todo-comments.nvim',
-    event = { 'LazyFile' },
+    event = 'LazyFile',
     cmd = { 'TodoTrouble', 'TodoTelescope' },
     dependencies = { 'nvim-lua/plenary.nvim' },
     keys = {
@@ -309,7 +309,7 @@ return {
   },
   {
     'neovim/nvim-lspconfig',
-    event = { 'LazyFile' },
+    event = 'LazyFile',
     cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
     dependencies = {
       'williamboman/mason-lspconfig.nvim',
@@ -342,7 +342,7 @@ return {
   -- Formatting
   {
     'stevearc/conform.nvim',
-    event = { 'BufWritePre' },
+    event = 'BufWritePre',
     cmd = { 'ConformInfo' },
     keys = {
       {
@@ -456,7 +456,7 @@ return {
   -- Rust
   {
     'Saecki/crates.nvim',
-    event = { 'BufRead Cargo.toml' },
+    event = 'BufRead Cargo.toml',
     dependencies = { 'nvim-lua/plenary.nvim', 'hrsh7th/nvim-cmp' },
     keys = {
       -- stylua: ignore start
