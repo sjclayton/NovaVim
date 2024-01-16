@@ -6,12 +6,13 @@
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 
 if not vim.loop.fs_stat(lazypath) then
+  print('Installing lazy.nvim...')
   vim.fn.system({
     'git',
     'clone',
     '--filter=blob:none',
-    'https://github.com/folke/lazy.nvim.git',
     '--branch=stable', -- latest stable release
+    'https://github.com/folke/lazy.nvim.git',
     lazypath,
   })
 end
@@ -27,24 +28,19 @@ require('lazy').setup('plugins', {
     lazy = true, -- lazy load everything
     version = false,
   },
-  change_detection = {
-    notify = false,
-  },
-  install = {
-    colorscheme = { 'rose-pine', 'default' },
-  },
+  install = { colorscheme = { 'rose-pine', 'default' } },
   checker = {
     -- automatically check for plugin updates
     enabled = true,
     notify = true, -- get a notification when new updates are found
     frequency = 43200, -- check for updates every 12 hours
   },
-  ui = {
-    border = 'rounded',
-  },
+  change_detection = { notify = false },
+  ui = { border = 'rounded' },
   performance = {
     cache = { enabled = true },
     rtp = {
+      paths = {},
       -- disable some rtp plugins
       disabled_plugins = {
         'gzip',

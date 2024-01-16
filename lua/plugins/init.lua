@@ -219,12 +219,6 @@ return {
     config = true,
   },
   {
-    'ThePrimeagen/refactoring.nvim',
-    ft = { 'go', 'javascript', 'lua', 'python', 'typescript' },
-    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
-    config = conf('refactoring'),
-  },
-  {
     'Wansmer/treesj',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     opts = {
