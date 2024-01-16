@@ -191,6 +191,7 @@ return {
       { '<leader>gn', '<CMD>Neogit<CR>', desc = 'Open Neogit' },
     },
   },
+  { 'NvChad/nvim-colorizer.lua', event = 'LazyFile', name = 'nvim-colorizer', config = conf('colorizer') },
   {
     'luckasRanarison/nvim-devdocs',
     opts = {
