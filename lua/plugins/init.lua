@@ -343,7 +343,7 @@ return {
   {
     'stevearc/conform.nvim',
     event = 'BufWritePre',
-    cmd = { 'ConformInfo' },
+    cmd = 'ConformInfo',
     keys = {
       {
         '<leader>cf',
