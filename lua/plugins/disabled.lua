@@ -25,7 +25,6 @@ return {
   { 'NeogitOrg/neogit', enabled = true },
   { 'luckasRanarison/nvim-devdocs', enabled = true },
   { 'folke/todo-comments.nvim', enabled = true },
-  { 'ThePrimeagen/refactoring.nvim', enabled = true },
   { 'Wansmer/treesj', enabled = true },
   { 'folke/trouble.nvim', enabled = true },
   { 'RRethy/vim-illuminate', enabled = true },
