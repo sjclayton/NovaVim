@@ -24,6 +24,7 @@ return {
   { 'echasnovski/mini.surround', enabled = true },
   { 'NeogitOrg/neogit', enabled = true },
   { 'luckasRanarison/nvim-devdocs', enabled = true },
+  { 'hedyhli/outline.nvim', enabled = true },
   { 'folke/todo-comments.nvim', enabled = true },
   { 'Wansmer/treesj', enabled = true },
   { 'folke/trouble.nvim', enabled = true },

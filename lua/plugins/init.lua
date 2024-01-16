@@ -202,6 +202,12 @@ return {
     build = ':DevdocsFetch',
   },
   {
+    'hedyhli/outline.nvim',
+    cmd = { 'Outline', 'OutlineOpen' },
+    keys = { { '<leader>co', '<CMD>Outline<CR>', desc = 'Toggle outline' } },
+    config = conf('outline'),
+  },
+  {
     'folke/todo-comments.nvim',
     event = 'LazyFile',
     cmd = { 'TodoTrouble', 'TodoTelescope' },
@@ -217,12 +223,6 @@ return {
       { '<leader>tt', '<CMD>TodoTelescope keywords=TODO,FIX,FIXME<CR>', desc = 'Todo/Fix/Fixme' },
     },
     config = true,
-  },
-  {
-    'hedyhli/outline.nvim',
-    cmd = { 'Outline', 'OutlineOpen' },
-    keys = { { '<leader>co', '<CMD>Outline<CR>', desc = 'Toggle outline' } },
-    config = conf('outline'),
   },
   {
     'Wansmer/treesj',
