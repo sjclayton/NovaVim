@@ -52,6 +52,7 @@ return function()
       NeotestUnknown = { fg = 'text' },
 
       -- Neo-tree
+      NeoTreeDirectoryIcon = { fg = 'foam' },
       NeoTreeDimText = { fg = 'muted' },
       NeoTreeMessage = { fg = 'muted', italic = true },
       NeoTreeWinSeparator = { fg = 'muted' },

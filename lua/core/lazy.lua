@@ -35,7 +35,7 @@ require('lazy').setup('plugins', {
     notify = true, -- get a notification when new updates are found
     frequency = 43200, -- check for updates every 12 hours
   },
-  change_detection = { notify = false },
+  change_detection = { enabled = false, notify = false },
   ui = { border = 'rounded' },
   performance = {
     cache = { enabled = true },
