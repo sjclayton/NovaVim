@@ -93,6 +93,12 @@ wk.register({
   c = {
     name = icons.ui.Code .. 'Code',
     c = {
+      function()
+        helper.toggle_cmd('Color preview', { toggle = 'ColorizerToggle' }, true)
+      end,
+      'Toggle color preview',
+    },
+    r = {
       name = icons.kinds.Package .. 'Rust Crates',
     },
     t = {

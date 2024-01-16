@@ -29,35 +29,6 @@ return {
     },
   },
   {
-    'shellRaining/hlchunk.nvim',
-    event = 'LazyFile',
-    keys = {
-      {
-        '<leader>ub',
-        function()
-          helper.toggle_cmd('Scope line numbers', { enable = 'EnableHLLineNum', disable = 'DisableHLLineNum' })
-        end,
-        desc = 'Toggle scope line numbers',
-      },
-      {
-        '<leader>uB',
-        function()
-          helper.toggle_cmd('Scope highlight', { enable = 'EnableHLChunk', disable = 'DisableHLChunk' })
-        end,
-        desc = 'Toggle scope chunk highlight',
-      },
-
-      {
-        '<leader>ui',
-        function()
-          helper.toggle_cmd('Indention highlights', { enable = 'EnableHLIndent', disable = 'DisableHLIndent' }, true)
-        end,
-        desc = 'Toggle indention highlights',
-      },
-    },
-    config = conf('hlchunk'),
-  },
-  {
     '3rd/image.nvim',
     ft = { 'markdown' },
     opts = {
@@ -136,6 +107,35 @@ return {
   },
   { 'numToStr/Comment.nvim', event = 'VeryLazy', config = true },
   { 'lewis6991/gitsigns.nvim', event = 'LazyFile', config = conf('gitsigns') },
+  {
+    'shellRaining/hlchunk.nvim',
+    event = 'LazyFile',
+    keys = {
+      {
+        '<leader>ub',
+        function()
+          helper.toggle_cmd('Scope line numbers', { enable = 'EnableHLLineNum', disable = 'DisableHLLineNum' })
+        end,
+        desc = 'Toggle scope line numbers',
+      },
+      {
+        '<leader>uB',
+        function()
+          helper.toggle_cmd('Scope highlight', { enable = 'EnableHLChunk', disable = 'DisableHLChunk' })
+        end,
+        desc = 'Toggle scope chunk highlight',
+      },
+
+      {
+        '<leader>ui',
+        function()
+          helper.toggle_cmd('Indention highlights', { enable = 'EnableHLIndent', disable = 'DisableHLIndent' }, true)
+        end,
+        desc = 'Toggle indention highlights',
+      },
+    },
+    config = conf('hlchunk'),
+  },
   { 'echasnovski/mini.ai', event = 'VeryLazy', version = false, config = conf('mini-ai') },
   { 'echasnovski/mini.pairs', event = 'VeryLazy', version = false, config = true },
   {
@@ -461,9 +461,9 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim', 'hrsh7th/nvim-cmp' },
     keys = {
       -- stylua: ignore start
-      { '<leader>ccp', function() require('crates').show_popup() end, desc = 'Show crate popup' },
-      { '<leader>cci', function() require('crates').show_crate_popup() end, desc = 'Show crate info' },
-      { '<leader>ccd', function() require('crates').open_documentation() end, desc = 'Show crate docs' },
+      { '<leader>crp', function() require('crates').show_popup() end, desc = 'Show crate popup' },
+      { '<leader>cri', function() require('crates').show_crate_popup() end, desc = 'Show crate info' },
+      { '<leader>crd', function() require('crates').open_documentation() end, desc = 'Show crate docs' },
     },
     config = conf('crates'),
   },
