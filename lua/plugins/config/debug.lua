@@ -24,22 +24,6 @@ return function()
     },
   }
 
-  -- configurations
-  dap.configurations.rust = {
-    {
-      name = 'Launch file',
-      type = 'codelldb',
-      request = 'launch',
-      -- program = '${workspaceFolder}/target/debug/${workspaceFolderBasename}',
-      program = function()
-        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
-      end,
-      cwd = '${workspaceFolder}',
-      stopOnEntry = false,
-      args = {},
-    },
-  }
-
   dap.configurations.zig = {
     {
       name = 'Launch file',

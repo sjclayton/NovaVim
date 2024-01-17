@@ -23,12 +23,15 @@ return function()
           vim.cmd('RustLsp hover actions')
         end, { desc = 'Show hover docs/actions', buffer = bufnr })
         -- set server specific keymaps
-        map('n', '<leader>cc', function()
+        map('n', '<leader>cro', function()
           vim.cmd('RustLsp openCargo')
-        end, { desc = 'Open Cargo.toml (Rust)', buffer = bufnr })
+        end, { desc = 'Open Cargo.toml', buffer = bufnr })
         map('n', '<leader>ce', function()
           vim.cmd('RustLsp expandMacro')
         end, { desc = 'Expand macro (Rust)', buffer = bufnr })
+        map('n', '<leader>cR', function()
+          vim.cmd('RustLsp runnables')
+        end, { desc = 'Runnables (Rust)', buffer = bufnr })
         map('n', '<leader>dR', function()
           vim.cmd('RustLsp debuggables')
         end, { desc = 'Debuggables (Rust)', buffer = bufnr })
@@ -65,9 +68,6 @@ return function()
           },
         },
       },
-    },
-    dap = {
-      auto_generate_source_map = true,
     },
   }
   vim.g.rustaceanvim = vim.tbl_deep_extend('force', {}, opts or {})
