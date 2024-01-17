@@ -41,11 +41,13 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- Close some filetypes with <q>
+
 vim.api.nvim_create_autocmd('FileType', {
   group = augroup('close_with_q'),
   pattern = {
     'PlenaryTestPopup',
     'help',
+    'lspinfo',
     'man',
     'notify',
     'qf',
@@ -73,16 +75,5 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     end
     local file = vim.loop.fs_realpath(event.match) or event.match
     vim.fn.mkdir(vim.fn.fnamemodify(file, ':p:h'), 'p')
-  end,
-})
-
--- HACK: Workaround to fix annoying buggy Telescope behaviour of being put into insert mode after closing.
-
-vim.api.nvim_create_autocmd('WinLeave', {
-  group = augroup('telescope_leave'),
-  callback = function()
-    if vim.bo.ft == 'TelescopePrompt' and vim.fn.mode() == 'i' then
-      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'i', false)
-    end
   end,
 })
