@@ -49,7 +49,7 @@ return function()
       NeotestWinSelect = { fg = 'foam', bold = true },
       NeotestMarked = { fg = 'gold', bold = true },
       NeotestTarget = { fg = 'love' },
-      NeotestUnknown = { fg = 'text' },
+      NeotestUnknown = { fg = 'muted' },
 
       -- Neo-tree
       NeoTreeDirectoryIcon = { fg = 'foam' },

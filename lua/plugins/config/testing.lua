@@ -21,6 +21,9 @@ return function()
       failed = '',
       unknown = '',
     },
+    summary = {
+      open = 'botright vsplit | vertical resize 35',
+    },
   }
 
   require('neotest').setup(opts)
