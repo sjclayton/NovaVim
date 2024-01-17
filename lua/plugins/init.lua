@@ -191,7 +191,7 @@ return {
       { '<leader>gn', '<CMD>Neogit<CR>', desc = 'Open Neogit' },
     },
   },
-  { 'NvChad/nvim-colorizer.lua', event = 'LazyFile', name = 'nvim-colorizer', config = conf('colorizer') },
+  { 'NvChad/nvim-colorizer.lua', cmd = 'ColorizerToggle', name = 'nvim-colorizer', config = conf('colorizer') },
   {
     'luckasRanarison/nvim-devdocs',
     opts = {
@@ -470,7 +470,7 @@ return {
   {
     'mrcjkb/rustaceanvim',
     ft = 'rust',
-    version = '3.15.0', --[[ '^3', ]]
+    version = '^3', --[[ '3.15.0', ]]
     config = conf('rustacean'),
   },
 
@@ -722,14 +722,15 @@ return {
       { '<leader>fr', '<CMD>Telescope frecency workspace=CWD<CR>', desc = 'Recent files (cwd)' },
       -- Search
       { '<leader>tb', '<CMD>Telescope buffers sort_mru=true sort_lastused=true<CR>', desc = 'Buffers' },
-      { '<leader>tm', '<CMD>Telescope marks<CR>', desc = 'Marks' },
-      { '<leader>tr', '<CMD>Telescope registers<CR>', desc = 'Registers' },
-      { '<leader>tk', '<CMD>Telescope keymaps<CR>', desc = 'Keymaps' },
       {
         '<leader>te',
         '<CMD>lua require"telescope.builtin".symbols{ sources = { "emoji", "gitmoji", "nerd" } }<CR>',
         desc = 'Emoji',
       },
+      { '<leader>th', '<CMD>Telescope help_tags<CR>', desc = 'Help' },
+      { '<leader>tk', '<CMD>Telescope keymaps<CR>', desc = 'Keymaps' },
+      { '<leader>tm', '<CMD>Telescope marks<CR>', desc = 'Marks' },
+      { '<leader>tr', '<CMD>Telescope registers<CR>', desc = 'Registers' },
       { '<leader>tu', '<CMD>Telescope undo<CR>', desc = 'Undo history' },
       -- Misc
       {

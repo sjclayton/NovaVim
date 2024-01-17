@@ -46,6 +46,9 @@ return {
   { 'mrcjkb/rustaceanvim', enabled = true },
   -- Treesitter
   { 'nvim-treesitter/nvim-treesitter', enabled = true },
+  -- Colorschemes
+  { 'catppuccin/nvim', name = 'catppuccin', enabled = true },
+  { 'rose-pine/neovim', name = 'rose-pine', enabled = true },
   -- UI
   { 'stevearc/dressing.nvim', enabled = true },
   { 'j-hui/fidget.nvim', enabled = true },

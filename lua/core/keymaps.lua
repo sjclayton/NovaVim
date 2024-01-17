@@ -94,7 +94,7 @@ wk.register({
     name = icons.ui.Code .. 'Code',
     c = {
       function()
-        helper.toggle_cmd('Color preview', { toggle = 'ColorizerToggle' }, true)
+        helper.toggle_cmd('Color preview', { toggle = 'ColorizerToggle' }, false)
       end,
       'Toggle color preview',
     },
