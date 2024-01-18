@@ -2,7 +2,7 @@ local get_hex = require('core.util').get_hex
 local theme_hl = require('core.helpers').theme_hl
 
 return function()
-  local cc_color = theme_hl(get_hex('LineNr', 'fg'), get_hex('LineNr', 'fg'), get_hex('LineNr', 'fg'))
+  local cc_color = theme_hl(get_hex('LineNr', 'fg'))
 
   local opts = {
     scope = 'buffer',

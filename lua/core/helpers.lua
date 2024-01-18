@@ -21,14 +21,14 @@ function M.map(mode, lhs, rhs, opts)
 end
 
 -- Helper for dynamically setting highlights on based on colorscheme
+---@param default table|string?
 ---@param primary table|string?
 ---@param secondary table|string?
----@param default table|string?
-function M.theme_hl(primary, secondary, default)
+function M.theme_hl(default, primary, secondary)
   if vim.g.colors_name == Primary_Colorscheme then
-    return primary
+    return primary or default
   elseif vim.g.colors_name == Secondary_Colorscheme then
-    return secondary
+    return secondary or default
   else
     return default or nil
   end

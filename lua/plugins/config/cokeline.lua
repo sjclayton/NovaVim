@@ -146,7 +146,7 @@ return function()
         elseif buffer.diagnostics.infos ~= 0 then
           return 'DiagnosticInfo'
         else
-          return theme_hl('Keyword', '@field', '@field')
+          return theme_hl('@field', 'Keyword')
         end
       else
         return 'TabLine'
@@ -304,7 +304,7 @@ return function()
           end,
           fg = function(buffer)
             if buffer.is_focused then
-              return theme_hl('Keyword', '@field', '@field')
+              return theme_hl('@field', 'Keyword')
             else
               return 'TabLine'
             end

@@ -3,7 +3,7 @@ return function()
   local theme_hl = require('core.helpers').theme_hl
   local util = require('core.util')
 
-  local colors = require('catppuccin.palettes')
+  local C = require('catppuccin.palettes')
 
   local custom_components = {
     -- Override 'encoding': Don't display if encoding is UTF-8.
@@ -109,7 +109,7 @@ return function()
             end
           end,
           color = function()
-            local fg = theme_hl(util.fg('Keyword'), util.fg('Keyword'), util.fg('Keyword'))
+            local fg = theme_hl(util.fg('Keyword'))
             if fg ~= nil then
               return fg
             end
@@ -121,7 +121,12 @@ return function()
         {
           util.lsp_client_names,
           icon = icons.ui.Gear,
-          color = { fg = colors.get_palette(mocha).subtext1 },
+          color = function()
+            local fg = theme_hl(util.fg('ModeMsg'))
+            if fg ~= nil then
+              return fg
+            end
+          end,
         },
         {
           function()
@@ -130,7 +135,7 @@ return function()
           cond = util.treesitter_available,
           icon = icons.ui.Braces,
           color = function()
-            local fg = theme_hl(util.fg('String'), util.fg('String'), util.fg('String'))
+            local fg = theme_hl(util.fg('String'))
             if fg ~= nil then
               return fg
             end
