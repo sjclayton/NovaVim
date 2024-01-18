@@ -497,6 +497,44 @@ function M.dap_run_args(config)
   return config
 end
 
+function M.get_hex(name, attr)
+  local hl = M.get_hl(name)
+  if not hl then
+    return
+  end
+  return hl[attr]
+end
+
+function M.get_hl(name)
+  local hl = vim.api.nvim_get_hl(0, { name = name })
+  if not hl then
+    return
+  end
+  if hl.fg and type(hl.fg) == 'number' then
+    hl.fg = M.hex(hl.fg)
+  end
+  if hl.bg and type(hl.bg) == 'number' then
+    hl.bg = M.hex(hl.bg)
+  end
+  if hl.sp and type(hl.sp) == 'number' then
+    hl.sp = M.hex(hl.sp)
+  end
+  return hl
+end
+
+---@param rgb integer
+---@return string hex
+function M.hex(rgb)
+  local band, lsr = bit.band, bit.rshift
+
+  local r = lsr(band(rgb, 0xff0000), 16)
+  local g = lsr(band(rgb, 0x00ff00), 8)
+  local b = band(rgb, 0x0000ff)
+
+  local res = ('#%02x%02x%02x'):format(r, g, b)
+  return res
+end
+
 function M.lsp_client_names()
   local active_clients = vim.lsp.get_clients()
   local client_names = {}

@@ -1,13 +1,14 @@
 local theme_hl = require('core.helpers').theme_hl
+local get_hex = require('core.util').get_hex
 
 return function()
-  local cc_color = theme_hl('#6e6a86', '#585b70', '#5b6078')
+  local cc_color = theme_hl(get_hex('LineNr', 'fg'), get_hex('LineNr', 'fg'), get_hex('LineNr', 'fg'))
 
   local opts = {
     scope = 'buffer',
     ---@type string[]|fun(mode: string): boolean
     modes = function(mode)
-      return mode:find('^[ictRss\x13]') ~= nil
+      return mode:find('^[nictRss\x13]') ~= nil
     end,
     blending = {
       threshold = 1.0,

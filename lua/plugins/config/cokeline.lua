@@ -1,10 +1,10 @@
 return function()
   local icons = require('core.icons')
   local theme_hl = require('core.helpers').theme_hl
+  local get_hex = require('core.util').get_hex
 
   local harpoon = require('harpoon.mark')
   local mappings = require('cokeline.mappings')
-  local get_hex = require('cokeline.hlgroups').get_hl_attr
 
   local separators = {
     left = icons.blocks.left[4],
