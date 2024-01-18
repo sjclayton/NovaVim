@@ -28,7 +28,7 @@ require('lazy').setup('plugins', {
     lazy = true, -- lazy load everything
     version = false,
   },
-  install = { colorscheme = { 'rose-pine', 'default' } },
+  install = { colorscheme = { 'rose-pine', 'habamax' } },
   checker = {
     -- automatically check for plugin updates
     enabled = true,

@@ -11,7 +11,6 @@ local util = require('core.util')
 
 require('core.options')
 require('core.lazy')
-require('core.helpers')
 
 if vim.fn.argc(-1) == 0 then
   -- Defer loading of autocmds and keymaps.
@@ -53,7 +52,7 @@ elseif util.has('rose-pine') then
   vim.cmd.colorscheme('rose-pine')
 else
   pcall(require('notify')('Could not load your colorscheme or a preferred fallback', 'error'))
-  vim.cmd.colorscheme('default')
+  vim.cmd.colorscheme('habamax')
 end
 
 return M
