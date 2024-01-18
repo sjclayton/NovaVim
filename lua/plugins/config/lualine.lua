@@ -130,9 +130,9 @@ return function()
           cond = util.treesitter_available,
           icon = icons.ui.Braces,
           color = function()
-            local fg = theme_hl('#f6c177', '#a6e3a1')
+            local fg = theme_hl(util.fg('String'), util.fg('String'), util.fg('String'))
             if fg ~= nil then
-              return { fg = fg }
+              return fg
             end
           end,
         },

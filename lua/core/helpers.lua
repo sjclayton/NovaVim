@@ -20,7 +20,7 @@ function M.map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, options)
 end
 
--- Helper for dynamically changing highlights on based on colorscheme
+-- Helper for dynamically setting highlights on based on colorscheme
 ---@param primary table|string?
 ---@param secondary table|string?
 ---@param default table|string?
