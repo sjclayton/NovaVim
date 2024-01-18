@@ -1,7 +1,7 @@
 local theme_hl = require('core.helpers').theme_hl
 
 return function()
-  local cc_color = theme_hl('#6e6a86', '#585b70', '#5b6078', '#ed8796')
+  local cc_color = theme_hl('#6e6a86', '#585b70', '#5b6078')
 
   local opts = {
     scope = 'buffer',

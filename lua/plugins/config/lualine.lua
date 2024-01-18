@@ -109,7 +109,7 @@ return function()
             end
           end,
           color = function()
-            local fg = theme_hl(util.fg('Keyword'), util.fg('Keyword'), util.fg('Keyword'), util.fg('Keyword'))
+            local fg = theme_hl(util.fg('Keyword'), util.fg('Keyword'), util.fg('Keyword'))
             if fg ~= nil then
               return fg
             end
@@ -130,7 +130,7 @@ return function()
           cond = util.treesitter_available,
           icon = icons.ui.Braces,
           color = function()
-            local fg = theme_hl('#f6c177', '#a6e3a1', '#a6da95')
+            local fg = theme_hl('#f6c177', '#a6e3a1')
             if fg ~= nil then
               return { fg = fg }
             end
