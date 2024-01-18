@@ -85,7 +85,7 @@ return function()
           or (buffer.diagnostics.warnings ~= 0 and 'DiagnosticWarn')
           or nil
       else
-        return 'TabLine'
+        return 'ModeMsg'
       end
     end,
     bg = function(buffer)
@@ -104,9 +104,9 @@ return function()
     end,
     fg = function(buffer)
       if buffer.is_focused then
-        return 'TabLine'
+        return 'ModeMsg'
       else
-        return 'Comment'
+        return 'TabLine'
       end
     end,
     truncation = {
@@ -149,7 +149,7 @@ return function()
           return theme_hl('@field', 'Keyword')
         end
       else
-        return 'TabLine'
+        return 'ModeMsg'
       end
     end,
     truncation = {
@@ -168,7 +168,7 @@ return function()
       end
       return ' '
     end,
-    fg = 'TabLine',
+    fg = 'ModeMsg',
   }
 
   local CloseOrUnsaved = {
@@ -185,7 +185,7 @@ return function()
       if buffer.is_modified and not buffer.is_hovered then
         return 'String'
       else
-        return 'TabLine'
+        return 'ModeMsg'
       end
     end,
     bold = true,
