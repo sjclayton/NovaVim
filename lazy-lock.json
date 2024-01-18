@@ -65,7 +65,7 @@
   "obsidian.nvim": { "branch": "main", "commit": "a9ae6b20560d716a5f9b89252e4ea29c8e64617a" },
   "outline.nvim": { "branch": "main", "commit": "4ad4e8e2b9c797d68774b0d88f91c92183975639" },
   "plenary.nvim": { "branch": "master", "commit": "55d9fe89e33efd26f532ef20223e5f9430c8b0c0" },
-  "rainbow-delimiters.nvim": { "branch": "master", "commit": "cf626cd2f94f6c230384c2e3249352b6404cd8d7" },
+  "rainbow-delimiters.nvim": { "branch": "master", "commit": "8b6099f24e435036a628798585f95f62fb892838" },
   "rose-pine": { "branch": "main", "commit": "2a4aad89a803c84d7d1555d136639cd48ade1d64" },
   "rustaceanvim": { "branch": "master", "commit": "ea105333daea50823d30842adeae1a763d1e88f6" },
   "telescope-frecency.nvim": { "branch": "master", "commit": "9c18474d0a4b82435ce141c2a21d9bd7b9189272" },

@@ -193,6 +193,17 @@ wk.register({
       end,
       'Toggle spell check',
     },
+    S = {
+      function()
+        helper.toggle_cmd(
+          'Colorscheme',
+          { enable = 'colorscheme ' .. Secondary_Colorscheme, disable = 'colorscheme ' .. Primary_Colorscheme },
+          false,
+          true
+        )
+      end,
+      'Swap primary/secondary colorscheme',
+    },
     t = {
       function()
         helper.toggle_cmd('Treesitter context', { toggle = 'TSContextToggle' }, true)

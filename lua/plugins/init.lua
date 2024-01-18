@@ -744,7 +744,7 @@ return {
           vim.api.nvim_exec_autocmds('User', { pattern = 'ColorSchemeLoad' })
           vim.cmd('Telescope colorscheme')
         end,
-        desc = 'Switch colorscheme',
+        desc = 'Select colorscheme',
       },
       { '<leader>uo', '<CMD>Telescope vim_options<CR>', desc = 'Options' },
     },
