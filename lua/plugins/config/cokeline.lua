@@ -270,7 +270,7 @@ return function()
         return buffer.is_focused and 'Comment' or 'TabLine'
       end,
       bg = function(buffer)
-        return buffer.is_focused and 'ColorColumn' or 'TabLine'
+        return buffer.is_focused and 'ColorColumn' or 'TabLineFill'
       end,
     },
     components = {
