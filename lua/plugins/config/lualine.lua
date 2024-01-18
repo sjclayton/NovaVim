@@ -109,11 +109,9 @@ return function()
             end
           end,
           color = function()
-            local fg = theme_hl(util.fg('Keyword'), 'Keyword', 'Keyword')
+            local fg = theme_hl(util.fg('Keyword'), util.fg('Keyword'), util.fg('Keyword'), util.fg('Keyword'))
             if fg ~= nil then
               return fg
-            else
-              return nil
             end
           end,
         },
@@ -135,8 +133,6 @@ return function()
             local fg = theme_hl('#f6c177', '#a6e3a1', '#a6da95')
             if fg ~= nil then
               return { fg = fg }
-            else
-              return nil
             end
           end,
         },
