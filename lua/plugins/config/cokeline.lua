@@ -1,5 +1,6 @@
 return function()
   local icons = require('core.icons')
+  local theme_hl = require('core.helpers').theme_hl
 
   local harpoon = require('harpoon.mark')
   local mappings = require('cokeline.mappings')
@@ -145,11 +146,7 @@ return function()
         elseif buffer.diagnostics.infos ~= 0 then
           return 'DiagnosticInfo'
         else
-          if vim.g.colors_name == 'rose-pine' then
-            return 'Keyword'
-          elseif vim.g.colors_name == 'catppuccin-mocha' or vim.g.colors_name == 'catppuccin-macchiato' then
-            return '@field'
-          end
+          return theme_hl('Keyword', '@field', '@field')
         end
       else
         return 'TabLine'
@@ -307,11 +304,7 @@ return function()
           end,
           fg = function(buffer)
             if buffer.is_focused then
-              if vim.g.colors_name == 'rose-pine' then
-                return 'Keyword'
-              elseif vim.g.colors_name == 'catppuccin-mocha' or vim.g.colors_name == 'catppuccin-macchiato' then
-                return '@field'
-              end
+              return theme_hl('Keyword', '@field', '@field')
             else
               return 'TabLine'
             end

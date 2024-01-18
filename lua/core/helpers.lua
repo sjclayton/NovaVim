@@ -20,6 +20,23 @@ function M.map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, options)
 end
 
+-- Helper for dynamically changing highlights on based on colorscheme
+---@param primary table|string?
+---@param secondary table|string?
+---@param tertiary table|string?
+---@param default table|string?
+function M.theme_hl(primary, secondary, tertiary, default)
+  if vim.g.colors_name == 'rose-pine' then
+    return primary
+  elseif vim.g.colors_name == 'catppuccin-mocha' then
+    return secondary
+  elseif vim.g.colors_name == 'catppuccin-macchiato' then
+    return tertiary
+  else
+    return default or nil
+  end
+end
+
 -- Helper for toggling vim options
 ---@param silent boolean?
 ---@param values? {[1]:any, [2]:any}

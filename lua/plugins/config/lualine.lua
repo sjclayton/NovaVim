@@ -1,5 +1,6 @@
 return function()
   local icons = require('core.icons')
+  local theme_hl = require('core.helpers').theme_hl
   local util = require('core.util')
 
   local colors = require('catppuccin.palettes')
@@ -108,12 +109,9 @@ return function()
             end
           end,
           color = function()
-            if vim.g.colors_name == 'rose-pine' then
-              return util.fg('Keyword')
-            elseif vim.g.colors_name == 'catppuccin-mocha' then
-              return 'Keyword'
-            elseif vim.g.colors_name == 'catppuccin-macchiato' then
-              return 'Keyword'
+            local fg = theme_hl(util.fg('Keyword'), 'Keyword', 'Keyword')
+            if fg ~= nil then
+              return fg
             else
               return nil
             end
@@ -134,12 +132,9 @@ return function()
           cond = util.treesitter_available,
           icon = icons.ui.Braces,
           color = function()
-            if vim.g.colors_name == 'rose-pine' then
-              return { fg = '#f6c177' }
-            elseif vim.g.colors_name == 'catppuccin-mocha' then
-              return { fg = '#a6e3a1' }
-            elseif vim.g.colors_name == 'catppuccin-macchiato' then
-              return { fg = '#a6da95' }
+            local fg = theme_hl('#f6c177', '#a6e3a1', '#a6da95')
+            if fg ~= nil then
+              return { fg = fg }
             else
               return nil
             end

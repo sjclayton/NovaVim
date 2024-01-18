@@ -1,14 +1,7 @@
+local theme_hl = require('core.helpers').theme_hl
+
 return function()
-  local cc_color = ''
-  if vim.g.colors_name == 'rose-pine' then
-    cc_color = '#6e6a86'
-  elseif vim.g.colors_name == 'catppuccin-mocha' then
-    cc_color = '#585b70'
-  elseif vim.g.colors_name == 'catppuccin-macchiato' then
-    cc_color = '#5b6078'
-  else
-    cc_color = '#ed8796'
-  end
+  local cc_color = theme_hl('#6e6a86', '#585b70', '#5b6078', '#ed8796')
 
   local opts = {
     scope = 'buffer',
