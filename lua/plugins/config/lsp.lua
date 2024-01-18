@@ -31,19 +31,18 @@ return function()
       source = 'if_many',
       border = 'rounded',
     },
-    -- NOTE: For future use config in Neovim 0.11.0
-    -- signs = {
-    --   text = {
-    --     [vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
-    --     [vim.diagnostic.severity.WARN] = icons.diagnostics.Warn,
-    --     [vim.diagnostic.severity.INFO] = icons.diagnostics.Info,
-    --     [vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
-    --   },
-    -- },
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
+        [vim.diagnostic.severity.WARN] = icons.diagnostics.Warn,
+        [vim.diagnostic.severity.INFO] = icons.diagnostics.Info,
+        [vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
+      },
+    },
     severity_sort = true,
   })
 
-  -- Diagnostic sign settings
+  -- FIX: Diagnostic sign settings to maintain compatibility with Neovim <= 0.10.0 until plugins have all been updated
   local signs = icons.diagnostics
   for type, icon in pairs(signs) do
     local hl = 'DiagnosticSign' .. type
