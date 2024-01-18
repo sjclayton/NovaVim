@@ -597,6 +597,12 @@ return {
     name = 'rose-pine',
     config = conf('rosepine'),
   },
+  {
+    'folke/tokyonight.nvim',
+    event = 'User ColorSchemeLoad',
+    priority = 1000,
+    name = 'tokyonight',
+  },
 
   --- Utils
   {

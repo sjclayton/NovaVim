@@ -3,8 +3,6 @@ return function()
   local theme_hl = require('core.helpers').theme_hl
   local util = require('core.util')
 
-  local C = require('catppuccin.palettes')
-
   local custom_components = {
     -- Override 'encoding': Don't display if encoding is UTF-8.
     encoding = function()

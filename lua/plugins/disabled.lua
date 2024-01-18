@@ -49,6 +49,7 @@ return {
   -- Colorschemes
   { 'catppuccin/nvim', name = 'catppuccin', enabled = true },
   { 'rose-pine/neovim', name = 'rose-pine', enabled = true },
+  { 'folke/tokyonight.nvim', name = 'tokyonight', enabled = true },
   -- UI
   { 'stevearc/dressing.nvim', enabled = true },
   { 'j-hui/fidget.nvim', enabled = true },
