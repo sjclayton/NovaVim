@@ -75,8 +75,26 @@ return function()
           file_status = false,
           padding = { left = 0, right = 1 },
         },
-        { custom_components.modified, padding = { right = 1 }, color = 'String' },
-        { custom_components.is_writable, padding = { left = 0 }, color = 'Error' },
+        {
+          custom_components.modified,
+          padding = { right = 1 },
+          color = function()
+            local fg = theme_hl(util.fg('String'))
+            if fg ~= nil then
+              return fg
+            end
+          end,
+        },
+        {
+          custom_components.is_writable,
+          padding = { left = 0 },
+          color = function()
+            local fg = theme_hl(util.fg('Error'))
+            if fg ~= nil then
+              return fg
+            end
+          end,
+        },
       },
       lualine_x = {
         {
