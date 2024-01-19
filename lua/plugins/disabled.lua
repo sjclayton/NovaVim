@@ -5,7 +5,7 @@
 return {
   -- General
   { 'Bekaboo/deadcolumn.nvim', enabled = true },
-  { 'ThePrimeagen/harpoon', enabled = true },
+  { 'sjclayton/harpoon', enabled = true },
   { 'lukas-reineke/headlines.nvim', enabled = true },
   { 'smoka7/hop.nvim', enabled = true },
   { '3rd/image.nvim', enabled = false },

@@ -9,7 +9,21 @@ end
 return {
   --- General
   { 'Bekaboo/deadcolumn.nvim', event = { 'LazyFile', 'VeryLazy' }, config = conf('deadcolumn') },
-  { 'ThePrimeagen/harpoon', event = 'VeryLazy', dependencies = 'nvim-lua/plenary.nvim', config = conf('harpoon') },
+  {
+    'sjclayton/harpoon',
+    dependencies = 'nvim-lua/plenary.nvim',
+    keys = {
+      { '<leader>hm', "<CMD>lua require('harpoon.mark').add_file()<CR>", desc = 'Mark file with harpoon' },
+      { '<leader>ha', "<CMD>lua require('harpoon.ui').toggle_quick_menu()<CR>", desc = 'Show harpoon marks' },
+      { '<leader>1', "<CMD>lua require('harpoon.ui').nav_file(1)<CR>", desc = 'Go to Harpoon File 1' },
+      { '<leader>2', "<CMD>lua require('harpoon.ui').nav_file(2)<CR>", desc = 'Go to Harpoon File 2' },
+      { '<leader>3', "<CMD>lua require('harpoon.ui').nav_file(3)<CR>", desc = 'Go to Harpoon File 3' },
+      { '<leader>4', "<CMD>lua require('harpoon.ui').nav_file(4)<CR>", desc = 'Go to Harpoon File 4' },
+      { '<leader>5', "<CMD>lua require('harpoon.ui').nav_file(5)<CR>", desc = 'Go to Harpoon File 5' },
+      { '<leader>6', "<CMD>lua require('harpoon.ui').nav_file(6)<CR>", desc = 'Go to Harpoon File 6' },
+    },
+    config = conf('harpoon'),
+  },
   {
     'lukas-reineke/headlines.nvim',
     ft = { 'markdown' },
@@ -555,7 +569,7 @@ return {
   {
     'willothy/nvim-cokeline',
     event = 'LazyFile',
-    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons' },
+    dependencies = { 'sjclayton/harpoon', 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons' },
     config = conf('cokeline'),
   },
   {
