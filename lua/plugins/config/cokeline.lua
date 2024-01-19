@@ -26,26 +26,21 @@ return function()
           return 'LineNr'
         end
       end,
-      bg = function(buffer)
-        if buffer.is_focused then
-          return 'ColorColumn'
-        else
-          return 'TabLine'
-        end
-      end,
     },
     right = {
       text = separators.right,
       fg = function(buffer)
         if buffer.is_focused then
-          return get_hex('ColorColumn', 'bg')
+          return get_hex('Pmenu', 'bg')
         else
-          return get_hex('TabLineFill', 'bg')
+          return get_hex('Normal', 'bg')
         end
       end,
       bg = function(buffer)
-        if not buffer.is_focused then
-          return get_hex('TabLineFill', 'bg')
+        if buffer.is_focused then
+          return get_hex('Pmenu', 'bg')
+        else
+          return get_hex('Normal', 'bg')
         end
       end,
     },
@@ -84,15 +79,6 @@ return function()
         return (buffer.diagnostics.errors ~= 0 and 'DiagnosticError')
           or (buffer.diagnostics.warnings ~= 0 and 'DiagnosticWarn')
           or nil
-      else
-        return 'ModeMsg'
-      end
-    end,
-    bg = function(buffer)
-      if buffer.is_focused then
-        return 'ColorColumn'
-      else
-        return 'TabLine'
       end
     end,
     truncation = { priority = 1 },
@@ -105,8 +91,6 @@ return function()
     fg = function(buffer)
       if buffer.is_focused then
         return 'ModeMsg'
-      else
-        return 'TabLine'
       end
     end,
     truncation = {
@@ -148,8 +132,6 @@ return function()
         else
           return theme_hl('@field', 'Keyword')
         end
-      else
-        return 'ModeMsg'
       end
     end,
     truncation = {
@@ -168,7 +150,6 @@ return function()
       end
       return ' '
     end,
-    fg = 'ModeMsg',
   }
 
   local CloseOrUnsaved = {
@@ -184,8 +165,6 @@ return function()
     fg = function(buffer)
       if buffer.is_modified and not buffer.is_hovered then
         return 'String'
-      else
-        return 'ModeMsg'
       end
     end,
     bold = true,
@@ -261,16 +240,16 @@ return function()
       -- new_buffers_position = "next",
       delete_on_right_click = false,
     },
-    fill_hl = 'TabLineFill',
+    fill_hl = 'Normal',
     pick = {
       use_filename = true,
     },
     default_hl = {
       fg = function(buffer)
-        return buffer.is_focused and 'Comment' or 'TabLine'
+        return buffer.is_focused and 'Pmenu' or 'NonText'
       end,
       bg = function(buffer)
-        return buffer.is_focused and 'ColorColumn' or 'TabLineFill'
+        return buffer.is_focused and 'Pmenu' or 'Normal'
       end,
     },
     components = {
@@ -305,8 +284,6 @@ return function()
           fg = function(buffer)
             if buffer.is_focused then
               return theme_hl('@field', 'Keyword')
-            else
-              return 'TabLine'
             end
           end,
         },

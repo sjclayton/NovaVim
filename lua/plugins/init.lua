@@ -578,7 +578,16 @@ return {
   },
   {
     'folke/zen-mode.nvim',
-    keys = { { '<leader>uz', '<CMD>ZenMode<CR>', desc = 'Toggle zen mode' } },
+    cmd = 'ZenMode',
+    keys = {
+      {
+        '<leader>uz',
+        function()
+          helper.toggle_cmd('Zen mode', { toggle = 'ZenMode' }, false)
+        end,
+        desc = 'Toggle zen mode',
+      },
+    },
     config = conf('zenmode'),
   },
 

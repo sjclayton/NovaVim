@@ -14,10 +14,6 @@ return function()
         return {
           WinSeparator = { fg = C.dim and C.surface2 or C.crust },
 
-          -- Overrides for the Cokeline
-          TabLine = { fg = C.subtext0, bg = C.dim },
-          TabLineFill = { bg = C.dim },
-
           -- Codeium
           CodeiumSuggestion = { link = 'Comment' },
 
@@ -53,10 +49,6 @@ return function()
           -- Adjust contrast of line numbers
           LineNr = { fg = U.darken(mocha.lavender, 0.50) },
           CursorLineNr = { fg = U.lighten(mocha.lavender, 1.10), style = { 'bold' } },
-
-          -- Overrides for the Cokeline
-          TabLine = { fg = C.subtext0, bg = C.dim },
-          TabLineFill = { bg = C.dim },
 
           -- Codeium
           CodeiumSuggestion = { link = 'Comment' },
