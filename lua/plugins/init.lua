@@ -223,6 +223,12 @@ return {
     config = conf('outline'),
   },
   {
+    'rgroli/other.nvim',
+    cmd = { 'Other', 'OtherTabNew', 'OtherSplit', 'OtherVSplit' },
+    keys = { { '<leader>o', '<CMD>Other<CR>', desc = 'Jump to other file (tests, etc)' } },
+    config = conf('other-nvim'),
+  },
+  {
     'folke/todo-comments.nvim',
     event = 'LazyFile',
     cmd = { 'TodoTrouble', 'TodoTelescope' },
