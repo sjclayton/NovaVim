@@ -13,9 +13,6 @@ return function()
       -- Cmp
       CmpPmenu = { link = 'NormalFloat' },
 
-      -- Cokeline
-      TabLineFill = { fg = 'surface', bg = 'base' },
-
       -- Harpoon
       HarpoonBorder = { link = 'FloatBorder' },
       HarpoonCurrentFile = { fg = 'rose' },

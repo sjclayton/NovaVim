@@ -484,7 +484,7 @@ return {
   {
     'mrcjkb/rustaceanvim',
     ft = 'rust',
-    version = '^3', --[[ '3.15.0', ]]
+    version = '^3',
     config = conf('rustacean'),
   },
 

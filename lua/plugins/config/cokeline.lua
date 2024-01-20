@@ -130,7 +130,7 @@ return function()
         elseif buffer.diagnostics.infos ~= 0 then
           return 'DiagnosticInfo'
         else
-          return theme_hl('@field', 'Keyword')
+          return theme_hl('@variable.member', 'Keyword')
         end
       end
     end,
@@ -283,7 +283,7 @@ return function()
           end,
           fg = function(buffer)
             if buffer.is_focused then
-              return theme_hl('@field', 'Keyword')
+              return theme_hl('@variable.member', 'Keyword')
             end
           end,
         },
