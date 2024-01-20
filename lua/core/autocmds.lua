@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Go to last edit location when opening a buffer.
+-- Go to last edit location when opening a buffer
 
 vim.api.nvim_create_autocmd('BufReadPost', {
   group = augroup('last_loc'),
@@ -30,7 +30,7 @@ vim.api.nvim_create_autocmd('BufReadPost', {
   end,
 })
 
--- Set line wrap in text filetypes.
+-- Set line wrap in text filetypes
 
 vim.api.nvim_create_autocmd('FileType', {
   group = augroup('wrap_spell'),
@@ -40,24 +40,45 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+-- Disable colorcolumn in certain filetypes
+
+vim.api.nvim_create_autocmd('FileType', {
+  group = augroup('disable_colorcolumn'),
+  pattern = {
+    'Trouble',
+    'checkhealth',
+    'help',
+    'lazy',
+    'lspinfo',
+    'markdown',
+    'mason',
+    'neo-tree',
+    'noice',
+    'text',
+  },
+  callback = function()
+    vim.opt_local.colorcolumn = ''
+  end,
+})
+
 -- Close some filetypes with <q>
 
 vim.api.nvim_create_autocmd('FileType', {
   group = augroup('close_with_q'),
   pattern = {
     'PlenaryTestPopup',
+    'checkhealth',
     'help',
     'lspinfo',
     'man',
+    'neotest-output',
+    'neotest-output-panel',
+    'neotest-summary',
     'notify',
     'qf',
     'query',
     'startuptime',
     'tsplayground',
-    'neotest-output',
-    'checkhealth',
-    'neotest-summary',
-    'neotest-output-panel',
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
