@@ -55,6 +55,7 @@ vim.api.nvim_create_autocmd('FileType', {
     'neo-tree',
     'noice',
     'text',
+    'qf',
   },
   callback = function()
     vim.opt_local.colorcolumn = ''

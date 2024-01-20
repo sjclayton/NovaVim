@@ -30,6 +30,9 @@ return function()
       Headline5 = { bg = 'overlay', fg = 'foam' },
       Headline6 = { bg = 'overlay', fg = 'iris' },
 
+      -- Nvim-Lspconfig
+      LspInfoBorder = { link = 'FloatBorder' },
+
       -- Neotest
       NeotestPassed = { fg = 'green' },
       NeotestFailed = { fg = 'love' },
@@ -48,7 +51,7 @@ return function()
       NeotestTarget = { fg = 'love' },
       NeotestUnknown = { fg = 'muted' },
 
-      -- Neo-tree
+      -- Neo-Tree
       NeoTreeDirectoryIcon = { fg = 'foam' },
       NeoTreeDimText = { fg = 'muted' },
       NeoTreeMessage = { fg = 'muted', italic = true },
@@ -57,7 +60,7 @@ return function()
       -- Nvim-Notify
       NotifyBackground = { bg = 'base' },
 
-      -- Which-key
+      -- Which-Key
       WhichKeyBorder = { link = 'FloatBorder' },
 
       -- Treesitter-Context

@@ -155,7 +155,8 @@ wk.register({
   },
   l = {
     name = icons.ui.Gear .. 'LSP',
-    i = { '<CMD>LspInfo<CR>', 'LSP Info' },
+    f = { '<CMD>ConformInfo<CR>', 'Show configured formatters' },
+    i = { '<CMD>LspInfo<CR>', 'Show active LSP info' },
     r = { '<CMD>LspRestart<CR>', 'Restart LSP' },
     s = { '<CMD>LspStop<CR>', 'Stop LSP' },
     S = { '<CMD>LspStart<CR>', 'Start LSP' },

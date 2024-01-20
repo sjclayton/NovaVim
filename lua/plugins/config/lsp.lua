@@ -2,8 +2,11 @@ return function()
   local icons = require('core.icons')
 
   local lspconfig = require('lspconfig')
-  local mason_lsp = require('mason-lspconfig')
+  local lspconfig_ui = require('lspconfig.ui.windows')
   local cmp_lsp = require('cmp_nvim_lsp')
+  local mason_lsp = require('mason-lspconfig')
+
+  lspconfig_ui.default_options = { border = 'rounded' }
 
   -- pull in general keymaps for on_attach
   local on_attach = require('plugins.config.lsp.keymaps').on_attach
