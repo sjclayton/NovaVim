@@ -26,7 +26,7 @@ return {
   },
   {
     'lukas-reineke/headlines.nvim',
-    ft = { 'markdown' },
+    ft = 'markdown',
     dependencies = 'nvim-treesitter/nvim-treesitter',
     config = conf('headlines'),
   },
@@ -44,7 +44,7 @@ return {
   },
   {
     '3rd/image.nvim',
-    ft = { 'markdown' },
+    ft = 'markdown',
     opts = {
       only_render_image_at_cursor = true,
       window_overlap_clear_enabled = true,
@@ -225,7 +225,12 @@ return {
   {
     'rgroli/other.nvim',
     cmd = { 'Other', 'OtherTabNew', 'OtherSplit', 'OtherVSplit' },
-    keys = { { '<leader>o', '<CMD>Other<CR>', desc = 'Jump to other file (tests, etc)' } },
+    keys = {
+      { '<leader>oo', '<CMD>Other<CR>', desc = 'Open other file' },
+      { '<leader>ot', '<CMD>Other test<CR>', desc = 'Open test file' },
+      { '<leader>ov', '<CMD>OtherVSplit<CR>', desc = 'Open other file (vsplit)' },
+      { '<leader>oh', '<CMD>OtherSplit<CR>', desc = 'Open other file (split)' },
+    },
     config = conf('other-nvim'),
   },
   {
