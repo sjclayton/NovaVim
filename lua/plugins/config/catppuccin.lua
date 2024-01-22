@@ -18,7 +18,7 @@ return function()
           CodeiumSuggestion = { link = 'Comment' },
 
           -- Gitsigns
-          GitSignsCurrentLineBlame = { fg = C.overlay1 },
+          GitSignsCurrentLineBlame = { fg = C.overlay0 },
 
           -- Harpoon
           HarpoonCurrentFile = { fg = C.green },
@@ -54,7 +54,7 @@ return function()
           CodeiumSuggestion = { link = 'Comment' },
 
           -- Gitsigns
-          GitSignsCurrentLineBlame = { fg = C.overlay1 },
+          GitSignsCurrentLineBlame = { fg = C.overlay0 },
 
           -- Harpoon
           HarpoonCurrentFile = { fg = C.green },
