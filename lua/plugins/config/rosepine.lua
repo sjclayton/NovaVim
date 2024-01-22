@@ -60,6 +60,12 @@ return function()
       -- Nvim-Notify
       NotifyBackground = { bg = 'base' },
 
+      -- Outline.nvim
+      OutlineCurrent = { link = 'String' },
+      OutlineGuides = { link = 'WinSeparator' },
+      OutlineFoldMarker = { link = 'Normal' },
+      OutlineDetails = { link = 'Comment' },
+
       -- Which-Key
       WhichKeyBorder = { link = 'FloatBorder' },
 

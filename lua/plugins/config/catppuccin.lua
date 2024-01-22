@@ -38,6 +38,12 @@ return function()
           -- Nvim-Notify
           NotifyBackground = { bg = C.base },
 
+          -- Outline.nvim
+          OutlineCurrent = { link = 'String' },
+          OutlineGuides = { link = 'Comment' },
+          OutlineFoldMarker = { link = 'Normal' },
+          OutlineDetails = { link = 'Comment' },
+
           -- Treesitter-Context
           TreesitterContextBottom = { sp = C.surface2, style = { 'underline' } },
         }
@@ -70,6 +76,12 @@ return function()
 
           -- Neo-tree
           NeoTreeMessage = { fg = C.overlay0, style = { 'italic' } },
+
+          -- Outline.nvim
+          OutlineCurrent = { link = 'String' },
+          OutlineGuides = { link = 'Comment' },
+          OutlineFoldMarker = { link = 'Normal' },
+          OutlineDetails = { link = 'Comment' },
 
           -- Treesitter-Context
           TreesitterContextBottom = { sp = C.surface2, style = { 'underline' } },
