@@ -6,9 +6,10 @@ return function()
       show_symbol_details = false,
     },
     outline_window = {
+      width = 20,
       auto_jump = true,
       jump_highlight_duration = 150,
-      width = 20,
+      focus_on_open = false,
     },
     preview_window = {
       border = 'rounded',
