@@ -119,6 +119,7 @@ return {
     },
     config = conf('alternatetoggler'),
   },
+  { 'windwp/nvim-autopairs', event = 'InsertEnter', dependencies = 'hrsh7th/nvim-cmp', config = conf('autopairs') },
   { 'numToStr/Comment.nvim', event = 'VeryLazy', config = true },
   { 'lewis6991/gitsigns.nvim', event = 'LazyFile', config = conf('gitsigns') },
   {
@@ -151,7 +152,6 @@ return {
     config = conf('hlchunk'),
   },
   { 'echasnovski/mini.ai', event = 'VeryLazy', version = false, config = conf('mini-ai') },
-  { 'echasnovski/mini.pairs', event = 'VeryLazy', version = false, config = true },
   {
     'echasnovski/mini.surround',
     version = false,
