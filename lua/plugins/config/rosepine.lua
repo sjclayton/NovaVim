@@ -9,6 +9,8 @@ return function()
       FloatTitle = { link = 'NormalFloat' },
       Search = { bg = 'rose' },
       WinSeparator = { fg = 'muted' },
+      Winbar = { link = 'Normal' },
+      WinbarNC = { link = 'NormalNC' },
 
       -- Cmp
       CmpPmenu = { link = 'NormalFloat' },
