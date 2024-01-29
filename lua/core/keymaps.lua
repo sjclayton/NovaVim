@@ -175,6 +175,7 @@ wk.register({
       end,
       'Toggle diagnostics',
     },
+    I = { vim.show_pos, 'Inspect position' },
     n = {
       function()
         helper.number()

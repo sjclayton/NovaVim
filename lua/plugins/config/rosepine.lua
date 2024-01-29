@@ -2,10 +2,14 @@ return function()
   local opts = {
     dim_inactive_windows = true,
     extend_background_behind_borders = true,
+    enable = {
+      legacy_highlights = true,
+    },
     styles = {
       transparency = false,
     },
     highlight_groups = {
+      ['@namespace'] = { link = 'Include' },
       FloatTitle = { link = 'NormalFloat' },
       Search = { bg = 'rose' },
       WinSeparator = { fg = 'muted' },
@@ -36,22 +40,8 @@ return function()
       LspInfoBorder = { link = 'FloatBorder' },
 
       -- Neotest
-      NeotestPassed = { fg = 'green' },
-      NeotestFailed = { fg = 'love' },
-      NeotestRunning = { fg = 'gold' },
-      NeotestSkipped = { fg = 'foam' },
-      NeotestTest = { fg = 'text' },
-      NeotestNamespace = { fg = 'iris' },
-      NeotestFocused = { bold = true, underline = true },
-      NeotestFile = { fg = 'foam' },
-      NeotestDir = { fg = 'foam' },
-      NeotestIndent = { fg = 'muted' },
-      NeotestExpandMarker = { fg = 'muted' },
-      NeotestAdapterName = { fg = 'rose' },
-      NeotestWinSelect = { fg = 'foam', bold = true },
-      NeotestMarked = { fg = 'gold', bold = true },
-      NeotestTarget = { fg = 'love' },
-      NeotestUnknown = { fg = 'muted' },
+      NeotestIndent = { fg = 'subtle' },
+      NeotestExpandMarker = { fg = 'subtle' },
 
       -- Neo-Tree
       NeoTreeDirectoryIcon = { fg = 'foam' },
