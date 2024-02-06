@@ -640,11 +640,16 @@ return {
 
   --- Utils
   {
-    'tris203/hawtkeys.nvim',
-    cmd = { 'Hawtkeys', 'HawtkeysAll', 'HawtkeysDupes' },
-    branch = 'issue81',
-    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
-    config = conf('hawtkeys'),
+    'ThePrimeagen/vim-apm',
+    event = 'VeryLazy',
+    config = function()
+      local apm = require('vim-apm')
+      apm:setup({})
+
+      helper.map('n', '<leader>am', function()
+        apm:toggle_monitor()
+      end, { desc = 'Toggle APM' })
+    end,
   },
   {
     'echasnovski/mini.bufremove',
@@ -672,6 +677,13 @@ return {
       { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
     },
     config = true,
+  },
+  {
+    'tris203/hawtkeys.nvim',
+    cmd = { 'Hawtkeys', 'HawtkeysAll', 'HawtkeysDupes' },
+    branch = 'issue81',
+    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
+    config = conf('hawtkeys'),
   },
   {
     'JManch/nomodoro',
