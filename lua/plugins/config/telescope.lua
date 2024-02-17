@@ -21,6 +21,7 @@ return function()
     },
     extensions = {
       frecency = {
+        hide_current_buffer = true,
         ignore_patterns = { '*.git/*', '*/tmp/*', 'term://*', '*.obsidian/*' },
         workspaces = {
           ['notes'] = '~/Notes/',
