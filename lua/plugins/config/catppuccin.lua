@@ -1,4 +1,7 @@
 return function()
+  local C = require('catppuccin.palettes').get_palette()
+  local U = require('catppuccin.utils.colors')
+
   local opts = {
     transparent_background = false,
     term_colors = true,
