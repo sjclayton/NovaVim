@@ -389,6 +389,7 @@ return {
     dependencies = {
       {
         'rcarriga/nvim-dap-ui',
+        'nvim-neotest/nvim-nio',
         opts = {},
         -- stylua: ignore
         keys = {
@@ -433,6 +434,7 @@ return {
     'nvim-neotest/neotest',
     ft = { 'go', 'python', 'rust', 'zig' },
     dependencies = {
+      'nvim-neotest/nvim-nio',
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
       -- Adapters
