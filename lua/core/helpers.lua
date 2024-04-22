@@ -134,12 +134,16 @@ end
 
 local enabled = true
 function M.diagnostics()
+  if vim.diagnostic.is_enabled then
+    enabled = vim.diagnostic.is_enabled()
+  end
+
   enabled = not enabled
   if enabled then
     vim.diagnostic.enable()
     notify('Diagnostics')
   else
-    vim.diagnostic.disable()
+    vim.diagnostic.enable(not vim.diagnostic.is_enabled())
     notify('Diagnostics', false)
   end
 end
