@@ -1,4 +1,5 @@
 local map = require('core.helpers').map
+local inlay_hints = require('core.helpers').inlay_hints
 
 local M = {}
 
@@ -82,13 +83,7 @@ M.on_attach = function(client, bufnr)
   if M.has(bufnr, 'inlayHint') then
     opts.desc = 'Toggle inlay hints'
     map('n', '<leader>uh', function()
-      bufnr = bufnr or 0
-      local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-      if inlay_hint.enable then
-        vim.lsp.inlay_hint.enable(bufnr, not inlay_hint.is_enabled())
-      else
-        vim.lsp.inlay_hint(bufnr, nil)
-      end
+      inlay_hints()
     end, opts)
   end
 end
