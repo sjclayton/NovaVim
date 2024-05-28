@@ -129,14 +129,14 @@ return {
       {
         '<leader>ub',
         function()
-          helper.toggle_cmd('Scope line numbers', { enable = 'EnableHLLineNum', disable = 'DisableHLLineNum' })
+          helper.toggle_cmd('Scope line numbers', { enable = 'EnableHLline_num', disable = 'DisableHLline_num' })
         end,
         desc = 'Toggle scope line numbers',
       },
       {
         '<leader>uB',
         function()
-          helper.toggle_cmd('Scope highlight', { enable = 'EnableHLChunk', disable = 'DisableHLChunk' })
+          helper.toggle_cmd('Scope highlight', { enable = 'EnableHLchunk', disable = 'DisableHLchunk' })
         end,
         desc = 'Toggle scope chunk highlight',
       },
@@ -144,7 +144,7 @@ return {
       {
         '<leader>ui',
         function()
-          helper.toggle_cmd('Indention highlights', { enable = 'EnableHLIndent', disable = 'DisableHLIndent' }, true)
+          helper.toggle_cmd('Indention highlights', { enable = 'EnableHLindent', disable = 'DisableHLindent' }, true)
         end,
         desc = 'Toggle indention highlights',
       },
@@ -641,18 +641,6 @@ return {
   },
 
   --- Utils
-  {
-    'ThePrimeagen/vim-apm',
-    event = 'VeryLazy',
-    config = function()
-      local apm = require('vim-apm')
-      apm:setup({})
-
-      helper.map('n', '<leader>am', function()
-        apm:toggle_monitor()
-      end, { desc = 'Toggle APM' })
-    end,
-  },
   {
     'echasnovski/mini.bufremove',
     version = false,

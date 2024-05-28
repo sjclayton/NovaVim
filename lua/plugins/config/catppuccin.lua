@@ -48,6 +48,7 @@ return function()
           OutlineDetails = { link = 'Comment' },
 
           -- Treesitter-Context
+          TreesitterContextLineNumber = { link = 'LineNr' },
           TreesitterContextBottom = { sp = C.surface2, style = { 'underline' } },
         }
       end,
@@ -87,6 +88,7 @@ return function()
           OutlineDetails = { link = 'Comment' },
 
           -- Treesitter-Context
+          TreesitterContextLineNumber = { link = 'CursorLineNr' },
           TreesitterContextBottom = { sp = C.surface2, style = { 'underline' } },
         }
       end,

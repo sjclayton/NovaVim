@@ -36,7 +36,7 @@ return function()
     },
 
     line_num = {
-      enable = true,
+      enable = false,
       notify = false,
       use_treesitter = true,
       style = {
@@ -60,9 +60,9 @@ return function()
 
   require('hlchunk').setup(opts)
 
-  vim.cmd('DisableHLChunk')
-  -- vim.cmd('DisableHLIndent')
-  vim.cmd('DisableHLLineNum')
+  vim.cmd('DisableHLchunk')
+  -- vim.cmd('DisableHLindent')
+  -- vim.cmd('DisableHLline_num')
 
   -- HACK: Workaround to fix scope highlights not being properly set when colorscheme is changed.
   vim.api.nvim_create_augroup('reload_hlchunk', { clear = true })

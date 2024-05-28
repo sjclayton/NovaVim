@@ -11,7 +11,7 @@ return function()
         'ruff_fix',
       },
       rust = { 'rustfmt' },
-      zig = { 'zigfmt' },
+      -- zig = { 'zigfmt' },
       ['_'] = { 'trim_whitespace' },
     },
     -- Set up format-on-save

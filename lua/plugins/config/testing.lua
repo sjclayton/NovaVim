@@ -11,7 +11,9 @@ return function()
 
   local opts = {
     adapters = {
-      require('neotest-go'),
+      require('neotest-go')({
+        recursive_run = true,
+      }),
       require('neotest-python'),
       require('neotest-rust'),
       require('neotest-zig'),

@@ -1,7 +1,7 @@
 -- Extend package.path to include luarocks path for lua 5.1 (necessary for image.nvim)
 -- See https://github.com/3rd/image.nvim for setup instructions.
 -- NOTE: Must be using kitty as a terminal for image support to work, and have the appropriate options set
--- for tmux if you're using it. You may remove this if not using image.nvim!
+-- for tmux if you're using it. You may remove these two lines if you're not using image.nvim.
 package.path = package.path .. ';' .. vim.fn.expand('$HOME') .. '/.luarocks/share/lua/5.1/?/init.lua;'
 package.path = package.path .. ';' .. vim.fn.expand('$HOME') .. '/.luarocks/share/lua/5.1/?.lua;'
 
