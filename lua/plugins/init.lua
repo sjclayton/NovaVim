@@ -285,7 +285,7 @@ return {
       {
         ']q',
         function()
-          if require('trouble').isopen() then
+          if require('trouble').is_open() then
             require('trouble').next({ skip_groups = true, jump = true })
           else
             local ok, err = pcall(vim.cmd.cnext)
