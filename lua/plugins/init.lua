@@ -122,7 +122,32 @@ return {
   { 'windwp/nvim-autopairs', event = 'InsertEnter', dependencies = 'hrsh7th/nvim-cmp', config = conf('autopairs') },
   { 'numToStr/Comment.nvim', event = 'VeryLazy', config = true },
   { 'lewis6991/gitsigns.nvim', event = 'LazyFile', config = conf('gitsigns') },
-  { 'lukas-reineke/indent-blankline.nvim', event = 'LazyFile', main = 'ibl', opts = {} },
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    event = 'LazyFile',
+    main = 'ibl',
+    keys = {
+      {
+        '<leader>ub',
+        function()
+          helper.toggle_cmd('Scope highlight', { toggle = 'IBLToggleScope' })
+        end,
+        desc = 'Toggle scope highlight',
+      },
+      {
+        '<leader>ui',
+        function()
+          helper.toggle_cmd('Indention highlights', { toggle = 'IBLToggle' }, true)
+        end,
+        desc = 'Toggle indention highlights',
+      },
+    },
+    config = function()
+      require('ibl').setup()
+
+      vim.cmd('IBLToggleScope')
+    end,
+  },
   { 'echasnovski/mini.ai', event = 'VeryLazy', version = false, config = conf('mini-ai') },
   {
     'echasnovski/mini.surround',

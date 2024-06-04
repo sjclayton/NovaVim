@@ -102,6 +102,10 @@ return function()
       harpoon = true,
       headlines = true,
       hop = true,
+      indent_blankline = {
+        enabled = true,
+        scope_color = 'lavender',
+      },
       illuminate = true,
       lsp_trouble = true,
       mason = true,

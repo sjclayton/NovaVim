@@ -15,6 +15,9 @@ return function()
         enabled = false,
       },
     },
+    smart_move = {
+      enabled = false,
+    },
     presets = {
       lsp_doc_border = true,
     },
@@ -67,7 +70,6 @@ return function()
       {
         filter = {
           any = {
-            { find = 'hlchunk' },
             { find = 'deadcolumn' },
           },
         },
