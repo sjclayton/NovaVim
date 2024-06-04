@@ -122,35 +122,7 @@ return {
   { 'windwp/nvim-autopairs', event = 'InsertEnter', dependencies = 'hrsh7th/nvim-cmp', config = conf('autopairs') },
   { 'numToStr/Comment.nvim', event = 'VeryLazy', config = true },
   { 'lewis6991/gitsigns.nvim', event = 'LazyFile', config = conf('gitsigns') },
-  {
-    'shellRaining/hlchunk.nvim',
-    event = 'LazyFile',
-    keys = {
-      {
-        '<leader>ub',
-        function()
-          helper.toggle_cmd('Scope line numbers', { enable = 'EnableHLline_num', disable = 'DisableHLline_num' })
-        end,
-        desc = 'Toggle scope line numbers',
-      },
-      {
-        '<leader>uB',
-        function()
-          helper.toggle_cmd('Scope highlight', { enable = 'EnableHLchunk', disable = 'DisableHLchunk' })
-        end,
-        desc = 'Toggle scope chunk highlight',
-      },
-
-      {
-        '<leader>ui',
-        function()
-          helper.toggle_cmd('Indention highlights', { enable = 'EnableHLindent', disable = 'DisableHLindent' }, true)
-        end,
-        desc = 'Toggle indention highlights',
-      },
-    },
-    config = conf('hlchunk'),
-  },
+  { 'lukas-reineke/indent-blankline.nvim', event = 'LazyFile', main = 'ibl', opts = {} },
   { 'echasnovski/mini.ai', event = 'VeryLazy', version = false, config = conf('mini-ai') },
   {
     'echasnovski/mini.surround',
@@ -602,6 +574,12 @@ return {
       end
     end,
     config = conf('notify'),
+  },
+  {
+    'rachartier/tiny-devicons-auto-colors.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    event = 'VeryLazy',
+    config = true,
   },
   {
     'folke/zen-mode.nvim',

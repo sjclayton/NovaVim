@@ -18,7 +18,7 @@ return {
   { 'rmagatti/alternate-toggler', enabled = true },
   { 'numToStr/Comment.nvim', enabled = true },
   { 'lewis6991/gitsigns.nvim', enabled = true },
-  { 'shellRaining/hlchunk.nvim', enabled = true },
+  { 'lukas-reineke/indent-blankline.nvim', enabled = true },
   { 'echasnovski/mini.ai', enabled = true },
   { 'echasnovski/mini.surround', enabled = true },
   { 'NeogitOrg/neogit', enabled = true },
@@ -57,6 +57,7 @@ return {
   { 'willothy/nvim-cokeline', enabled = true },
   { 'folke/noice.nvim', enabled = true },
   { 'rcarriga/nvim-notify', enabled = true },
+  { 'rachartier/tiny-devicons-auto-colors.nvim', enabled = true },
   { 'folke/zen-mode.nvim', enabled = true },
   -- Utils
   { 'tris203/hawtkeys.nvim', enabled = true },

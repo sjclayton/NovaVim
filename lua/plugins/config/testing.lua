@@ -10,6 +10,7 @@ return function()
   }, neotest_ns)
 
   local opts = {
+    log_level = vim.log.levels.TRACE,
     adapters = {
       require('neotest-go')({
         recursive_run = true,
