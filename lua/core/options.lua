@@ -20,6 +20,7 @@ o.foldmethod = 'expr'
 o.foldtext = "v:lua.require'core.util'.foldtext()"
 o.formatexpr = "v:lua.require'core.util'.formatexpr()"
 o.guicursor = ''
+o.ignorecase = true
 o.laststatus = 3
 o.linebreak = true
 o.listchars = { extends = '→', nbsp = '␣', precedes = '←', tab = '¬ ' }
@@ -31,11 +32,11 @@ o.numberwidth = 2
 o.pumheight = 10
 o.relativenumber = true
 o.ruler = false
-o.scrolloff = 8
+o.scrolloff = 10
 o.shiftwidth = 4
 o.shortmess:append('IWs')
 o.showmode = false
-o.sidescroll = 8
+o.sidescroll = 10
 o.signcolumn = 'yes'
 o.smartcase = true
 o.smartindent = true

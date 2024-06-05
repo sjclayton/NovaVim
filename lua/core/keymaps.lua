@@ -35,6 +35,10 @@ map('n', '<C-M-l>', ':vertical resize +5<CR>', { desc = 'Increase window width' 
 map('v', '<', '<gv')
 map('v', '>', '>gv')
 
+-- Commenting
+map('n', 'gco', 'o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>', { desc = 'Add comment below' })
+map('n', 'gcO', 'O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>', { desc = 'Add comment above' })
+
 -- Yanking and pasting
 map('x', '<leader>p', '"_dP', { desc = 'Paste preserved' })
 
@@ -51,6 +55,14 @@ map('v', '<a-k>', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
 -- Jumping
 map('n', '<BS>', '^', { desc = 'Start of line (non-blank)' })
 map('n', 'G', 'Gzz', { desc = 'Last line' })
+
+-- Scrolling
+map('n', '<C-d>', '<C-d>zz')
+map('n', '<C-u>', '<C-u>zz')
+
+-- Search navigation
+map('n', 'n', 'nzzzv')
+map('n', 'N', 'Nzzzv')
 
 -- Sorting
 map('v', '<leader>s', "<ESC><CMD>'<,'>sort<CR>", { desc = 'Sort visual selection' })

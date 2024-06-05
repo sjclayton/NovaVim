@@ -120,7 +120,6 @@ return {
     config = conf('alternatetoggler'),
   },
   { 'windwp/nvim-autopairs', event = 'InsertEnter', dependencies = 'hrsh7th/nvim-cmp', config = conf('autopairs') },
-  { 'numToStr/Comment.nvim', event = 'VeryLazy', config = true },
   { 'lewis6991/gitsigns.nvim', event = 'LazyFile', config = conf('gitsigns') },
   {
     'lukas-reineke/indent-blankline.nvim',
@@ -503,6 +502,7 @@ return {
     'nvim-treesitter/nvim-treesitter',
     event = { 'LazyFile', 'VeryLazy' },
     cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' },
+    build = ':TSUpdate',
     version = false,
     dependencies = {
       'HiPhish/rainbow-delimiters.nvim',
@@ -537,7 +537,7 @@ return {
       { '<C-space>', desc = 'Increment selection' },
       { '<BS>', desc = 'Decrement selection', mode = 'x' },
     },
-    build = ':TSUpdate',
+    lazy = vim.fn.argc(-1) == 0,
     init = function(plugin)
       require('lazy.core.loader').add_to_rtp(plugin)
       require('nvim-treesitter.query_predicates')

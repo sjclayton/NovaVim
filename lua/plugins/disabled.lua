@@ -16,7 +16,6 @@ return {
   { 'David-Kunz/gen.nvim', enabled = true },
   -- Coding
   { 'rmagatti/alternate-toggler', enabled = true },
-  { 'numToStr/Comment.nvim', enabled = true },
   { 'lewis6991/gitsigns.nvim', enabled = true },
   { 'lukas-reineke/indent-blankline.nvim', enabled = true },
   { 'echasnovski/mini.ai', enabled = true },

@@ -17,7 +17,7 @@ return function()
 
   -- Mason LSP Config
   mason_lsp.setup({
-    ensure_installed = { 'bashls', 'gopls', 'lua_ls', 'jedi_language_server', 'taplo', 'tsserver', 'zls' },
+    ensure_installed = { 'bashls', 'gopls', 'lua_ls', 'jedi_language_server', 'taplo', 'tsserver' },
   })
 
   -- Diagnostic format settings
@@ -214,7 +214,7 @@ return function()
     },
   })
 
-  -- configure zig server
+  -- configure zig server (manually installed)
   lspconfig['zls'].setup({
     capabilities = capabilities,
     on_attach = function(client, bufnr)
