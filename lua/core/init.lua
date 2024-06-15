@@ -31,10 +31,10 @@ util.lazy_notify()
 
 if util.has(Primary_Colorscheme) then
   require(Primary_Colorscheme)
-  if Colorscheme_Variant ~= '' or nil then
-    vim.cmd.colorscheme(Colorscheme_Variant)
-  else
+  if not Colorscheme_Variant or Colorscheme_Variant == '' then
     vim.cmd.colorscheme(Primary_Colorscheme)
+  else
+    vim.cmd.colorscheme(Colorscheme_Variant)
   end
 elseif util.has('rose-pine') then
   require('rose-pine')
