@@ -59,7 +59,6 @@ return {
   { 'rachartier/tiny-devicons-auto-colors.nvim', enabled = true },
   { 'folke/zen-mode.nvim', enabled = true },
   -- Utils
-  { 'tris203/hawtkeys.nvim', enabled = true },
   { 'echasnovski/mini.bufremove', enabled = true },
   { 'JManch/nomodoro', enabled = true },
   { 'nvim-neo-tree/neo-tree.nvim', enabled = true },

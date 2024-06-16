@@ -672,13 +672,6 @@ return {
     config = true,
   },
   {
-    'tris203/hawtkeys.nvim',
-    cmd = { 'Hawtkeys', 'HawtkeysAll', 'HawtkeysDupes' },
-    branch = 'issue81',
-    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
-    config = conf('hawtkeys'),
-  },
-  {
     'JManch/nomodoro',
     keys = {
       { '<leader>up', '<CMD>NomoWork<CR>', desc = 'Nomodoro - Start timer' },
