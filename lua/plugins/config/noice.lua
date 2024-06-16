@@ -1,8 +1,4 @@
 return function()
-  local fn = vim.fn
-  local marginTopPercent = 0.48
-  local verticalPad = fn.max({ 2, fn.floor(fn.winheight(0) * marginTopPercent) })
-
   local opts = {
     lsp = {
       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -15,41 +11,9 @@ return function()
         enabled = false,
       },
     },
-    smart_move = {
-      enabled = false,
-    },
     presets = {
+      command_palette = true,
       lsp_doc_border = true,
-    },
-    views = {
-      cmdline_popup = {
-        position = {
-          row = verticalPad,
-          col = '50%',
-        },
-        size = {
-          width = 60,
-          height = 'auto',
-        },
-      },
-      popupmenu = {
-        relative = 'editor',
-        position = {
-          row = verticalPad + 3,
-          col = '50%',
-        },
-        size = {
-          width = 60,
-          height = 10,
-        },
-        border = {
-          style = 'rounded',
-          padding = { 0, 1 },
-        },
-        win_options = {
-          winhighlight = { Normal = 'Normal', FloatBorder = 'NoiceCmdlinePopupBorder' },
-        },
-      },
     },
     routes = {
       {
