@@ -63,7 +63,7 @@ local toggle_state = {}
 -- Helper for enabling/disabling or toggling commands
 ---@param name string Name of the feature to toggle, used as display name for notifications.
 ---@param cmds table Contains commands required to enable/disable or toggle this feature.
----Expects: { enable=string, disable=string or toggle=string }
+---Expects: { enable=string, disable=string } or { toggle=string }
 ---@param default boolean? optional - Whether the feature is considered enabled by default. Default: false if not provided.
 ---@param silent boolean? optional - Whether to show notifications about toggled features.
 function M.toggle_cmd(name, cmds, default, silent)
