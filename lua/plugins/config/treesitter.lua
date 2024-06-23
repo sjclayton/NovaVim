@@ -132,6 +132,8 @@ return function()
     },
   })
 
+  vim.treesitter.language.register('bash', 'zsh')
+
   -- treesitter-context config
   local context = require('treesitter-context')
 

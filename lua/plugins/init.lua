@@ -15,6 +15,8 @@ return {
     keys = {
       { '<leader>hm', "<CMD>lua require('harpoon.mark').add_file()<CR>", desc = 'Mark file with harpoon' },
       { '<leader>ha', "<CMD>lua require('harpoon.ui').toggle_quick_menu()<CR>", desc = 'Show harpoon marks' },
+      { '<leader>hn', "<CMD>lua require('harpoon.ui').nav_next()<CR>", desc = 'Next harpoon mark' },
+      { '<leader>hp', "<CMD>lua require('harpoon.ui').nav_prev()<CR>", desc = 'Previous harpoon mark' },
       { '<leader>1', "<CMD>lua require('harpoon.ui').nav_file(1)<CR>", desc = 'Go to Harpoon File 1' },
       { '<leader>2', "<CMD>lua require('harpoon.ui').nav_file(2)<CR>", desc = 'Go to Harpoon File 2' },
       { '<leader>3', "<CMD>lua require('harpoon.ui').nav_file(3)<CR>", desc = 'Go to Harpoon File 3' },
@@ -461,9 +463,6 @@ return {
     'olexsmir/gopher.nvim',
     ft = { 'go', 'gomod' },
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
-    config = function()
-      require('gopher.dap').setup()
-    end,
   },
   -- Python
   {
