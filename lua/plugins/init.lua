@@ -386,26 +386,34 @@ return {
     'mfussenegger/nvim-dap',
     dependencies = {
       {
-        'rcarriga/nvim-dap-ui',
-        'nvim-neotest/nvim-nio',
-        opts = {},
-        -- stylua: ignore
-        keys = {
-          { '<leader>du', function() require('dapui').toggle() end, desc = 'Toggle DAP UI' },
-          { '<leader>de', function() require('dapui').eval() end, desc = 'Eval', mode = { 'n', 'v' } },
+        {
+          'rcarriga/nvim-dap-ui',
+          dependencies = 'nvim-neotest/nvim-nio',
+          opts = {},
+          -- stylua: ignore
+          keys = {
+            { '<leader>du', function() require('dapui').toggle() end, desc = 'Toggle DAP UI' },
+            { '<leader>de', function() require('dapui').eval() end, desc = 'Eval', mode = { 'n', 'v' } },
+          },
+          config = function(_, opts)
+            local dap = require('dap')
+            local dapui = require('dapui')
+            dapui.setup(opts)
+            -- stylua: ignore start
+            dap.listeners.after.event_initialized['dapui_config'] = function()
+              dapui.open({})
+            end
+            -- dap.listeners.before.event_terminated['dapui_config'] = function()
+            -- dapui.close({})
+            -- end
+            -- dap.listeners.before.event_exited['dapui_config'] = function()
+            -- dapui.close({})
+            -- end
+            -- stylua: ignore end
+          end,
         },
-        config = function(_, opts)
-          local dap = require('dap')
-          local dapui = require('dapui')
-          dapui.setup(opts)
-          -- stylua: ignore start
-          dap.listeners.after.event_initialized['dapui_config'] = dapui.open
-          -- dap.listeners.before.event_terminated['dapui_config'] = dapui.close
-          -- dap.listeners.before.event_exited['dapui_config'] = dapui.close
-          -- stylua: ignore end
-        end,
+        { 'theHamsta/nvim-dap-virtual-text', opts = {} },
       },
-      { 'theHamsta/nvim-dap-virtual-text', opts = {} },
     },
     -- stylua: ignore
     keys = {
