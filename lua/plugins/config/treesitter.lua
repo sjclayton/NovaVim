@@ -31,6 +31,7 @@ return function()
       'gomod',
       'gosum',
       'gowork',
+      'haskell',
       'html',
       'javascript',
       'json',

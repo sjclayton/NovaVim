@@ -430,14 +430,14 @@ return {
   -- Testing
   {
     'nvim-neotest/neotest',
-    ft = { 'go', 'python', 'rust', 'zig' },
+    ft = { 'go', 'haskell', 'rust', 'zig' },
     dependencies = {
       'nvim-neotest/nvim-nio',
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
       -- Adapters
+      'mrcjkb/neotest-haskell',
       'nvim-neotest/neotest-go',
-      'nvim-neotest/neotest-python',
       'rouge8/neotest-rust',
       'lawrence-laz/neotest-zig',
     },
@@ -463,18 +463,6 @@ return {
     'olexsmir/gopher.nvim',
     ft = { 'go', 'gomod' },
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
-  },
-  -- Python
-  {
-    'mfussenegger/nvim-dap-python',
-    ft = 'python',
-    dependencies = 'mfussenegger/nvim-dap',
-    config = function()
-      local mason_path = vim.fn.glob(vim.fn.stdpath('data') .. '/mason/')
-      pcall(function()
-        require('dap-python').setup(mason_path .. 'packages/debugpy/venv/bin/python')
-      end)
-    end,
   },
   -- Rust
   {

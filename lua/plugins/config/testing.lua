@@ -15,7 +15,7 @@ return function()
       require('neotest-go')({
         recursive_run = true,
       }),
-      require('neotest-python'),
+      require('neotest-haskell'),
       require('neotest-rust'),
       require('neotest-zig'),
     },

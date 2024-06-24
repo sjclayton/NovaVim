@@ -3,7 +3,6 @@ return function()
     javascript = { 'standardjs' },
     -- typescript = { 'eslint_d' },
     go = { 'golangcilint' },
-    python = { 'ruff' },
   }
 
   vim.api.nvim_create_augroup('nvim-lint', { clear = true })

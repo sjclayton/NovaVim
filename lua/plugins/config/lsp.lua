@@ -17,7 +17,7 @@ return function()
 
   -- Mason LSP Config
   mason_lsp.setup({
-    ensure_installed = { 'bashls', 'gopls', 'lua_ls', 'jedi_language_server', 'taplo', 'tsserver' },
+    ensure_installed = { 'bashls', 'gopls', 'lua_ls', 'taplo', 'tsserver' },
   })
 
   -- Diagnostic format settings
@@ -138,17 +138,6 @@ return function()
     },
   })
 
-  -- configure python server
-  lspconfig['jedi_language_server'].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-    init_options = {
-      diagnostics = {
-        enable = false,
-      },
-    },
-  })
-
   -- configure typescript server
   lspconfig['tsserver'].setup({
     capabilities = capabilities,
@@ -212,6 +201,12 @@ return function()
         },
       },
     },
+  })
+
+  -- configure haskell server (manually installed)
+  lspconfig['hls'].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
   })
 
   -- configure zig server (manually installed)

@@ -12,10 +12,12 @@ return function()
       -- General
       'bash-language-server',
       'codelldb',
+      'taplo',
       -- 'misspell',
       -- 'shfmt',
       -- Golang
       'delve',
+      'gofumpt',
       'goimports',
       'goimports-reviser',
       'golangci-lint',
@@ -32,12 +34,6 @@ return function()
       -- Lua
       'lua-language-server',
       'stylua',
-      -- Python
-      'black',
-      'debugpy',
-      'isort',
-      'jedi-language-server',
-      'ruff',
     },
 
     -- if set to true this will check each tool for updates. If updates

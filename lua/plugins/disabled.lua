@@ -41,7 +41,6 @@ return {
   -- Language Specific
   { 'Saecki/crates.nvim', enabled = true },
   { 'olexsmir/gopher.nvim', enabled = true },
-  { 'mfussenegger/nvim-dap-python', enabled = true },
   { 'mrcjkb/rustaceanvim', enabled = true },
   -- Treesitter
   { 'nvim-treesitter/nvim-treesitter', enabled = true },

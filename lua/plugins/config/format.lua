@@ -2,16 +2,13 @@ return function()
   local opts = {
     -- Define formatters
     formatters_by_ft = {
-      go = { 'goimports-reviser', 'goimports', 'gofmt' },
+      go = { 'goimports-reviser', 'goimports', 'gofumpt' },
       lua = { 'stylua' },
       -- javascript = { { "prettierd", "prettier" } },
       -- javascript = { { 'eslint_d', 'eslint' } },
       javascript = { 'standardjs' },
-      python = { --[[ 'isort',  ]]
-        'ruff_fix',
-      },
       rust = { 'rustfmt' },
-      -- zig = { 'zigfmt' },
+      zig = { 'zigfmt' },
       ['_'] = { 'trim_whitespace' },
     },
     -- Set up format-on-save
