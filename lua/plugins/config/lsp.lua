@@ -203,12 +203,6 @@ return function()
     },
   })
 
-  -- configure haskell server (manually installed)
-  lspconfig['hls'].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-  })
-
   -- configure zig server (manually installed)
   lspconfig['zls'].setup({
     capabilities = capabilities,

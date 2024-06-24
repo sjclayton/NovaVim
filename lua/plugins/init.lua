@@ -464,6 +464,14 @@ return {
     ft = { 'go', 'gomod' },
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
   },
+  -- Haskell
+  {
+    'mrcjkb/haskell-tools.nvim',
+    ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' },
+    version = '^3',
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+    config = conf('haskell-tools'),
+  },
   -- Rust
   {
     'Saecki/crates.nvim',
@@ -480,7 +488,7 @@ return {
   {
     'mrcjkb/rustaceanvim',
     ft = 'rust',
-    version = '^3',
+    version = '^4',
     config = conf('rustacean'),
   },
 
