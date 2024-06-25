@@ -10,8 +10,9 @@ return function()
       ---@param client number LSP client ID
       ---@param bufnr number Buffer number
       on_attach = function(client, bufnr)
+        -- import general LSP keymaps
         on_attach(client, bufnr)
-
+        -- set server specific keymaps
         map('n', '<leader>he', function()
           ht.lsp.buf_eval_all()
         end, { desc = 'Eval all (Haskell)', buffer = bufnr })
