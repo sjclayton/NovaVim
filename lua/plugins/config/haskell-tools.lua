@@ -12,6 +12,16 @@ return function()
       on_attach = function(client, bufnr)
         -- import general LSP keymaps
         on_attach(client, bufnr)
+        -- set server specific keymap overrides
+        map('n', '<leader>lS', function()
+          ht.lsp.start()
+        end, { desc = 'Start LSP', buffer = bufnr })
+        map('n', '<leader>ls', function()
+          ht.lsp.stop()
+        end, { desc = 'Stop LSP', buffer = bufnr })
+        map('n', '<leader>lr', function()
+          ht.lsp.restart()
+        end, { desc = 'Restart LSP', buffer = bufnr })
         -- set server specific keymaps
         map('n', '<leader>he', function()
           ht.lsp.buf_eval_all()

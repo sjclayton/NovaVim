@@ -8,7 +8,6 @@ return function()
       -- javascript = { { 'eslint_d', 'eslint' } },
       javascript = { 'standardjs' },
       rust = { 'rustfmt' },
-      zig = { 'zigfmt' },
       ['_'] = { 'trim_whitespace' },
     },
     -- Set up format-on-save

@@ -207,7 +207,7 @@ return function()
   lspconfig['zls'].setup({
     capabilities = capabilities,
     on_attach = function(client, bufnr)
-      -- handle zigfmt through conform instead
+      -- handle zigfmt through conform lsp fallback instead
       vim.g.zig_fmt_autosave = 0
 
       on_attach(client, bufnr)
