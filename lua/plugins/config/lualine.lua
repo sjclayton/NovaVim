@@ -172,7 +172,7 @@ return function()
       lualine_y = {},
       lualine_z = {},
     },
-    extensions = { 'lazy', 'mason', 'neo-tree', 'trouble' },
+    extensions = { 'lazy', 'mason', 'neo-tree', 'nvim-dap-ui', 'toggleterm', 'trouble' },
   }
 
   require('lualine').setup(opts)

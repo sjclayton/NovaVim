@@ -428,7 +428,6 @@ return {
           end,
         },
         { 'theHamsta/nvim-dap-virtual-text', opts = {} },
-        { 'leoluz/nvim-dap-go', opts = {} },
       },
     },
     -- stylua: ignore
@@ -488,6 +487,7 @@ return {
     ft = { 'go', 'gomod' },
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
   },
+  { 'leoluz/nvim-dap-go', ft = 'go', opts = {} },
   -- Haskell
   {
     'mrcjkb/haskell-tools.nvim',
