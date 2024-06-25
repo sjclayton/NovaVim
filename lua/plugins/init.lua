@@ -413,6 +413,7 @@ return {
           end,
         },
         { 'theHamsta/nvim-dap-virtual-text', opts = {} },
+        { 'leoluz/nvim-dap-go', opts = {} },
       },
     },
     -- stylua: ignore
@@ -444,8 +445,8 @@ return {
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
       -- Adapters
+      'fredrikaverpil/neotest-golang',
       'mrcjkb/neotest-haskell',
-      'nvim-neotest/neotest-go',
       'rouge8/neotest-rust',
       'lawrence-laz/neotest-zig',
     },
