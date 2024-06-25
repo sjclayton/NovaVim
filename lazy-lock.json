@@ -76,6 +76,7 @@
   "telescope.nvim": { "branch": "master", "commit": "58ec6eca1c3704d130d749843e16fbf6c8cdc57e" },
   "tiny-devicons-auto-colors.nvim": { "branch": "main", "commit": "9be4af5b1bc1f26a11206ed7ce8bf44312e7941a" },
   "todo-comments.nvim": { "branch": "main", "commit": "51e10f838e84b4756c16311d0b1ef0972c6482d2" },
+  "toggleterm.nvim": { "branch": "main", "commit": "066cccf48a43553a80a210eb3be89a15d789d6e6" },
   "tokyonight": { "branch": "main", "commit": "30d7be361a7fbf187a881f17e574e9213d5108ea" },
   "treesj": { "branch": "main", "commit": "f98deb33805485b56a8d44d1a27d16874af00d7f" },
   "trouble.nvim": { "branch": "main", "commit": "88c3be40c061ce053ab326ce4fdcb973a1f785ff" },

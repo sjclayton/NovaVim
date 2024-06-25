@@ -175,6 +175,15 @@ wk.register({
   },
   u = {
     name = icons.ui.UI .. 'UI/Utils',
+    a = {
+      function()
+        helper.toggle_cmd('Auto pairs', {
+          enable = 'lua require("nvim-autopairs").enable()',
+          disable = 'lua require("nvim-autopairs").disable()',
+        }, true, false)
+      end,
+      'Toggle auto pairs',
+    },
     c = {
       function()
         helper.toggle_cmd('listchars', { enable = 'set list', disable = 'set nolist' })

@@ -127,6 +127,20 @@ return {
     'lukas-reineke/indent-blankline.nvim',
     event = 'LazyFile',
     main = 'ibl',
+    opts = {
+      exclude = {
+        filetypes = {
+          'help',
+          'neo-tree',
+          'Trouble',
+          'trouble',
+          'lazy',
+          'mason',
+          'notify',
+          'toggleterm',
+        },
+      },
+    },
     keys = {
       {
         '<leader>ub',
@@ -143,8 +157,8 @@ return {
         desc = 'Toggle indention highlights',
       },
     },
-    config = function()
-      require('ibl').setup()
+    config = function(_, opts)
+      require('ibl').setup(opts)
 
       vim.cmd('IBLToggleScope')
     end,
@@ -392,6 +406,7 @@ return {
           opts = {},
           -- stylua: ignore
           keys = {
+            { '<leader>ctd', function() require('neotest').run.run({strategy = 'dap'}) end, desc = 'Debug nearest test' },
             { '<leader>du', function() require('dapui').toggle() end, desc = 'Toggle DAP UI' },
             { '<leader>de', function() require('dapui').eval() end, desc = 'Eval', mode = { 'n', 'v' } },
           },
@@ -786,6 +801,7 @@ return {
     },
     config = conf('telescope'),
   },
+  { 'akinsho/toggleterm.nvim', version = '*', cmd = { 'ToggleTerm' }, config = true },
   {
     'alexghergh/nvim-tmux-navigation',
     opts = {

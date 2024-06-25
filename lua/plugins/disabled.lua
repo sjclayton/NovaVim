@@ -64,6 +64,7 @@ return {
   { 'nvim-neo-tree/neo-tree.nvim', enabled = true },
   { 'nyngwang/NeoZoom.lua', name = 'neo-zoom', enabled = true },
   { 'nvim-telescope/telescope.nvim', enabled = true },
+  { 'akinsho/toggleterm.nvim', enabled = true },
   { 'alexghergh/nvim-tmux-navigation', enabled = true },
   { 'wakatime/vim-wakatime', enabled = true },
   { 'folke/which-key.nvim', enabled = true },

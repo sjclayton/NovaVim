@@ -10,7 +10,7 @@ return function()
   }, neotest_ns)
 
   local opts = {
-    log_level = vim.log.levels.TRACE,
+    -- log_level = vim.log.levels.TRACE,
     adapters = {
       ['neotest-golang'] = { dap_go_enabled = true },
       ['neotest-haskell'] = {},

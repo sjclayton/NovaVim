@@ -4,6 +4,7 @@ local on_attach = require('plugins.config.lsp.keymaps').on_attach
 return function()
   local opts = {
     tools = {
+      executor = 'toggleterm',
       hover_actions = {
         replace_builtin_hover = false,
         max_width = 80,
