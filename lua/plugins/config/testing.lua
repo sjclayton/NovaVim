@@ -10,14 +10,12 @@ return function()
   }, neotest_ns)
 
   local opts = {
-    -- log_level = vim.log.levels.TRACE,
+    log_level = vim.log.levels.TRACE,
     adapters = {
-      require('neotest-go')({
-        recursive_run = true,
-      }),
-      require('neotest-haskell'),
-      require('neotest-rust'),
-      require('neotest-zig'),
+      ['neotest-golang'] = { dap_go_enabled = true },
+      ['neotest-haskell'] = {},
+      ['neotest-rust'] = {},
+      ['neotest-zig'] = {},
     },
     icons = {
       passed = '',
@@ -28,6 +26,32 @@ return function()
       open = 'botright vsplit | vertical resize 35',
     },
   }
+
+  if opts.adapters then
+    local adapters = {}
+    for name, config in pairs(opts.adapters or {}) do
+      if type(name) == 'number' then
+        if type(config) == 'string' then
+          config = require(config)
+        end
+        adapters[#adapters + 1] = config
+      elseif config ~= false then
+        local adapter = require(name)
+        if type(config) == 'table' and not vim.tbl_isempty(config) then
+          local meta = getmetatable(adapter)
+          if adapter.setup then
+            adapter.setup(config)
+          elseif meta and meta.__call then
+            adapter(config)
+          else
+            error('Adapter ' .. name .. ' does not support setup')
+          end
+        end
+        adapters[#adapters + 1] = adapter
+      end
+    end
+    opts.adapters = adapters
+  end
 
   require('neotest').setup(opts)
 end
