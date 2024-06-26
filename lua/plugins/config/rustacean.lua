@@ -11,6 +11,9 @@ return function()
         max_height = 18,
         auto_focus = true,
       },
+      float_win_config = {
+        border = 'rounded',
+      },
     },
     server = {
       on_attach = function(client, bufnr)

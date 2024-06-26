@@ -121,7 +121,12 @@ return {
     },
     config = conf('alternatetoggler'),
   },
-  { 'windwp/nvim-autopairs', event = 'InsertEnter', dependencies = 'hrsh7th/nvim-cmp', config = conf('autopairs') },
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'hrsh7th/nvim-cmp' },
+    config = conf('autopairs'),
+  },
   { 'lewis6991/gitsigns.nvim', event = 'LazyFile', config = conf('gitsigns') },
   {
     'lukas-reineke/indent-blankline.nvim',
@@ -238,10 +243,10 @@ return {
     'rgroli/other.nvim',
     cmd = { 'Other', 'OtherTabNew', 'OtherSplit', 'OtherVSplit' },
     keys = {
-      { '<leader>oo', '<CMD>Other<CR>', desc = 'Open other file' },
-      { '<leader>ot', '<CMD>Other test<CR>', desc = 'Open test file' },
-      { '<leader>ov', '<CMD>OtherVSplit<CR>', desc = 'Open other file (vsplit)' },
-      { '<leader>oh', '<CMD>OtherSplit<CR>', desc = 'Open other file (split)' },
+      { '<leader>oo', '<CMD>Other<CR>', desc = 'Open other file', ft = { 'go' } },
+      { '<leader>ot', '<CMD>Other test<CR>', desc = 'Open test file', ft = { 'go' } },
+      { '<leader>ov', '<CMD>OtherVSplit<CR>', desc = 'Open other file (vsplit)', ft = { 'go' } },
+      { '<leader>oh', '<CMD>OtherSplit<CR>', desc = 'Open other file (split)', ft = { 'go' } },
     },
     config = conf('other-nvim'),
   },
@@ -580,7 +585,7 @@ return {
       end
     end,
   },
-  { 'j-hui/fidget.nvim', tag = 'v1.2.0', event = 'LspAttach', config = conf('fidget') },
+  { 'j-hui/fidget.nvim', event = 'LspAttach', config = conf('fidget') },
   {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
@@ -805,7 +810,10 @@ return {
     'akinsho/toggleterm.nvim',
     version = '*',
     cmd = 'ToggleTerm',
-    keys = { { '<C-\\>', '<CMD>ToggleTerm<CR>', desc = 'Open Terminal' } },
+    keys = {
+      { '<leader>=', '<CMD>ToggleTerm direction=horizontal<CR>', desc = 'Open terminal' },
+      { '<leader>\\', '<CMD>ToggleTerm direction=vertical<CR>', desc = 'Open terminal (vertical)' },
+    },
     config = conf('toggleterm'),
   },
   {

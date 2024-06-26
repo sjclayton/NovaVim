@@ -6,6 +6,7 @@ return function()
     vim.keymap.set('t', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
     vim.keymap.set('t', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
     vim.keymap.set('t', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
+    vim.keymap.set('t', '<C-q>', [[<C-\><C-n><C-W>q]], opts)
   end
 
   vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')

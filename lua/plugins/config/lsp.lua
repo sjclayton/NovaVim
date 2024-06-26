@@ -191,10 +191,11 @@ return function()
         format = { enable = false },
         hint = {
           enable = true,
+          setType = false,
           paramType = true,
-          paramName = 'Literal',
+          paramName = 'Disable',
+          semicolon = 'Disable',
           arrayIndex = 'Disable',
-          setType = true,
         },
         workspace = {
           checkThirdParty = 'Disable',
