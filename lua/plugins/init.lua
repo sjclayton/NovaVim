@@ -610,7 +610,7 @@ return {
   {
     'rcarriga/nvim-notify',
     init = function()
-      -- If noice is not enabled, Load notify on VeryLazy
+      -- If noice is not enabled, load notify on VeryLazy
       if not util.has('noice.nvim') then
         util.on_very_lazy(function()
           vim.notify = require('notify')
@@ -801,7 +801,13 @@ return {
     },
     config = conf('telescope'),
   },
-  { 'akinsho/toggleterm.nvim', version = '*', cmd = { 'ToggleTerm' }, config = true },
+  {
+    'akinsho/toggleterm.nvim',
+    version = '*',
+    cmd = 'ToggleTerm',
+    keys = { { '<C-\\>', '<CMD>ToggleTerm<CR>', desc = 'Open Terminal' } },
+    config = conf('toggleterm'),
+  },
   {
     'alexghergh/nvim-tmux-navigation',
     opts = {
@@ -812,7 +818,7 @@ return {
       { '<C-j>', '<CMD>NvimTmuxNavigateDown<CR>', desc = 'TmuxNavigateDown' },
       { '<C-k>', '<CMD>NvimTmuxNavigateUp<CR>', desc = 'TmuxNavigateUp' },
       { '<C-l>', '<CMD>NvimTmuxNavigateRight<CR>', desc = 'TmuxNavigateRight' },
-      { '<C-\\>', '<CMD>NvimTmuxNavigateLastActive<CR>', desc = 'TmuxNavigateLast' },
+      { '<C-p>', '<CMD>NvimTmuxNavigateLastActive<CR>', desc = 'TmuxNavigateLast' },
     },
     config = true,
   },
