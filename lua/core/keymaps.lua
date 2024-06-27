@@ -96,8 +96,10 @@ map('n', '<leader>qs', '<CMD>wq<CR>', { desc = 'Save and quit' })
 wk.register({
   b = {
     name = icons.ui.Files .. 'Buffers',
-    j = { '<Plug>(cokeline-pick-focus)', 'Jump to buffer' },
+    d = { LazyVim.ui.bufremove, 'Delete buffer' },
+    D = { '<CMD>:bd<CR>', 'Delete buffer and window' },
     c = { '<Plug>(cokeline-pick-close)', 'Pick buffer to close' },
+    j = { '<Plug>(cokeline-pick-focus)', 'Jump to buffer' },
     n = { '<Plug>(cokeline-focus-next)', 'Cycle next buffer' },
     p = { '<Plug>(cokeline-focus-prev)', 'Cycle previous buffer' },
   },
