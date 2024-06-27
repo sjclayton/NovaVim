@@ -436,14 +436,21 @@ function M.statuscolumn()
   local is_num = vim.wo[win].number
   local is_relnum = vim.wo[win].relativenumber
   if (is_num or is_relnum) and vim.v.virtnum == 0 then
-    if vim.v.relnum == 0 then
-      components[2] = is_num and '%l' or '%r' -- the current line
+    if vim.fn.has('nvim-0.11') == 1 then
+      components[2] = '%l' -- 0.11 hangles both the current and other lines with %l
     else
-      components[2] = is_relnum and '%r' or '%l' -- other lines
+      if vim.v.relnum == 0 then
+        components[2] = is_num and '%l' or '%r' -- the current line
+      else
+        components[2] = is_relnum and '%r' or '%l' -- other lines
+      end
     end
     components[2] = '%=' .. components[2] .. ' ' -- right align
   end
 
+  if vim.v.virtnum ~= 0 then
+    components[2] = '%= '
+  end
   return table.concat(components, '')
 end
 
@@ -504,7 +511,6 @@ function M.get_hex(name, attr)
   end
   return hl[attr]
 end
-
 function M.get_hl(name)
   local hl = vim.api.nvim_get_hl(0, { name = name })
   if not hl then
