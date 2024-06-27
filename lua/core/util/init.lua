@@ -7,18 +7,6 @@ local M = {}
 -- Options for LazyFile event (M.lazy_file())
 M.lazy_file_events = { 'BufReadPost', 'BufNewFile', 'BufWritePre' }
 
-function M.fg(name)
-  ---@type {foreground?:number}?
-  local hl = vim.api.nvim_get_hl and vim.api.nvim_get_hl(0, { name = name }) or vim.api.nvim_get_hl_by_name(name, true)
-  local fg = hl and hl.fg or hl.foreground
-  return fg and { fg = string.format('#%06x', fg) }
-end
-
----@param plugin string
-function M.has(plugin)
-  return require('lazy.core.config').spec.plugins[plugin] ~= nil
-end
-
 function M.lazy_file()
   -- This autocmd will only trigger when a file was loaded from the cmdline.
   -- It will render the file as quickly as possible.
@@ -70,77 +58,8 @@ function M.load(name)
   vim.api.nvim_exec_autocmds('User', { pattern = pattern, modeline = false })
 end
 
----@alias lsp.Client.filter {id?: number, bufnr?: number, name?: string, method?: string, filter?:fun(client: lsp.Client):boolean}
----@param opts? lsp.Client.filter
-function M.get_clients(opts)
-  local ret = {} ---@type lsp.Client[]
-  if vim.lsp.get_clients then
-    ret = vim.lsp.get_clients(opts)
-  else
-    ---@diagnostic disable-next-line: deprecated
-    ret = vim.lsp.get_active_clients(opts)
-    if opts and opts.method then
-      ---@param client lsp.Client
-      ret = vim.tbl_filter(function(client)
-        return client.supports_method(opts.method, { bufnr = opts.bufnr })
-      end, ret)
-    end
-  end
-  return opts and opts.filter and vim.tbl_filter(opts.filter, ret) or ret
-end
-
----@param on_attach fun(client, buffer)
-function M.on_attach(on_attach)
-  vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(args)
-      local buffer = args.buf ---@type number
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      on_attach(client, buffer)
-    end,
-  })
-end
-
----@param name string
----@param fn fun(name:string)
-function M.on_load(name, fn)
-  local Config = require('lazy.core.config')
-  if Config.plugins[name] and Config.plugins[name]._.loaded then
-    fn(name)
-  else
-    vim.api.nvim_create_autocmd('User', {
-      pattern = 'LazyLoad',
-      callback = function(event)
-        if event.data == name then
-          fn(name)
-          return true
-        end
-      end,
-    })
-  end
-end
-
-function M.on_rename(from, to)
-  local clients = M.get_clients()
-  for _, client in ipairs(clients) do
-    if client.supports_method('workspace/willRenameFiles') then
-      ---@diagnostic disable-next-line: invisible
-      local resp = client.request_sync('workspace/willRenameFiles', {
-        files = {
-          {
-            oldUri = vim.uri_from_fname(from),
-            newUri = vim.uri_from_fname(to),
-          },
-        },
-      }, 1000, 0)
-      if resp and resp.result ~= nil then
-        vim.lsp.util.apply_workspace_edit(resp.result, client.offset_encoding)
-      end
-    end
-  end
-end
-
 -- this will return a function that calls telescope.
--- cwd will default to core.util.get_root()
+-- cwd will default to LazyVim.root.get()
 -- for `files`, git_files or find_files will be chosen depending on .git
 function M.telescope(builtin, opts)
   local params = { builtin = builtin, opts = opts }
@@ -175,7 +94,7 @@ function M.telescope(builtin, opts)
 end
 
 ---
---- END of Lazy util functions
+--- END of LazyVim util functions
 ---
 
 function M.dap_run_args(config)
@@ -196,6 +115,7 @@ function M.get_hex(name, attr)
   end
   return hl[attr]
 end
+
 function M.get_hl(name)
   local hl = vim.api.nvim_get_hl(0, { name = name })
   if not hl then

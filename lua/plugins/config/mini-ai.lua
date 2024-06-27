@@ -16,7 +16,7 @@ return function()
   require('mini.ai').setup(opts)
 
   -- register all text objects with which-key
-  require('core.util').on_load('which-key.nvim', function()
+  LazyVim.on_load('which-key.nvim', function()
     ---@type table<string, string|table>
     local i = {
       [' '] = 'Whitespace',

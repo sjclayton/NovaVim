@@ -1,7 +1,6 @@
 local helper = require('core.helpers')
 local icons = require('core.icons')
 local map = require('core.helpers').map
-local util = require('core.util')
 
 local wk = require('which-key')
 
@@ -18,7 +17,7 @@ map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = tru
 -- Better window navigation
 map('n', '<C-q>', '<C-w>q', { desc = 'Close window' })
 
-if not util.has('nvim-tmux-navigation') then
+if not LazyVim.has('nvim-tmux-navigation') then
   map('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
   map('n', '<C-j>', '<C-w>j', { desc = 'Move to lower window' })
   map('n', '<C-k>', '<C-w>k', { desc = 'Move to upper window' })

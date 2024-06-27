@@ -71,14 +71,14 @@ return function()
         LazyVim.lualine.root_dir(),
         { 'filetype', icon_only = true, separator = '', padding = { left = 1, right = 0 } },
         {
-          LazyVim.lualine.pretty_path(),
+          LazyVim.lualine.pretty_path({ readonly_icon = '' }),
           padding = { left = 0, right = 1 },
         },
         {
           custom_components.modified,
           padding = { right = 1 },
           color = function()
-            local fg = theme_hl(util.fg('String'))
+            local fg = theme_hl(LazyVim.ui.fg('String'))
             if fg ~= nil then
               return fg
             end
@@ -88,7 +88,7 @@ return function()
           custom_components.is_writable,
           padding = { left = 0 },
           color = function()
-            local fg = theme_hl(util.fg('Error'))
+            local fg = theme_hl(LazyVim.ui.fg('Error'))
             if fg ~= nil then
               return fg
             end
@@ -103,7 +103,7 @@ return function()
           cond = function()
             return package.loaded['noice'] and require('noice').api.status.command.has()
           end,
-          color = util.fg('Tag'),
+          color = LazyVim.ui.fg('Tag'),
         },
         {
           function()
@@ -112,9 +112,9 @@ return function()
           cond = function()
             return package.loaded['noice'] and require('noice').api.status.mode.has()
           end,
-          color = util.fg('Macro'),
+          color = LazyVim.ui.fg('Macro'),
         },
-        { require('lazy.status').updates, cond = require('lazy.status').has_updates, color = util.fg('Special') },
+        { require('lazy.status').updates, cond = require('lazy.status').has_updates, color = LazyVim.ui.fg('Special') },
         {
           function()
             if package.loaded['nomodoro'] then
@@ -124,7 +124,7 @@ return function()
             end
           end,
           color = function()
-            local fg = theme_hl(util.fg('Keyword'))
+            local fg = theme_hl(LazyVim.ui.fg('Keyword'))
             if fg ~= nil then
               return fg
             end
@@ -137,7 +137,7 @@ return function()
           util.lsp_client_names,
           icon = icons.ui.Gear,
           color = function()
-            local fg = theme_hl(util.fg('ModeMsg'))
+            local fg = theme_hl(LazyVim.ui.fg('ModeMsg'))
             if fg ~= nil then
               return fg
             end
@@ -150,7 +150,7 @@ return function()
           cond = util.treesitter_available,
           icon = icons.ui.Braces,
           color = function()
-            local fg = theme_hl(util.fg('String'))
+            local fg = theme_hl(LazyVim.ui.fg('String'))
             if fg ~= nil then
               return fg
             end

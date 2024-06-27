@@ -28,7 +28,7 @@ require('lazy').setup({
     -- import LazyVim utility functions without it's plugins
     -- WARN: Do NOT try import LazyVim's default plugins or extras, NovaVim is configured
     -- fundamentally differently, things will break!
-    { 'LazyVim/LazyVim', lazy = false },
+    { 'LazyVim/LazyVim', priority = 10000, lazy = false, version = '*' },
     -- import NovaVim plugins
     { import = 'plugins' },
   },

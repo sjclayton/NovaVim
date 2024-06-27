@@ -765,7 +765,7 @@ return {
         build = 'make',
         enabled = vim.fn.executable('make') == 1,
         config = function()
-          util.on_load('telescope.nvim', function()
+          LazyVim.on_load('telescope.nvim', function()
             require('telescope').load_extension('fzf')
           end)
         end,
@@ -827,7 +827,7 @@ return {
       { '<C-j>', '<CMD>NvimTmuxNavigateDown<CR>', desc = 'TmuxNavigateDown' },
       { '<C-k>', '<CMD>NvimTmuxNavigateUp<CR>', desc = 'TmuxNavigateUp' },
       { '<C-l>', '<CMD>NvimTmuxNavigateRight<CR>', desc = 'TmuxNavigateRight' },
-      { '<C-p>', '<CMD>NvimTmuxNavigateLastActive<CR>', desc = 'TmuxNavigateLast' },
+      { '<C-\\>', '<CMD>NvimTmuxNavigateLastActive<CR>', desc = 'TmuxNavigateLast' },
     },
     config = true,
   },
