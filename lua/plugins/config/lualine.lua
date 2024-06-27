@@ -29,6 +29,10 @@ return function()
       end
     end,
   }
+
+  local lualine_require = require('lualine_require')
+  lualine_require.require = require
+
   _G.lualine_components = custom_components
 
   vim.o.laststatus = vim.g.lualine_laststatus

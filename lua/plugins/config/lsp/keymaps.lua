@@ -1,5 +1,4 @@
 local map = require('core.helpers').map
-local inlay_hints = require('core.helpers').inlay_hints
 
 local M = {}
 
@@ -83,7 +82,7 @@ M.on_attach = function(client, bufnr)
   if M.has(bufnr, 'inlayHint') then
     opts.desc = 'Toggle inlay hints'
     map('n', '<leader>uh', function()
-      inlay_hints()
+      LazyVim.toggle.inlay_hints()
     end, opts)
   end
 end

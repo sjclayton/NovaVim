@@ -25,6 +25,8 @@ util.lazy_file()
 
 require('lazy').setup({
   spec = {
+    -- lock lazy.nvim to latest stable version
+    { 'folke/lazy.nvim', version = '*' },
     -- import LazyVim utility functions without it's plugins
     -- WARN: Do NOT try import LazyVim's default plugins or extras, NovaVim is configured
     -- fundamentally differently, things will break!

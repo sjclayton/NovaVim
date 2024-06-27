@@ -198,20 +198,20 @@ wk.register({
     I = { vim.show_pos, 'Inspect position' },
     n = {
       function()
-        helper.number()
+        LazyVim.toggle.number()
       end,
       'Toggle line numbers',
     },
     N = {
       function()
-        helper.toggle_opt('relativenumber')
+        LazyVim.toggle.option('relativenumber')
       end,
       'Toggle relative line numbers',
     },
     l = { '<CMD>Lazy<CR>', 'Open Lazy' },
     s = {
       function()
-        helper.toggle_opt('spell')
+        LazyVim.toggle.option('spell')
       end,
       'Toggle spell check',
     },
@@ -240,7 +240,7 @@ wk.register({
     },
     w = {
       function()
-        helper.toggle_opt('wrap')
+        LazyVim.toggle.option('wrap')
       end,
       'Toggle word wrap',
     },

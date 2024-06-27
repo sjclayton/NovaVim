@@ -1,8 +1,7 @@
 local g = vim.g
 local o = vim.opt
 
-vim.g.root_spec = { 'lsp', { '.git', 'lua' }, 'cwd' }
-
+g.root_spec = { 'lsp', { '.git', 'lua' }, 'cwd' }
 g.markdown_recommended_style = 0
 
 o.backup = false
@@ -37,7 +36,6 @@ o.sidescroll = 10
 o.signcolumn = 'yes'
 o.smartcase = true
 o.smartindent = true
-o.smoothscroll = true
 o.spelllang = 'en'
 o.splitbelow = true
 o.splitright = true

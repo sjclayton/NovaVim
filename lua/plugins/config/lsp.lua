@@ -1,6 +1,5 @@
 return function()
   local icons = require('core.icons')
-  local inlay_hints = require('core.helpers').inlay_hints
 
   local lspconfig = require('lspconfig')
   local lspconfig_ui = require('lspconfig.ui.windows')
@@ -58,13 +57,14 @@ return function()
     'go',
     -- 'rust',
   }
+
   vim.api.nvim_create_autocmd('LspAttach', {
     callback = function()
       local buf = vim.api.nvim_get_current_buf()
       local ft = vim.bo[buf].filetype
 
       if vim.tbl_contains(inlay_ft, ft) then
-        inlay_hints(buf, true)
+        LazyVim.toggle.inlay_hints(buf, true)
       end
     end,
   })
