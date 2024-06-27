@@ -1,11 +1,10 @@
 local M = {}
 
 ---
---- BEGIN Lazy util functions
+--- Load some LazyVim util functions early
 ---
 
 -- Options for LazyFile event (M.lazy_file())
-M.use_lazy_file = true
 M.lazy_file_events = { 'BufReadPost', 'BufNewFile', 'BufWritePre' }
 
 -- Options for M.get_root()
@@ -18,161 +17,42 @@ function M.fg(name)
   return fg and { fg = string.format('#%06x', fg) }
 end
 
-function M.foldtext()
-  local ok = pcall(vim.treesitter.get_parser, vim.api.nvim_get_current_buf())
-  local ret = ok and vim.treesitter.foldtext and vim.treesitter.foldtext()
-  if not ret or type(ret) == 'string' then
-    ret = { { vim.api.nvim_buf_get_lines(0, vim.v.lnum - 1, vim.v.lnum, false)[1], {} } }
-  end
-  table.insert(ret, {
-    ' ',--[[ .. require('core.icons').ui.Dots  ]]
-  })
-
-  if not vim.treesitter.foldtext then
-    return table.concat(
-      vim.tbl_map(function(line)
-        return line[1]
-      end, ret),
-      ' '
-    )
-  end
-  return ret
-end
-
-function M.formatexpr()
-  if M.has('conform.nvim') then
-    return require('conform').formatexpr()
-  end
-  return vim.lsp.formatexpr({ timeout_ms = 3000 })
-end
-
-M.skip_foldexpr = {} ---@type table<number,boolean>
-local skip_check = assert(vim.loop.new_check())
-
-function M.foldexpr()
-  local buf = vim.api.nvim_get_current_buf()
-
-  -- still in the same tick and no parser
-  if M.skip_foldexpr[buf] then
-    return '0'
-  end
-
-  -- don't use treesitter folds for non-file buffers
-  if vim.bo[buf].buftype ~= '' then
-    return '0'
-  end
-
-  -- as long as we don't have a filetype, don't bother
-  -- checking if treesitter is available (it won't)
-  if vim.bo[buf].filetype == '' then
-    return '0'
-  end
-
-  local ok = pcall(vim.treesitter.get_parser, buf)
-
-  if ok then
-    return vim.treesitter.foldexpr()
-  end
-
-  -- no parser available, so mark it as skip
-  -- in the next tick, all skip marks will be reset
-  M.skip_foldexpr[buf] = true
-  skip_check:start(function()
-    M.skip_foldexpr = {}
-    skip_check:stop()
-  end)
-  return '0'
-end
-
-function M.get_mark(buf, lnum)
-  local marks = vim.fn.getmarklist(buf)
-  vim.list_extend(marks, vim.fn.getmarklist())
-  for _, mark in ipairs(marks) do
-    if mark.pos[1] == buf and mark.pos[2] == lnum and mark.mark:match('[a-zA-Z]') then
-      return { text = mark.mark:sub(2), texthl = 'DiagnosticHint' }
-    end
-  end
-end
-
 ---@param plugin string
 function M.has(plugin)
   return require('lazy.core.config').spec.plugins[plugin] ~= nil
 end
 
-function M.icon(sign, len)
-  sign = sign or {}
-  len = len or 2
-  local text = vim.fn.strcharpart(sign.text or '', 0, len) ---@type string
-  text = text .. string.rep(' ', len - vim.fn.strchars(text))
-  return sign.texthl and ('%#' .. sign.texthl .. '#' .. text .. '%*') or text
-end
-
--- Properly load file based plugins without blocking the UI
 function M.lazy_file()
-  M.use_lazy_file = M.use_lazy_file and vim.fn.argc(-1) > 0
+  -- This autocmd will only trigger when a file was loaded from the cmdline.
+  -- It will render the file as quickly as possible.
+  vim.api.nvim_create_autocmd('BufReadPost', {
+    once = true,
+    callback = function(event)
+      -- Skip if we already entered vim
+      if vim.v.vim_did_enter == 1 then
+        return
+      end
+
+      -- Try to guess the filetype (may change later on during Neovim startup)
+      local ft = vim.filetype.match({ buf = event.buf })
+      if ft then
+        -- Add treesitter highlights and fallback to syntax
+        local lang = vim.treesitter.language.get_lang(ft)
+        if not (lang and pcall(vim.treesitter.start, event.buf, lang)) then
+          vim.bo[event.buf].syntax = ft
+        end
+
+        -- Trigger early redraw
+        vim.cmd([[redraw]])
+      end
+    end,
+  })
 
   -- Add support for the LazyFile event
   local Event = require('lazy.core.handler.event')
 
-  if M.use_lazy_file then
-    -- We'll handle delayed execution of events ourselves
-    Event.mappings.LazyFile = { id = 'LazyFile', event = 'User', pattern = 'LazyFile' }
-    Event.mappings['User LazyFile'] = Event.mappings.LazyFile
-  else
-    -- Don't delay execution of LazyFile events, but let lazy know about the mapping
-    Event.mappings.LazyFile = { id = 'LazyFile', event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' } }
-    Event.mappings['User LazyFile'] = Event.mappings.LazyFile
-    return
-  end
-
-  local events = {} ---@type {event: string, buf: number, data?: any}[]
-
-  local done = false
-  local function load()
-    if #events == 0 or done then
-      return
-    end
-    done = true
-    vim.api.nvim_del_augroup_by_name('lazy_file')
-
-    ---@type table<string,string[]>
-    local skips = {}
-    for _, event in ipairs(events) do
-      skips[event.event] = skips[event.event] or Event.get_augroups(event.event)
-    end
-
-    vim.api.nvim_exec_autocmds('User', { pattern = 'LazyFile', modeline = false })
-    for _, event in ipairs(events) do
-      if vim.api.nvim_buf_is_valid(event.buf) then
-        Event.trigger({
-          event = event.event,
-          exclude = skips[event.event],
-          data = event.data,
-          buf = event.buf,
-        })
-        if vim.bo[event.buf].filetype then
-          Event.trigger({
-            event = 'FileType',
-            buf = event.buf,
-          })
-        end
-      end
-    end
-    vim.api.nvim_exec_autocmds('CursorMoved', { modeline = false })
-    events = {}
-  end
-
-  -- schedule wrap so that nested autocmds are executed
-  -- and the UI can continue rendering without blocking
-  load = vim.schedule_wrap(load)
-
-  vim.api.nvim_create_autocmd(M.lazy_file_events, {
-    group = vim.api.nvim_create_augroup('lazy_file', { clear = true }),
-    callback = function(event)
-      table.insert(events, event)
-      load()
-    end,
-  })
+  Event.mappings.LazyFile = { id = 'LazyFile', event = M.lazy_file_events }
+  Event.mappings['User LazyFile'] = Event.mappings.LazyFile
 end
 
 function M.load(name)
