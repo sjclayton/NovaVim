@@ -1,6 +1,7 @@
 local helper = require('core.helpers')
 local icons = require('core.icons')
 local util = require('core.util')
+local LazyVim = require('lazyvim.util')
 
 local conf = function(plugin)
   return require('plugins.config.' .. plugin)
@@ -616,8 +617,8 @@ return {
     'rcarriga/nvim-notify',
     init = function()
       -- If noice is not enabled, load notify on VeryLazy
-      if not util.has('noice.nvim') then
-        util.on_very_lazy(function()
+      if not LazyVim.has('noice.nvim') then
+        LazyVim.on_very_lazy(function()
           vim.notify = require('notify')
         end)
       end

@@ -23,7 +23,13 @@ local util = require('core.util')
 
 util.lazy_file()
 
-require('lazy').setup('plugins', {
+require('lazy').setup({
+  spec = {
+    -- import LazyVim utility functions without it's plugins
+    { 'LazyVim/LazyVim', lazy = false },
+    -- import NovaVim plugins
+    { import = 'plugins' },
+  },
   defaults = {
     lazy = true, -- lazy load everything
     version = false,
@@ -36,7 +42,10 @@ require('lazy').setup('plugins', {
     frequency = 43200, -- check for updates every 12 hours
   },
   change_detection = { enabled = false, notify = false },
-  ui = { border = 'rounded' },
+  ui = {
+    backdrop = 100,
+    border = 'rounded',
+  },
   performance = {
     cache = { enabled = true },
     rtp = {

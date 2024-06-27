@@ -1,8 +1,8 @@
 local g = vim.g
 local o = vim.opt
 
-g.mapleader = ' '
-g.maplocalleader = '\\'
+vim.g.root_spec = { 'lsp', { '.git', 'lua' }, 'cwd' }
+
 g.markdown_recommended_style = 0
 
 o.backup = false
@@ -14,11 +14,8 @@ o.confirm = true
 o.cursorline = true
 o.expandtab = true
 o.fillchars = { foldopen = '', foldclose = '', fold = ' ', foldsep = ' ', diff = '╱', eob = ' ' }
-o.foldexpr = "v:lua.require'core.util'.foldexpr()"
 o.foldlevel = 99
-o.foldmethod = 'expr'
-o.foldtext = "v:lua.require'core.util'.foldtext()"
-o.formatexpr = "v:lua.require'core.util'.formatexpr()"
+o.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
 o.guicursor = ''
 o.ignorecase = true
 o.laststatus = 3
@@ -44,7 +41,7 @@ o.smoothscroll = true
 o.spelllang = 'en'
 o.splitbelow = true
 o.splitright = true
-o.statuscolumn = [[%!v:lua.require'core.util'.statuscolumn()]]
+o.statuscolumn = [[%!v:lua.require'lazyvim.util'.ui.statuscolumn()]]
 o.swapfile = false
 o.tabstop = 4
 o.termguicolors = true
@@ -56,12 +53,12 @@ o.undolevels = 10000
 o.updatetime = 200
 o.wrap = false
 
--- o.fillchars = {
---   foldopen = '',
---   foldclose = '',
---   -- fold = "⸱",
---   fold = ' ',
---   foldsep = ' ',
---   diff = '╱',
---   eob = ' ',
--- }
+if vim.fn.has('nvim-0.10') == 1 then
+  o.smoothscroll = true
+  o.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+  o.foldmethod = 'expr'
+  o.foldtext = ''
+else
+  o.foldmethod = 'indent'
+  o.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
+end

@@ -5,11 +5,14 @@
 package.path = package.path .. ';' .. vim.fn.expand('$HOME') .. '/.luarocks/share/lua/5.1/?/init.lua;'
 package.path = package.path .. ';' .. vim.fn.expand('$HOME') .. '/.luarocks/share/lua/5.1/?.lua;'
 
-local util = require('core.util')
+vim.g.mapleader = ' '
+vim.g.maplocalleader = '\\'
 
-require('core.options')
 require('core.lazy')
 require('core.config')
+
+local util = require('core.util')
+_G.LazyVim = require('lazyvim.util')
 
 if vim.fn.argc(-1) == 0 then
   -- Defer loading of autocmds and keymaps.
@@ -27,19 +30,21 @@ else
   util.load('keymaps')
 end
 
-util.lazy_notify()
+LazyVim.lazy_notify()
 
-if util.has(Primary_Colorscheme) then
+util.load('options')
+
+if LazyVim.has(Primary_Colorscheme) then
   require(Primary_Colorscheme)
   if not Colorscheme_Variant or Colorscheme_Variant == '' then
     vim.cmd.colorscheme(Primary_Colorscheme)
   else
     vim.cmd.colorscheme(Colorscheme_Variant)
   end
-elseif util.has('rose-pine') then
+elseif LazyVim.has('rose-pine') then
   require('rose-pine')
   vim.cmd.colorscheme('rose-pine')
-elseif util.has('catppuccin') then
+elseif LazyVim.has('catppuccin') then
   require('catppuccin')
   vim.cmd.colorscheme('catppuccin')
 else

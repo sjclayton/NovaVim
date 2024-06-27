@@ -1,12 +1,10 @@
 return function()
-  local util = require('core.util')
-
   local function on_move(data)
-    util.on_rename(data.source, data.destination)
+    LazyVim.lsp.on_rename(data.source, data.destination)
   end
 
   local opts = {
-    sources = { 'filesystem', 'buffers', 'git_status', 'document_symbols' },
+    sources = { 'filesystem', 'buffers', 'git_status' },
     open_files_do_not_replace_types = { 'terminal', 'Trouble', 'qf', 'Outline' },
     filesystem = {
       bind_to_cwd = false,
