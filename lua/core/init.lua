@@ -14,21 +14,29 @@ require('core.config')
 local util = require('core.util')
 _G.LazyVim = require('lazyvim.util')
 
-if vim.fn.argc(-1) == 0 then
-  -- Defer loading of autocmds and keymaps.
-  vim.api.nvim_create_autocmd('User', {
-    group = vim.api.nvim_create_augroup('NovaVim', { clear = true }),
-    pattern = 'VeryLazy',
-    callback = function()
-      util.load('autocmds')
-      util.load('keymaps')
-    end,
-  })
-else
-  -- Load them now so they affect the opened buffers.
+local lazy_autocmds = vim.fn.argc(-1) == 0
+if not lazy_autocmds then
   util.load('autocmds')
-  util.load('keymaps')
 end
+
+local group = vim.api.nvim_create_augroup('NovaVim', { clear = true })
+vim.api.nvim_create_autocmd('User', {
+  group = group,
+  pattern = 'VeryLazy',
+  callback = function()
+    if lazy_autocmds then
+      util.load('autocmds')
+    end
+    util.load('keymaps')
+
+    LazyVim.root.setup()
+
+    vim.api.nvim_create_user_command('LazyHealth', function()
+      vim.cmd([[Lazy! load all]])
+      vim.cmd([[checkhealth]])
+    end, { desc = 'Load all plugins and run :checkhealth' })
+  end,
+})
 
 LazyVim.lazy_notify()
 

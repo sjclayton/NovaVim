@@ -1,11 +1,11 @@
-local Util = require('lazy.core.util')
+local Lazy = require('lazy.core.util')
 
 ---@param state boolean?
 local function notify(field, state)
   if state == false then
-    Util.warn(field .. ' off', { title = 'Toggle' })
+    Lazy.warn(field .. ' off', { title = 'Toggle' })
   else
-    Util.info(field .. ' on', { title = 'Toggle' })
+    Lazy.info(field .. ' on', { title = 'Toggle' })
   end
 end
 
@@ -46,7 +46,7 @@ function M.toggle_opt(option, silent, values)
       ---@diagnostic disable-next-line: no-unknown
       vim.opt_local[option] = values[1]
     end
-    return Util.info('Set ' .. option .. ' to ' .. vim.opt_local[option]:get(), { title = 'Option' })
+    return Lazy.info('Set ' .. option .. ' to ' .. vim.opt_local[option]:get(), { title = 'Option' })
   end
   ---@diagnostic disable-next-line: no-unknown
   vim.opt_local[option] = not vim.opt_local[option]:get()

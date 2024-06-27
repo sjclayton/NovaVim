@@ -715,16 +715,16 @@ return {
     },
     keys = {
       {
-        '<leader>fT',
+        '<leader>ft',
         function()
-          require('neo-tree.command').execute({ toggle = true, dir = util.get_root() })
+          require('neo-tree.command').execute({ toggle = true, dir = LazyVim.root() })
         end,
         desc = 'File tree (root dir)',
       },
       {
-        '<leader>ft',
+        '<leader>fT',
         function()
-          require('neo-tree.command').execute({ toggle = true, dir = vim.loop.cwd() })
+          require('neo-tree.command').execute({ toggle = true, dir = vim.uv.cwd() })
         end,
         desc = 'File tree (cwd)',
       },
