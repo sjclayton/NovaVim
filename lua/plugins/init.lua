@@ -1,6 +1,7 @@
 local helper = require('core.helpers')
 local icons = require('core.icons')
 local util = require('core.util')
+local LazyVim = require('lazyvim.util')
 
 local conf = function(plugin)
   return require('plugins.config.' .. plugin)

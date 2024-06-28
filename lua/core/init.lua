@@ -12,6 +12,7 @@ require('core.lazy')
 require('core.config')
 
 local util = require('core.util')
+_G.LazyVim = require('lazyvim.util')
 
 local lazy_autocmds = vim.fn.argc(-1) == 0
 if not lazy_autocmds then
