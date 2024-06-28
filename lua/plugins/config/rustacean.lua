@@ -17,28 +17,30 @@ return function()
     },
     server = {
       on_attach = function(client, bufnr)
+        local opts = { buffer = bufnr }
+
         -- import general LSP keymaps
         on_attach(client, bufnr)
         -- set server specific keymap overrides
         map({ 'n', 'v' }, '<leader>ca', function()
           vim.cmd('RustLsp codeAction')
-        end, { desc = 'Code action', buffer = bufnr })
+        end, 'Code action', opts)
         map('n', 'K', function()
           vim.cmd('RustLsp hover actions')
-        end, { desc = 'Show hover docs/actions', buffer = bufnr })
+        end, 'Show hover docs/actions', opts)
         -- set server specific keymaps
         map('n', '<leader>cro', function()
           vim.cmd('RustLsp openCargo')
-        end, { desc = 'Open Cargo.toml', buffer = bufnr })
+        end, 'Open Cargo.toml', opts)
         map('n', '<leader>ce', function()
           vim.cmd('RustLsp expandMacro')
-        end, { desc = 'Expand macro (Rust)', buffer = bufnr })
+        end, 'Expand macro (Rust)', opts)
         map('n', '<leader>cR', function()
           vim.cmd('RustLsp runnables')
-        end, { desc = 'Runnables (Rust)', buffer = bufnr })
+        end, 'Runnables (Rust)', opts)
         map('n', '<leader>dR', function()
           vim.cmd('RustLsp debuggables')
-        end, { desc = 'Debuggables (Rust)', buffer = bufnr })
+        end, 'Debuggables (Rust)', opts)
 
         vim.api.nvim_create_autocmd({ 'CursorHold', 'InsertLeave' }, {
           group = vim.api.nvim_create_augroup('rust__codelenses', { clear = true }),

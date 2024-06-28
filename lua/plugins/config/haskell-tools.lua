@@ -10,31 +10,33 @@ return function()
       ---@param client number LSP client ID
       ---@param bufnr number Buffer number
       on_attach = function(client, bufnr)
+        local opts = { buffer = bufnr }
+
         -- import general LSP keymaps
         on_attach(client, bufnr)
         -- set server specific keymap overrides
         map('n', '<leader>lS', function()
           ht.lsp.start()
-        end, { desc = 'Start LSP', buffer = bufnr })
+        end, 'Start LSP', opts)
         map('n', '<leader>ls', function()
           ht.lsp.stop()
-        end, { desc = 'Stop LSP', buffer = bufnr })
+        end, 'Stop LSP', opts)
         map('n', '<leader>lr', function()
           ht.lsp.restart()
-        end, { desc = 'Restart LSP', buffer = bufnr })
+        end, 'Restart LSP', opts)
         -- set server specific keymaps
         map('n', '<leader>he', function()
           ht.lsp.buf_eval_all()
-        end, { desc = 'Eval all (Haskell)', buffer = bufnr })
+        end, 'Eval all (Haskell)', opts)
         map('n', '<leader>hs', function()
           ht.hoogle.hoogle_signature()
-        end, { desc = 'Search type signature (Haskell)', buffer = bufnr })
+        end, 'Search type signature (Haskell)', opts)
         map('n', '<leader>rf', function()
           ht.repl.toggle(vim.api.nvim_buf_get_name(bufnr))
-        end, { desc = 'Toggle REPL current buffer (Haskell)', buffer = bufnr })
+        end, 'Toggle REPL current buffer (Haskell)', opts)
         map('n', '<leader>rq', function()
           ht.repl.quit()
-        end, { desc = 'Quit REPL (Haskell)', buffer = bufnr })
+        end, 'Quit REPL (Haskell)', opts)
       end,
     },
   }

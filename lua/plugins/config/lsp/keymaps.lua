@@ -7,83 +7,67 @@ M.on_attach = function(client, bufnr)
 
   -- Set general LSP keymaps
   if M.has(bufnr, 'references') then
-    opts.desc = 'Show LSP references'
-    map('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
+    map('n', 'gr', '<cmd>Telescope lsp_references<CR>', 'Show LSP References', opts)
   end
 
   if M.has(bufnr, 'declaration') then
-    opts.desc = 'Go to declaration'
-    map('n', 'gD', vim.lsp.buf.declaration, opts)
+    map('n', 'gD', vim.lsp.buf.declaration, 'Go to declaration', opts)
   end
 
   if M.has(bufnr, 'definition') then
-    opts.desc = 'Show LSP definitions'
     map('n', 'gd', function()
       require('telescope.builtin').lsp_definitions({ reuse_win = true })
-    end, opts)
+    end, 'Show LSP definitions', opts)
   end
 
   if M.has(bufnr, 'implementation') then
-    opts.desc = 'Show LSP implementations'
     map('n', 'gI', function()
       require('telescope.builtin').lsp_implementations({ reuse_win = true })
-    end, opts)
+    end, 'Show LSP implementations', opts)
   end
 
   if M.has(bufnr, 'typeDefinition') then
-    opts.desc = 'Show LSP type definitions'
     map('n', 'gy', function()
       require('telescope.builtin').lsp_type_definitions({ reuse_win = true })
-    end, opts)
+    end, 'Show LSP type definitions', opts)
   end
 
   if M.has(bufnr, 'codeLens') then
-    opts.desc = 'Run an available codelens'
-    map('n', '<leader>cl', vim.lsp.codelens.run, opts)
+    map('n', '<leader>cl', vim.lsp.codelens.run, 'Run an available codelens', opts)
   end
 
   if M.has(bufnr, 'codeAction') then
-    opts.desc = 'Code action'
-    map({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
-    opts.desc = 'Source action'
+    map({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, 'Code action', opts)
     map('n', '<leader>cA', function()
       vim.lsp.buf.code_action({ context = { only = { 'source' }, diagnostics = {} } })
-    end, opts)
+    end, 'Source action', opts)
   end
 
   if M.has(bufnr, 'rename') then
-    opts.desc = 'Rename variable'
-    map('n', '<leader>cv', vim.lsp.buf.rename, opts)
+    map('n', '<leader>cv', vim.lsp.buf.rename, 'Rename', opts)
   end
 
   if M.has(bufnr, 'hover') then
-    opts.desc = 'Show hover documentation'
-    map('n', 'K', vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+    map('n', 'K', vim.lsp.buf.hover, 'Show hover documentation', opts) -- show documentation for what is under cursor
   end
 
   if M.has(bufnr, 'signatureHelp') then
-    opts.desc = 'Show signature help'
-    map('n', 'gK', vim.lsp.buf.signature_help, opts)
+    map('n', 'gK', vim.lsp.buf.signature_help, 'Show signature help', opts)
   end
 
   -- Show buffer diagnostics and line diagnostics
-  opts.desc = 'Show buffer diagnostics'
-  map('n', '<leader>D', '<cmd>Telescope diagnostics bufnr=0<CR>', opts)
-  opts.desc = 'Show line diagnostics'
-  map('n', '<leader>cd', vim.diagnostic.open_float, opts)
+  map('n', '<leader>D', '<cmd>Telescope diagnostics bufnr=0<CR>', 'Show buffer diagnostics', opts)
+  map('n', '<leader>cd', vim.diagnostic.open_float, 'Show line diagnostics', opts)
 
   -- Go to previous and next diagnostic
-  opts.desc = 'Goto previous diagnostic'
-  map('n', '[d', vim.diagnostic.goto_prev, opts)
-  opts.desc = 'Goto next diagnostic'
-  map('n', ']d', vim.diagnostic.goto_next, opts)
+  map('n', '[d', vim.diagnostic.goto_prev, 'Goto previous diagnostic', opts)
+  map('n', ']d', vim.diagnostic.goto_next, 'Goto next diagnostic', opts)
 
   -- Toggle inlay hints
   if M.has(bufnr, 'inlayHint') then
-    opts.desc = 'Toggle inlay hints'
     map('n', '<leader>uh', function()
       LazyVim.toggle.inlay_hints()
-    end, opts)
+    end, 'Toggle inlay hints', opts)
   end
 end
 

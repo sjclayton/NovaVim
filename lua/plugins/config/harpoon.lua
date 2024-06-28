@@ -1,4 +1,3 @@
-local map = require('core.helpers').map
 return function()
   require('harpoon').setup({
     global_settings = {

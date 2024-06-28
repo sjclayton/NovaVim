@@ -1,4 +1,4 @@
----@param state boolean?
+---@param state? boolean
 local function notify(field, state)
   if state == false then
     LazyVim.warn(field .. ' off', { title = 'Toggle' })
@@ -9,9 +9,12 @@ end
 
 local M = {}
 
+---@param mode string|table
+---@param desc? string
+---@param opts? table
 -- Helper for keymaps
-function M.map(mode, lhs, rhs, opts)
-  local options = { noremap = true, silent = true }
+function M.map(mode, lhs, rhs, desc, opts)
+  local options = { desc = desc, noremap = true, silent = true }
   if opts then
     options = vim.tbl_extend('force', options, opts)
   end
@@ -19,9 +22,8 @@ function M.map(mode, lhs, rhs, opts)
 end
 
 -- Helper for dynamically setting highlights on based on colorscheme
----@param default table|string?
----@param primary table|string?
----@param secondary table|string?
+---@param primary? table|string
+---@param secondary? table|string
 function M.theme_hl(default, primary, secondary)
   if vim.g.colors_name == Primary_Colorscheme then
     return primary or default
@@ -37,8 +39,8 @@ local toggle_state = {}
 ---@param name string Name of the feature to toggle, used as display name for notifications.
 ---@param cmds table Contains commands required to enable/disable or toggle this feature.
 ---Expects: { enable=string, disable=string } or { toggle=string }
----@param default boolean? optional - Whether the feature is considered enabled by default. Default: false if not provided.
----@param silent boolean? optional - Whether to show notifications about toggled features.
+---@param default? boolean optional - Whether the feature is considered enabled by default. Default: false if not provided.
+---@param silent? boolean optional - Whether to show notifications about toggled features.
 function M.toggle_cmd(name, cmds, default, silent)
   local enable = cmds.enable
   local disable = cmds.disable

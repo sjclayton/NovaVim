@@ -9,51 +9,51 @@ local wk = require('which-key')
 ---
 
 -- Better up/down
-map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
-map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
+map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", nil, { expr = true })
+map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", nil, { expr = true })
+map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", nil, { expr = true })
+map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", nil, { expr = true })
 
 -- Better window navigation
-map('n', '<C-q>', '<C-w>q', { desc = 'Close window' })
+map('n', '<C-q>', '<C-w>q', 'Close window')
 
 if not LazyVim.has('nvim-tmux-navigation') then
-  map('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
-  map('n', '<C-j>', '<C-w>j', { desc = 'Move to lower window' })
-  map('n', '<C-k>', '<C-w>k', { desc = 'Move to upper window' })
-  map('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
+  map('n', '<C-h>', '<C-w>h', 'Move to left window')
+  map('n', '<C-j>', '<C-w>j', 'Move to lower window')
+  map('n', '<C-k>', '<C-w>k', 'Move to upper window')
+  map('n', '<C-l>', '<C-w>l', 'Move to right window')
 end
 
 -- Resize windows
-map('n', '<C-M-k>', ':resize +5<CR>', { desc = 'Increase window height' })
-map('n', '<C-M-j>', ':resize -5<CR>', { desc = 'Decrease window height' })
-map('n', '<C-M-h>', ':vertical resize -5<CR>', { desc = 'Decrease window width' })
-map('n', '<C-M-l>', ':vertical resize +5<CR>', { desc = 'Increase window width' })
+map('n', '<C-M-k>', ':resize +5<CR>', 'Increase window height')
+map('n', '<C-M-j>', ':resize -5<CR>', 'Decrease window height')
+map('n', '<C-M-h>', ':vertical resize -5<CR>', 'Decrease window width')
+map('n', '<C-M-l>', ':vertical resize +5<CR>', 'Increase window width')
 
 -- Better indenting
 map('v', '<', '<gv')
 map('v', '>', '>gv')
 
 -- Commenting
-map('n', 'gco', 'o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>', { desc = 'Add comment below' })
-map('n', 'gcO', 'O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>', { desc = 'Add comment above' })
+map('n', 'gco', 'o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>', 'Add comment below')
+map('n', 'gcO', 'O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>', 'Add comment above')
 
 -- Yanking and pasting
-map('x', '<leader>p', '"_dP', { desc = 'Paste preserved' })
+map('x', '<leader>p', '"_dP', 'Paste preserved')
 
 -- Line operations
-map('n', 'J', 'mzJ`z', { desc = 'Join lines' })
+map('n', 'J', 'mzJ`z', 'Join lines')
 
-map('i', '<a-j>', '<ESC><CMD>m .+1<CR>==gi', { desc = 'Move line down' })
-map('i', '<a-k>', '<ESC><CMD>m .-2<CR>==gi', { desc = 'Move line up' })
-map('n', '<a-j>', '<CMD>m .+1<CR>==', { desc = 'Move line down' })
-map('n', '<a-k>', '<CMD>m .-2<CR>==', { desc = 'Move line up' })
-map('v', '<a-j>', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
-map('v', '<a-k>', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
+map('i', '<a-j>', '<ESC><CMD>m .+1<CR>==gi', 'Move line down')
+map('i', '<a-k>', '<ESC><CMD>m .-2<CR>==gi', 'Move line up')
+map('n', '<a-j>', '<CMD>m .+1<CR>==', 'Move line down')
+map('n', '<a-k>', '<CMD>m .-2<CR>==', 'Move line up')
+map('v', '<a-j>', ":m '>+1<CR>gv=gv", 'Move selection down')
+map('v', '<a-k>', ":m '<-2<CR>gv=gv", 'Move selection up')
 
 -- Jumping
-map('n', '<BS>', '^', { desc = 'Start of line (non-blank)' })
-map('n', 'G', 'Gzz', { desc = 'Last line' })
+map('n', '<BS>', '^', 'Start of line (non-blank)')
+map('n', 'G', 'Gzz', 'Last line')
 
 -- Scrolling
 map('n', '<C-d>', '<C-d>zz')
@@ -64,15 +64,15 @@ map('n', 'n', 'nzzzv')
 map('n', 'N', 'Nzzzv')
 
 -- Sorting
-map('v', '<leader>s', "<ESC><CMD>'<,'>sort<CR>", { desc = 'Sort visual selection' })
-map('v', '<leader>r', "<ESC><CMD>'<,'>sort!<CR>", { desc = 'Sort visual selection (reverse)' })
+map('v', '<leader>s', "<ESC><CMD>'<,'>sort<CR>", 'Sort visual selection')
+map('v', '<leader>r', "<ESC><CMD>'<,'>sort!<CR>", 'Sort visual selection (reverse)')
 
 ---
 -- Misc
 ---
 
 -- Clear search with <ESC>
-map({ 'n', 'i' }, '<ESC>', '<CMD>noh<CR><ESC>', { desc = 'Escape and clear hlsearch' })
+map({ 'n', 'i' }, '<ESC>', '<CMD>noh<CR><ESC>', 'Escape and clear hlsearch')
 
 -- Disable some things
 map('n', 'Q', '<NOP>')
@@ -82,12 +82,12 @@ map(
   'n',
   'gx',
   '<CMD>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>',
-  { desc = 'Open link under cursor in browser' }
+  'Open link under cursor in browser'
 )
-map({ 'i', 'x', 'n', 's' }, '<C-s>', '<CMD>w<CR><ESC>', { desc = 'Save file' })
-map('n', '<leader>qq', '<CMD>qa<CR>', { desc = 'Quit' })
-map('n', '<leader>qQ', '<CMD>qa!<CR>', { desc = 'Quit (force)' })
-map('n', '<leader>qs', '<CMD>wq<CR>', { desc = 'Save and quit' })
+map({ 'i', 'x', 'n', 's' }, '<C-s>', '<CMD>w<CR><ESC>', 'Save file')
+map('n', '<leader>qq', '<CMD>qa<CR>', 'Quit')
+map('n', '<leader>qQ', '<CMD>qa!<CR>', 'Quit (force)')
+map('n', '<leader>qs', '<CMD>wq<CR>', 'Save and quit')
 
 ---
 -- Which-key Mapping Table
