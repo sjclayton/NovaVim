@@ -1,7 +1,6 @@
 local helper = require('core.helpers')
 local icons = require('core.icons')
 local util = require('core.util')
-local LazyVim = require('lazyvim.util')
 
 local conf = function(plugin)
   return require('plugins.config.' .. plugin)
@@ -244,10 +243,10 @@ return {
     'rgroli/other.nvim',
     cmd = { 'Other', 'OtherTabNew', 'OtherSplit', 'OtherVSplit' },
     keys = {
-      { '<leader>oo', '<CMD>Other<CR>', desc = 'Open other file', ft = { 'go' } },
+      { '<leader>oo', '<CMD>Other<CR>', desc = 'Open other file', ft = { 'go', 'lua' } },
       { '<leader>ot', '<CMD>Other test<CR>', desc = 'Open test file', ft = { 'go' } },
-      { '<leader>ov', '<CMD>OtherVSplit<CR>', desc = 'Open other file (vsplit)', ft = { 'go' } },
-      { '<leader>oh', '<CMD>OtherSplit<CR>', desc = 'Open other file (split)', ft = { 'go' } },
+      { '<leader>ov', '<CMD>OtherVSplit<CR>', desc = 'Open other file (vsplit)', ft = { 'go', 'lua' } },
+      { '<leader>oh', '<CMD>OtherSplit<CR>', desc = 'Open other file (split)', ft = { 'go', 'lua' } },
     },
     config = conf('other-nvim'),
   },
@@ -629,6 +628,9 @@ return {
     'rachartier/tiny-devicons-auto-colors.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     event = 'VeryLazy',
+    opts = {
+      autoreload = true,
+    },
     config = true,
   },
   {

@@ -38,9 +38,7 @@ M.on_attach = function(client, bufnr)
 
   if M.has(bufnr, 'codeAction') then
     map({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, 'Code action', opts)
-    map('n', '<leader>cA', function()
-      vim.lsp.buf.code_action({ context = { only = { 'source' }, diagnostics = {} } })
-    end, 'Source action', opts)
+    map('n', '<leader>cA', LazyVim.lsp.action.source, 'Source action', opts)
   end
 
   if M.has(bufnr, 'rename') then
