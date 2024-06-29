@@ -60,6 +60,7 @@ return {
   { 'rachartier/tiny-devicons-auto-colors.nvim', enabled = true },
   { 'folke/zen-mode.nvim', enabled = true },
   -- Utils
+  { 'AntonVanAssche/music-controls.nvim', enabled = true },
   { 'JManch/nomodoro', enabled = true },
   { 'nvim-neo-tree/neo-tree.nvim', enabled = true },
   { 'nyngwang/NeoZoom.lua', name = 'neo-zoom', enabled = true },

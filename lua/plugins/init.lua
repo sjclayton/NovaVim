@@ -673,6 +673,19 @@ return {
 
   --- Utils
   {
+    'AntonVanAssche/music-controls.nvim',
+    dependencies = { 'rcarriga/nvim-notify' },
+    keys = {
+      { '<localleader>j', '<CMD>MusicPlay<CR>', desc = 'Music - play/pause' },
+      { '<localleader>k', '<CMD>MusicNext<CR>', desc = 'Music - next track' },
+      { '<localleader>l', '<CMD>MusicPrev<CR>', desc = 'Music - prev track' },
+      { '<localleader>;', '<CMD>MusicCurrent<CR>', desc = 'Music - current track' },
+    },
+    config = function()
+      _G.music_controls_default_player = 'spotify'
+    end,
+  },
+  {
     'JManch/nomodoro',
     keys = {
       { '<leader>up', '<CMD>NomoWork<CR>', desc = 'Nomodoro - Start timer' },
