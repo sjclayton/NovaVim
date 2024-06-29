@@ -1,6 +1,7 @@
 local g = vim.g
 local o = vim.opt
 
+g.bigfile_size = 1024 * 1024 * 1 -- 1 MB
 g.root_spec = { 'lsp', { '.git', 'lua' }, 'cwd' }
 g.markdown_recommended_style = 0
 

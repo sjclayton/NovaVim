@@ -14,6 +14,8 @@ require('core.config')
 local util = require('core.util')
 _G.LazyVim = require('lazyvim.util')
 
+util.load('options')
+
 local lazy_autocmds = vim.fn.argc(-1) == 0
 if not lazy_autocmds then
   util.load('autocmds')
@@ -39,8 +41,6 @@ vim.api.nvim_create_autocmd('User', {
 })
 
 LazyVim.lazy_notify()
-
-util.load('options')
 
 if LazyVim.has(Primary_Colorscheme) then
   require(Primary_Colorscheme)
