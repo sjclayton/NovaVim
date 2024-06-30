@@ -33,6 +33,7 @@ o.scrolloff = 10
 o.shiftwidth = 4
 o.shortmess:append('IWs')
 o.showmode = false
+o.sidescrolloff = 10
 o.sidescroll = 10
 o.signcolumn = 'yes'
 o.smartcase = true
