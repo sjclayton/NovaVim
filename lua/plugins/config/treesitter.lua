@@ -54,6 +54,7 @@ return function()
       'svelte',
       'sql',
       'templ',
+      'tmux',
       'toml',
       'tsx',
       'typescript',

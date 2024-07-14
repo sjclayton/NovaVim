@@ -629,9 +629,6 @@ return {
     'rachartier/tiny-devicons-auto-colors.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     event = 'VeryLazy',
-    opts = {
-      autoreload = true,
-    },
     config = true,
   },
   {
@@ -681,9 +678,9 @@ return {
       { '<localleader>l', '<CMD>MusicPrev<CR>', desc = 'Music - prev track' },
       { '<localleader>;', '<CMD>MusicCurrent<CR>', desc = 'Music - current track' },
     },
-    config = function()
-      _G.music_controls_default_player = 'spotify'
-    end,
+    opts = {
+      default_player = 'spotify',
+    },
   },
   {
     'JManch/nomodoro',
@@ -821,5 +818,5 @@ return {
     config = true,
   },
   { 'wakatime/vim-wakatime', event = 'InsertEnter' },
-  { 'folke/which-key.nvim', event = 'VeryLazy', config = conf('whichkey') },
+  { 'folke/which-key.nvim', event = 'VeryLazy', version = '^2', config = conf('whichkey') },
 }
